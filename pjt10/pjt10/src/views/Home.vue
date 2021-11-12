@@ -1,9 +1,11 @@
 <template>
-  <div class="row">
-    <movie-card
-      v-for="movie in topRatedMovies" :key="movie.id"
-      :movie="movie"
-    />
+  <div class="container">
+    <div class="row movies-container">
+      <movie-card
+        v-for="movie in topRatedMovies" :key="movie.id"
+        :movie="movie"
+      />
+    </div>
   </div>
 </template>
 
@@ -22,3 +24,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.movies-container {
+  display: flex;
+  justify-content: center;
+}
+</style>
