@@ -2,11 +2,20 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/random">Random</router-link> |
+      <router-link to="/my-movie-list">MyMovieList</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  // smart하게 만들었음, refresh 최적화
+  created() {
+    this.$store.dispatch('loadTopRatedMovies')
+  },
+}
+</script>
 
 <style>
 #app {

@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="row">
+    <movie-card
+      v-for="movie in topRatedMovies" :key="movie.id"
+      :movie="movie"
+    />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import {mapState} from 'vuex'
+import MovieCard from '@/components/movie/MovieCard.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    MovieCard
+  },
+  computed: {
+    ...mapState(['topRatedMovies',])
   }
 }
 </script>
