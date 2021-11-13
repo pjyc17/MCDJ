@@ -6,7 +6,7 @@
     <section class="section-box">
       <div class="main-section">
         <searched-list
-          v-if="searchedMovies"
+          v-if="myListFlag"
         />
         <my-movie-detail
           v-else
@@ -23,6 +23,7 @@ import {mapState} from 'vuex'
 import MyListForm from '@/components/mylist/MyListForm.vue'
 import SearchedList from '@/components/mylist/SearchedList.vue'
 import MyList from '@/components/mylist/MyList.vue'
+import myMovieDetail from '@/components/mylist/MyMovieDetail.vue'
 
 export default {
   name: 'MyMovieList',
@@ -30,9 +31,10 @@ export default {
     MyListForm,
     SearchedList,
     MyList,
+    myMovieDetail,
   },
   computed: {
-    ...mapState(['searchedMovies',]),
+    ...mapState(['myListFlag',]),
   }
 }
 </script>

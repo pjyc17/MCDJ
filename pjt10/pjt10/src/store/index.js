@@ -15,19 +15,33 @@ export default new Vuex.Store({
   state: {
     topRatedMovies: [],
     myMovies: [],
+    myMovie: null,
     searchedMovies: [],
+    myListFlag: true,
   },
   mutations: {
     LOAD_TOP_RATED_MOVIES: (state, movies) => state.topRatedMovies = movies,
     ADD_TO_MY_MOVIES: ({myMovies}, movie) => {
       if (myMovies.every(myMovie => myMovie.title !== movie.title)) {
-        myMovies.push(movie)
+        const newmovie = {
+          ...movie,
+          isComplete: false,
+        }
+        myMovies.push(newmovie)
       } else {
         alert("이미 추가한 영화입니다.")
       }
     },
-    SEARCHED_MOVIES: (state, movies) => state.searchedMovies = movies,
+    SEARCHED_MOVIES: (state, movies) => {
+      state.searchedMovies = movies
+      state.myListFlag = true
+    },
     REMOVE_MYMOVIE: ({myMovies}, movie) => myMovies.splice(myMovies.indexOf(movie), 1),
+    COMPLETE_MYMOVIE: ({myMovies}, movie) => myMovies.find(myMovie => myMovie.title === movie.title).isCompleted = !movie.isCompleted,
+    SHOW_MYMOVIE: (state, movie) => {
+      state.myMovie = movie
+      state.myListFlag = false
+    }
   },
   getters: {},
   actions: {
