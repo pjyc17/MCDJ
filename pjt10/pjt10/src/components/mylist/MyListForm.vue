@@ -1,24 +1,27 @@
 <template>
   <div>
-    <input v-model="wantedMovieTitle" @keyup.enter="onWantedMovie" type="text">
-    <button @click="onWantedMovie" class="btn btn-sm btn-secondary">Add</button>
+    <h2>Search Movies</h2>
+    <input v-model="keyword" @keyup.enter="searchMovie(keyword)" type="text">
+    <button @click="searchMovie(keyword)" class="btn btn-sm btn-secondary">Search</button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'MyListForm',
   data: function() {
     return {
-      wantedMovieTitle: null,
+      keyword: null,
     }
   },
   methods: {
-    onWantedMovie: function() {
-      this.wantedMovieTitle = this.wantedMovieTitle.trim()
-      this.$store.commit('ADD_TO_MY_MOVIES', this.wantedMovieTitle)
-      this.wantedMovieTitle = null
-    },
+    // onWantedMovie: function() {
+    //   this.wantedMovieTitle = this.wantedMovieTitle.trim()
+    //   this.$store.commit('ADD_TO_MY_MOVIES', this.wantedMovieTitle)
+    //   this.wantedMovieTitle = null
+    // },
+    ...mapActions(['searchMovie',]),
   }
 }
 </script>

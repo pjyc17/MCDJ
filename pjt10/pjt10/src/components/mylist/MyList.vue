@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mt-2 mb-0">My Movie List</h3>
     <my-list-item 
       v-for="(myMovie, idx) in myMovies" :key="idx"
       :myMovie="myMovie"
