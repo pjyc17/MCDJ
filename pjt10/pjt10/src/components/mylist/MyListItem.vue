@@ -81,7 +81,7 @@ export default {
   left:0;
   bottom:0;
 } */
-.hover-button:before,button:after{
+.hover-button:before,.hover-button:after{
   content:'';
   position:absolute;
   bottom:0;
@@ -91,7 +91,7 @@ export default {
   background: khaki;
   transition:400ms ease all;
 }
-.hover-button:hover:before,button:hover:after{
+.hover-button:hover:before,.hover-button:hover:after{
   width:100%;
   transition:800ms ease all;
 }
