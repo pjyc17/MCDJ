@@ -36,7 +36,6 @@ export default {
     })
     .then(res => res.data.results[0])
     .then(youtubeVideo => {
-      console.log(youtubeVideo)
       this.youtubeVideoURL = `https://www.youtube.com/embed/${youtubeVideo.key}?autoplay=1&mute=1`
     })
     .catch(() => this.youtubeVideoURL=null)
