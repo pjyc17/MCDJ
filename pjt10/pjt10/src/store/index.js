@@ -21,13 +21,13 @@ export default new Vuex.Store({
   },
   mutations: {
     LOAD_TOP_RATED_MOVIES: (state, movies) => state.topRatedMovies = movies,
-    ADD_TO_MY_MOVIES: ({myMovies}, movie) => {
-      if (myMovies.every(myMovie => myMovie.title !== movie.title)) {
+    ADD_TO_MY_MOVIES: (state, movie) => {
+      if (state.myMovies.every(myMovie => myMovie.title !== movie.title)) {
         const newmovie = {
           ...movie,
-          isComplete: false,
+          isCompleted: false,
         }
-        myMovies.push(newmovie)
+        state.myMovies.push(newmovie)
       } else {
         alert("이미 추가한 영화입니다.")
       }

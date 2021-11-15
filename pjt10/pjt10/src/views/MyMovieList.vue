@@ -4,7 +4,7 @@
       <my-list-form/>
     </header>
     <section class="section-box">
-      <div class="main-section">
+      <div class="main-section col-12 col-sm-9">
         <searched-list
           v-if="myListFlag"
         />
@@ -12,8 +12,8 @@
           v-else
         />
       </div>
-      <div class="udline"></div>
-      <my-list class="side-bar"/>
+      <!-- <div class="udline"></div> -->
+      <my-list class="side-bar col-12 col-sm-3"/>
     </section>
   </div>
 </template>
@@ -53,14 +53,15 @@ export default {
 
 .section-box {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
-.main-section {
+/* .main-section {
   width: 75%;
 }
 .side-bar {
   width: 25%
-}
+} */
 .udline {
   background: black;
   width: 1px;

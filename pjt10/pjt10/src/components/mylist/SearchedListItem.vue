@@ -7,13 +7,13 @@
     <div class="card-body">
       <h5 class="card-title mb-0"><strong>{{movie.title}}</strong></h5>
     </div>
-    <div @click="addMyMovieList(movie)" class="btn btn-success btn-sm">Add My Movie List</div>
+    <div @click="addMyMovieList" class="btn btn-success btn-sm">Add My Movie List</div>
   </div>
 </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+// import {mapMutations} from 'vuex'
 export default {
   name: 'SearchedListItem',
   props: {
@@ -22,9 +22,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      addMyMovieList: 'ADD_TO_MY_MOVIES',
-    }),
+    // ...mapMutations({
+    //   addMyMovieList: 'ADD_TO_MY_MOVIES',
+    // }),
+    addMyMovieList: function() {
+      this.$store.commit('ADD_TO_MY_MOVIES', this.movie)
+      // this.$router.push({ name: 'MyMovieList' })
+    }
   }
 }
 </script>
