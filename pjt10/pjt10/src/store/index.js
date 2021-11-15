@@ -75,7 +75,7 @@ export default new Vuex.Store({
           }
         })
         .catch(() => alert('뭘 입력하신거죠??'))
-    }
+    },
   },
   modules: {
   }

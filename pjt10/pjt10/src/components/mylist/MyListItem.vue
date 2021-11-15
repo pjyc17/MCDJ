@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <p @click="showMyMovie(myMovie)" class="mb-0 reduce-content hover-button" :class="{'is-completed': myMovie.isCompleted}">{{myMovie.title}}</p>
+    <p @click="selectMovie" class="mb-0 reduce-content hover-button" :class="{'is-completed': myMovie.isCompleted}">{{myMovie.title}}</p>
     <div class="btn-box">
       <button @click="completeMyMovie(myMovie)" class="button_base">V</button>
       <button @click="removeMyMovie" class="button_base">X</button>
@@ -21,13 +21,15 @@ export default {
   methods: {
     ...mapMutations({
       completeMyMovie: "COMPLETE_MYMOVIE",
-      showMyMovie: "SHOW_MYMOVIE",
     }),
     removeMyMovie: function() {
       if (confirm(`선택하신 "${this.myMovie.title}"를\n정말 삭제하시겠습니까?`)) {
         this.$store.commit("REMOVE_MYMOVIE", this.myMovie)
       }
     },
+    selectMovie: function() {
+      this.$store.commit("SHOW_MYMOVIE", this.myMovie)
+    }
   },
 }
 </script>
