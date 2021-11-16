@@ -56,7 +56,7 @@ export default new Vuex.Store({
         const p = page
         axios({
           methods: 'get',
-          url: `${TMDB_URL}/movie/top_rated`,
+          url: `${TMDB_URL}/movie/popular`,
           params: {
             api_key: TMDB_API,
             language: 'ko-kr',
@@ -68,11 +68,12 @@ export default new Vuex.Store({
               commit('LOAD_TOP_RATED_MOVIES', res.data.results)
               commit('CNT', p)
             } else {
-              console.log(res.data.results)
               flag=false
             }
           })
-          .catch(()=> flag=false)
+          .catch(()=> {
+            flag=false
+          })
         page += 1
       }
     },

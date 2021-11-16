@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapState(['topRatedMovies', 'cnt'])
-  }
+  },
 }
 </script>
 
