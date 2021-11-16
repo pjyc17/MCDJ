@@ -18,10 +18,9 @@ export default new Vuex.Store({
     myMovie: null,
     searchedMovies: [],
     myListFlag: true,
-    cnt : []
+    flag: true
   },
   mutations: {
-    REFRESH_TOP_RATED_MOVIES: (state) => state.topRatedMovies = [],
     LOAD_TOP_RATED_MOVIES: (state, movies) => state.topRatedMovies.push(...movies),
     ADD_TO_MY_MOVIES: (state, movie) => {
       if (state.myMovies.every(myMovie => myMovie.title !== movie.title)) {
@@ -44,38 +43,27 @@ export default new Vuex.Store({
       state.myMovie = movie
       state.myListFlag = false
     },
-    CNT: ({cnt}, page) => cnt.push(page),
   },
   getters: {},
   actions: {
-    loadTopRatedMovies: ({commit}) => {
-      let page = 1
-      let flag = true
-      commit('REFRESH_TOP_RATED_MOVIES')
-      while (flag && page <= 1000) {
-        const p = page
-        axios({
-          methods: 'get',
-          url: `${TMDB_URL}/movie/popular`,
-          params: {
-            api_key: TMDB_API,
-            language: 'ko-kr',
-            page: page,
+    loadTopRatedMovies: ({state, commit}, page) => {
+      state.flag = false
+      // console.log(page)
+      axios({
+        methods: 'get',
+        url: `${TMDB_URL}/movie/top_rated`,
+        params: {
+          api_key: TMDB_API,
+          language: 'ko-kr',
+          page: page,
+        }
+      })
+        .then((res) => {
+          if (res.data.results.length !== 0) {
+            commit('LOAD_TOP_RATED_MOVIES', res.data.results)
+            state.flag = true
           }
         })
-          .then((res) => {
-            if (res.data.results.length !== 0) {
-              commit('LOAD_TOP_RATED_MOVIES', res.data.results)
-              commit('CNT', p)
-            } else {
-              flag=false
-            }
-          })
-          .catch(()=> {
-            flag=false
-          })
-        page += 1
-      }
     },
     searchMovie: ({commit,}, keyword) => {
       axios({
