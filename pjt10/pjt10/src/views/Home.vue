@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div class="row movies-container">
+      {{cnt}}
+      <!-- <movie-card/> -->
       <movie-card
         v-for="movie in topRatedMovies" :key="movie.id"
         :movie="movie"
@@ -20,7 +22,7 @@ export default {
     MovieCard
   },
   computed: {
-    ...mapState(['topRatedMovies',])
+    ...mapState(['topRatedMovies', 'cnt'])
   }
 }
 </script>
