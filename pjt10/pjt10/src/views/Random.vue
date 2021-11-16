@@ -4,7 +4,7 @@
     <div v-if="selectedMovie" class="card w-100">
       <img :src="`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`" class="card-img-top" :alt="selectedMovie.title">
       <div class="card-body">
-        <h5 class="card-title"><strong>{{selectedMovie.title}}</strong></h5>
+        <h5 class="card-title title-box"><strong>{{selectedMovie.title}}</strong></h5>
       </div>
     </div>
     <div v-else class="card w-100">
