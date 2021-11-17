@@ -1,0 +1,77 @@
+> 날짜별 정리
+
+# 11.16
+
+- 기본 설정들 allauth, cors, jwt 적용   
+
+---
+
+---
+
+
+
+# 11.17 (첫 날)
+
+### [MCDJ 로고](https://www.wix.com/logo/maker/esh/zoe-templates?companyName=mcdj&industry=%7B%22industry%22%3A%22dd%22%2C%22isCustom%22%3Atrue%7D&tags=dynamic%2Cfun%2Ccreative&logoPurpose=website&tid=3ba5f5c3-f513-482c-80fe-7f9a2bb19d96&referralAdditionalInfo=arenaSplitPage) & [favicon 제작](https://realfavicongenerator.net/)   
+
+![image-20211118003942045](README.assets/image-20211118003942045.png)
+
+
+
+- ![img](README.assets/MCDJ3.png)
+
+
+
+### 강아지 움짤 제작   
+
+- ![0ce2544f72f6f66c](README.assets/0ce2544f72f6f66c-16371635188582.gif)
+
+
+
+### 배경 디스코드 채팅색 적용   
+
+- colorcop 이용 (#36393f)
+
+
+
+### 로그인, 로그아웃, 회원가입 적용
+
+- google로그인 새창띄움했지만, 오류가 있음 -> 뷰의 부트스트랩을 다운... 
+- bootstrap모달 적용했지만  
+- 모달의 우상단 종료버튼의 표시가 무척이나 마음에 들지 않아 변경하고자 했으나 찾지못함...
+- 아마 뷰의 부트스트랩 설정이 완벽하지 않은 문제이지 싶음 -> 직접 만들계획(설정을 변경하는게 쉽지 않아)
+
+![image-20211118004037067](README.assets/image-20211118004037067.png)
+
+
+
+### ERD 모델링 하기
+
+- 메인으로 생각하는 유저의 생일과 영화의 RELEASED_DATE 부분의 연결에 고민시간이 더 필요
+
+![ERD초안작성_그림만](README.assets/ERD초안작성_그림만-16371451478045-16371635277463.png)
+
+### 메인화면, 디테일 페이지 디자인
+
+- [오븐앱](https://ovenapp.io/project/eEgZ5ttZEIHDDRNGGpS5BmVg7jG6fLzF#BXMku) 을 이용한 간단한 페이지 디자인 제작
+- 넷플릭스, 왓챠, 웨이브 등의 경쟁사 벤치마킹
+- 와챠와 넷플릭스를 보며 주제에 맞게 변경, 디자인
+
+![image-20211118003714530](README.assets/image-20211118003714530-16371635310924.png)
+
+![image-20211118003730984](README.assets/image-20211118003730984-16371635332875.png)
+
+![image-20211118003742705](README.assets/image-20211118003742705-16371635355206.png)
+
+![image-20211118003757231](README.assets/image-20211118003757231-16371635380297.png)
+
+### django accounts/models.py 초안 작성  
+
+### 리드미 작성 및 계획 수립
+
+- 주윤아 오늘도 수고 많았어 ㅎㅎ 아마 동유 오면 이 글을 발견하고 몹시 화가 날 수 있지만 그래도 오늘 고생했으니 나에게 주는 선물은 꿀잠이라고 할 수 있지 모델을 작성하기로 했는데 정말 쉽지 않다..
+- 혼날 것 같으니 내일 할 일에 대해 적어보자면 아마 모델링 한 부분에 대한 모델을 작성하고 
+- 장고 뷰부분을 작성하고 우리 최대 난관이자 프로젝트의 가장 핵심이 되는 생일관련 이슈를 해결할 것이다.
+- 생일정보를 유저에 포함시키려다 보니 createsuperuser생성에도 문제가 생긴다고...
+
+![image-20211118004601761](README.assets/image-20211118004601761.png)
