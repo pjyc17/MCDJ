@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     #앱
     'accounts',
+    'movies',
+    'community',
 
     #라이브러리
     'rest_framework',
