@@ -6,42 +6,42 @@
         <router-link @click.native="logout" to="">Logout</router-link>
       </span>
       <span v-else>
-        <router-link data-bs-toggle="modal" data-bs-target="#loginModal" to="">Login</router-link>
+        <router-link to=""><b id="show-btn" @click="$bvModal.show('loginModal')">Login</b></router-link>
       </span>
     </div>
     <router-view/>
 
     <!-- Login 모달 -->
-    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">로그인</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body modal-body-box">
-            <label for="username">유저 이름{{'\u00a0'}}{{'\u00a0'}}</label>
-            <input type="text" id="username" v-model="credentials.username"><br> <br>
-            <label for="password">비밀번호{{'\u00a0'}}{{'\u00a0'}}</label>
-            <input type="password" id="password" v-model="credentials.password" @keyup.enter="login"><br> <br>
-            <div class="rflex w-100">
-              <a class="no-decoration-text" href="/signup">회원가입</a>
-              <div @click="login" class="btn btn-sm btn-primary" data-bs-dismiss="modal">로그인</div>
-            </div>
-          </div>
-          <hr>
-          <div class="mb-3">
-            <img class=btn @click="googleLogin" src="@/assets/googlelogo.png" alt="구글로그인">
-            <img class=btn @click="googleLogin" src="@/assets/naverlogo.png" alt="네이버로그인">
-            <img class=btn @click="googleLogin" src="@/assets/kakaologo.png" alt="카카오로그인">
-          </div>
+    <b-modal id="loginModal" hide-footer>
+      <template #modal-title>
+        <div class="text-black">로그인</div>
+      </template>
+      <template button>
+        O
+      </template>
+      <div class="d-block text-center">
+        <label class="text-black" for="username">유저 이름{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</label>
+        <input type="text" id="username" v-model="credentials.username"><br> <br>
+        <label class="text-black" for="password">비밀번호{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</label>
+        <input type="password" id="password" v-model="credentials.password" @keyup.enter="login"><br> <br>
+        <div class="rflex w-100">
+          <a class="no-decoration-text" href="/signup">회원가입</a>
+          <div @click="login" class="btn btn-sm btn-primary">로그인</div>
         </div>
       </div>
-    </div>
+      <hr>
+      <div class="SLbox">
+        <img class=btn @click="googleLogin" src="@/assets/googlelogo.png" alt="구글로그인">
+        <img class=btn @click="googleLogin" src="@/assets/naverlogo.png" alt="네이버로그인">
+        <img class=btn @click="googleLogin" src="@/assets/kakaologo.png" alt="카카오로그인">
+      </div>
+    </b-modal>
     <!--도우미 개-->
     <img height="250" id="helper-dog" src="@/assets/dogyawn.gif" alt="강아지 도우미">
   </div>
 </template>
+
+
 
 <script>
 import axios from 'axios'
@@ -76,7 +76,10 @@ export default {
         .then(res => {
           localStorage.setItem('MCDJ_jwt', res.data.token)
           this.isLogin = true
+          // const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
+          // loginModal.hide()
           // this.$router.push({name: 'Home'}).catch(() => {})
+          this.$root.$emit('bv::hide::modal', 'loginModal', '#btnShow')
           if (this.$route.path !== '/') this.$router.push({name: 'Home'})
         })
         .catch(err => console.log(err))
@@ -113,9 +116,15 @@ export default {
   /* color: #2c3e50; */
 }
 
+<<<<<<< HEAD
 #nav a.router-link-exact-active {
   /* color: #42b983; */
 }
+=======
+/* #nav a.router-link-exact-active {
+  color: #42b983;
+} */
+>>>>>>> 6698b29fb88eb032ad01b0d78894130bee2dc88b
 .no-decoration-text {
   text-decoration: none;
   /* color: black; */
@@ -126,12 +135,20 @@ export default {
 }
 .rflex {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
 }
 #helper-dog {
   cursor: url(assets/bone.png), pointer;
   position: fixed;
   right: 0;
   bottom: 0;
+}
+.text-black {
+  color: black;
+}
+.SLbox {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 </style>
