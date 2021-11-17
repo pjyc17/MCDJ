@@ -67,6 +67,90 @@
 
 ### django accounts/models.py 초안 작성  
 
+- accouts/models.py
+
+```
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+# Create your models here.
+class User(AbstractUser):
+    followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
+
+class Age(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='age')
+    age = models.PositiveIntegerField()
+```
+
+- community/models.py
+
+```
+from django.db import models
+from django.conf import settings
+
+# Create your models here.
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"title : {self.title}"
+
+class Comment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+```
+
+- movies/models.py
+
+```
+from django.db import models
+
+# Create your models here.
+class Movie(models.Model):
+    title = models.CharField(max_length=100)
+    overview = models.TextField()
+    released_date = models.DateField()
+    poster_path = models.TextField
+    vote_count = models.IntegerField()
+    vote_average = models.FloatField()
+    popularity = models.FloatField()
+
+    def __str__(self):
+        return f'title : {self.title}'
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+    movies = models.ManyToManyField(Movie, related_name='genres')
+
+class Actor(models.Model):
+    name = models.CharField(max_length=100)
+    movies = models.ManyToManyField(Movie, related_name='actors')
+    
+    def __str__(self):
+        return f'name: {self.name}'
+
+class Review(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    rank = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.movie_id}, {self.title}'
+```
+
+### 모델을 작성하며 변경한 ERD 모델링
+
+![image-20211118032407938](README.assets/image-20211118032407938-16371734533191.png)
+
 ### 리드미 작성 및 계획 수립
 
 - 주윤아 오늘도 수고 많았어 ㅎㅎ 아마 동유 오면 이 글을 발견하고 몹시 화가 날 수 있지만 그래도 오늘 고생했으니 나에게 주는 선물은 꿀잠이라고 할 수 있지 모델을 작성하기로 했는데 정말 쉽지 않다..
@@ -75,3 +159,8 @@
 - 생일정보를 유저에 포함시키려다 보니 createsuperuser생성에도 문제가 생긴다고...
 
 ![image-20211118004601761](README.assets/image-20211118004601761.png)
+
+- 모델링 하면서 RANK 에서 별점을 메겨주기 위해서 추가적으로 아래와 같이 넣어주자~~!!
+
+![img](README.assets/django1022_1.JPG)
+
