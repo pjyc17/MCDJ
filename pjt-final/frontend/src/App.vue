@@ -38,7 +38,8 @@
         </div>
       </div>
     </div>
-    <!--  -->
+    <!--도우미 개-->
+    <img height="250" id="helper-dog" src="@/assets/dogyawn.gif" alt="강아지 도우미">
   </div>
 </template>
 
@@ -101,6 +102,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 #nav {
   padding: 30px;
@@ -125,5 +127,11 @@ export default {
 .rflex {
   display: flex;
   justify-content: space-between;
+}
+#helper-dog {
+  cursor: url(assets/bone.png), pointer;
+  position: fixed;
+  right: 0;
+  bottom: 0;
 }
 </style>
