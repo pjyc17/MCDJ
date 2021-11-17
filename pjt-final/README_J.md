@@ -71,3 +71,50 @@ ERD는 이미지가 뜨지 않고 작성한 모든것이 문자로 나와서 그
 # ERD 수정 
 
 ![image-20211118020203467](README_J.assets/image-20211118020203467.png)
+
+- 커뮤니티 리뷰와 영화 리뷰의 관계를 수정하였다.
+
+### movies 앱 models 작성하기
+
+```
+from django.db import models
+
+# Create your models here.
+
+class genre(models.Model):
+    name = models.varchar(50)
+
+
+class movie(models.Model):
+    title = models.CharField(max_length=100)
+    overview = models.TextField()
+    released_date = models.DateField()
+    poster_path = models.TextField
+    vote_count = models.IntegerField()
+    vote_average = models.FloatField()
+    popularity = models.FloatField()
+    genres = models.ManyToManyField(genre, related_name='movies')
+
+    def __str__(self):
+        return f'title : {self.title}'
+
+class actor(models.Model):
+    name = models.varchar(100)
+    movies = models.ManyToManyField(movie, related_name='actors')
+    
+    def __str__(self):
+        return f'name: {self.name}'
+
+class review(models.Model):
+    movie_id = models.ForeignKey(movie, on_delete=models.CASCADE)
+    title = models.varchar(100)
+    content = models.TextField()
+    rank = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.movie_id}, {self.title}'
+    
+
+
+```
+
