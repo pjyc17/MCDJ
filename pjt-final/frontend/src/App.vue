@@ -116,15 +116,10 @@ export default {
   /* color: #2c3e50; */
 }
 
-<<<<<<< HEAD
-#nav a.router-link-exact-active {
-  /* color: #42b983; */
-}
-=======
 /* #nav a.router-link-exact-active {
   color: #42b983;
 } */
->>>>>>> 6698b29fb88eb032ad01b0d78894130bee2dc88b
+
 .no-decoration-text {
   text-decoration: none;
   /* color: black; */
