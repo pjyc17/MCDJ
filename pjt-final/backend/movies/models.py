@@ -2,6 +2,10 @@ from django.db import models
 
 # Create your models here.
 
+class genre(models.Model):
+    name = models.varchar(50)
+
+
 class movie(models.Model):
     title = models.CharField(max_length=100)
     overview = models.TextField()
@@ -10,7 +14,7 @@ class movie(models.Model):
     vote_count = models.IntegerField()
     vote_average = models.FloatField()
     popularity = models.FloatField()
-    genres = models.ManyToManyField(genre)
+    genres = models.ManyToManyField(genre, related_name='movies')
 
     def __str__(self):
         return f'title : {self.title}'
@@ -31,6 +35,4 @@ class review(models.Model):
     def __str__(self):
         return f'{self.movie_id}, {self.title}'
     
-class genre(models.Model):
-    name = models.varchar(50)
 
