@@ -67,3 +67,7 @@ ERD는 이미지가 뜨지 않고 작성한 모든것이 문자로 나와서 그
 
 
 ![image-20211118004554077](README_J.assets/image-20211118004554077.png)
+
+# ERD 수정 
+
+![image-20211118020203467](README_J.assets/image-20211118020203467.png)
