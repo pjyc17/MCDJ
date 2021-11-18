@@ -10,14 +10,10 @@
       </span>
     </div>
     <router-view/>
-
     <!-- Login 모달 -->
     <b-modal id="loginModal" hide-footer>
       <template #modal-title>
         <div class="text-black">로그인</div>
-      </template>
-      <template button>
-        O
       </template>
       <div class="d-block text-center">
         <label class="text-black" for="username">유저 이름{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</label>
@@ -45,6 +41,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'App',
   data: function () {
