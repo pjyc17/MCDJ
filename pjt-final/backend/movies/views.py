@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer
-from .models import Genre, Movie, Actor
+from .models import Chat, Genre, Movie, Actor
 TMDB_URL = 'https://api.themoviedb.org/3'
 API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
 
@@ -124,3 +124,10 @@ def chat(request, movie_id):
         movie = get_object_or_404(Movie, pk=movie_id)
         serializer.save(user=request.user, movie=movie)
         return Response(serializer.data)
+
+@api_view(['delete'])
+def delete(request, chat_id):
+    chat = get_object_or_404(Chat, pk=chat_id)
+    if request.user == chat.user:
+        chat.delete()
+    return Response({'message': '삭제완료'})

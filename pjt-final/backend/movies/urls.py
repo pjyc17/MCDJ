@@ -8,4 +8,5 @@ urlpatterns = [
     path('annually_poster/', views.annually_poster),
     path('annual_movies/<int:year>/', views.annual_movies),
     path('chat/<int:movie_id>/', views.chat),
+    path('delete/<int:chat_id>/', views.delete),
 ]
