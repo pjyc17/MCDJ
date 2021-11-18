@@ -160,6 +160,6 @@ class Review(models.Model):
 
 추가로 변경해주어야 할 사항
 
-rank를 별점을 이욯해서 작성 가능하도록 해주자\
+rank를 별점을 이욯해서 작성 가능하도록 해주자
 
 ![img](README_J.assets/django1022_1.JPG)
