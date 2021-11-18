@@ -16,7 +16,7 @@ class Review(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    rank = models.PositiveIntegerField(choices=RANKS,default=5)
     def __str__(self):
         return f"title : {self.title}"
 
