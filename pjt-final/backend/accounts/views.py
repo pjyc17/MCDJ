@@ -8,7 +8,6 @@ from .serializers import UserSerializer
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
-    print(request.header)
     password = request.data.get('password')
     password2 = request.data.get('password2')
     if password != password2:

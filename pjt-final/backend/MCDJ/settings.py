@@ -166,7 +166,7 @@ REST_FRAMEWORK = {
 }
 import datetime
 JET_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=60000),
 }
 
 # allauth

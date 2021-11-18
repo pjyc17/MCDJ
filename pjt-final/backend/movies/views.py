@@ -1,6 +1,12 @@
-from django.shortcuts import render, redirect
 import requests
-from .serializers import GenreSerializer, MovieSerializer, ActorSerializer
+from datetime import datetime
+from random import choice
+from django.shortcuts import redirect, get_object_or_404, get_list_or_404
+from django.http.response import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ActorListSerializer, GenreListSerializer
 from .models import Genre, Movie, Actor
 TMDB_URL = 'https://api.themoviedb.org/3'
 API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
@@ -57,8 +63,50 @@ def TMDB(request):
         # 끝났으니 front 페이지로 이동
         return redirect('http://121.178.32.250:8080')
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    serializer = MovieSerializer(movie)
+    genres = []
+    genre_set = movie.genres.all()
+    for genre in genre_set:
+        genres.append(genre.name)
+    actors = []
+    actor_set = movie.actors.all()
+    for actor in actor_set:
+        actors.append(actor.name)
+    return Response({'movies': serializer.data, 'genres': genres, 'actors': actors})
 
-
-
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def search(request, keyword):
-    pass
+    movies = Movie.objects.filter(title__contains=keyword).order_by('-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def annually_poster(request):
+    current_year = datetime.today().year
+    year = current_year
+    poster_paths = []
+    while True:
+        posters = Movie.objects.filter(release_date__startswith=year).order_by('-popularity').values('poster_path')[:5]
+        if not posters:
+            if year == current_year:
+                continue
+            break
+        item = choice(posters)
+        item['year'] = year
+        poster_paths.append(item)
+        year -= 1
+    poster_paths.sort(key=lambda x: x['year'])
+    return Response({'chronology_poster': poster_paths})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def annual_movies(request, year):
+    movies = Movie.objects.filter(release_date__startswith=year).order_by('-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
