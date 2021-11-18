@@ -160,6 +160,36 @@ class Review(models.Model):
 
 추가로 변경해주어야 할 사항
 
-rank를 별점을 이욯해서 작성 가능하도록 해주자
+- rank를 별점을 이욯해서 작성 가능하도록 해주자
 
 ![img](README_J.assets/django1022_1.JPG)
+
+- community movies 의 review 기능중 rank ★ 를 작성해주기
+  - (like follow comment 커뮤니티 기능구현)
+
+```
+class Review(models.Model):
+    RANKS = [
+        (1, '★'),
+        (2, '★★'),
+        (3, '★★★'),
+        (4, '★★★★'),
+        (5, '★★★★★'),
+    ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"title : {self.title}"
+```
+
+- 위와 같이 변경하던 중 발견한 movies 의 models.py 에서 rank는 무의미함을 발견하고 수정
+
+- 보이지 않는 백엔드를 만지작 거리다가 시리얼라이저를 만나고 다시보기로 돌아갔다..
+
+  
+
