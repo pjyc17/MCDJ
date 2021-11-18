@@ -268,6 +268,47 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ('review', 'user', 'content', 'created')
 ```
 
+### *각 해마다 인기순으로 정렬한 영화정보에서 poster_path 정보만 앞에서 5개 가져온 것에서 랜덤으로 1개씩 뽑아 리스트에 담아, 응답을 보내줌*
+
+```py
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def annually_poster(request):
+    current_year = datetime.today().year
+    year = current_year
+    poster_paths = []
+    while True:
+        posters = Movie.objects.filter(release_date__startswith=year).order_by('-popularity').values('poster_path')[:5]
+        if not posters:
+            if year == current_year:
+                continue
+            break
+        item = choice(posters)
+        item['year'] = year
+        poster_paths.append(item)
+        year -= 1
+    poster_paths.sort(key=lambda x: x['year'])
+    return Response({'chronology_poster': poster_paths})
+```
+
+![image-20211119012507995](README.assets/image-20211119012507995-16372527139241.png)
+
+
+
+### DB에 영화 정보 약 7천여 데이터, 장르데이터 20, 영화배우 데이터 약 1만을 저장하였다.
+
+![image-20211119035357993](README.assets/image-20211119035357993.png)
+
+![image-20211119035307270](README.assets/image-20211119035307270.png)
+
+![image-20211119035336032](README.assets/image-20211119035336032.png)
+
+![img](README.assets/unknown.png)
+
+저장을 하며 유용했던 터미널 명령어
+
+- python -Xutf8 ./manage.py dumpdata
+
 # 오늘의 마지막...
 
 - views.py 를 작성하는데 review와 comment를 동일시 생각하며 짜다가 review에 속한 comment를 인지하고 방향을 바꾸는 중에 어려움이 발생하였다. 아래의 코드는 review를 작성한 것이고 
