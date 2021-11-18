@@ -164,3 +164,52 @@ class Review(models.Model):
 
 ![img](README.assets/django1022_1.JPG)
 
+---
+
+---
+
+# 11.18
+
+## 오늘의 할일 - 계획
+
+- 영화데이터에서 serializer 사용해서 데이터 받아오기(pjt08, pjt02 확인)
+- ![image-20211118102804650](C:\Users\pjyc1\AppData\Roaming\Typora\typora-user-images\image-20211118102804650.png)
+- 데이터 받아온 것 app.vue 에서 뿌려주기
+
+장르테이블 - 장르 아이디 장르이름 
+
+영화테이블 - 영화 아이디 영화이름 장르아이디
+
+# design
+
+- 메인페이지 만들기(날짜 유저한테 넣어주는거 해주세요)
+
+---
+
+### 어제 models.py 수정본
+
+- community movies 의 review 기능중 rank ★ 를 작성해주기
+  - (like follow comment 커뮤니티 기능구현)
+
+```
+class Review(models.Model):
+    RANKS = [
+        (1, '★'),
+        (2, '★★'),
+        (3, '★★★'),
+        (4, '★★★★'),
+        (5, '★★★★★'),
+    ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"title : {self.title}"
+```
+
+- 위와 같이 변경하던 중 발견한 movies 의 models.py 에서 rank는 무의미함을 발견하고 수정
+
