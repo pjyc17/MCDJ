@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, Genre, Actor, Review
+from .models import Movie, Genre, Actor, Chat
 
 class GenreListSerializer(serializers.ModelSerializer):
 
@@ -18,7 +18,7 @@ class GenreSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
     class Meta:
         model = Genre
-        fields =('id', 'name', 'movies')
+        fields = ('id', 'name', 'movies')
         read_only_fields = ('movies',)
 
 
@@ -86,19 +86,11 @@ class ActorSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
     class Meta:
         model = Actor
-        fields =('id', 'name', 'movies')
+        fields = ('id', 'name', 'movies')
         read_only_fields = ('movies',)
 
 
-
-
-class ReviewListSerializer(serializers.ModelSerializer):
-
+class ChatSerializer(serializers.ModelSerializer):
     class Meta:
-        pass
-
-
-class ReviewSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        pass
+        model = Chat
+        fields = ('id', 'content',)
