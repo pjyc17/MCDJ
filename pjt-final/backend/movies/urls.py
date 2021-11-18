@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('TMDB/', views.TMDB),
-    path('<keyword>', views.search),
+    path('<keyword>/', views.search),
 ]
