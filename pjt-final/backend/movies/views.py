@@ -13,7 +13,7 @@ API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
 
 # Create your views here.
 def TMDB(request):
-    # if request.user in {'떵유', '주윤'}:
+    # if request.user == '떵유' or request.user == '주윤':
         get_genres = f"{TMDB_URL}/genre/movie/list?api_key={API_KEY}&language=ko-KR"
         genres_dict = requests.get(get_genres).json().get('genres')
         #장르들 조회 /장르 테이블 먼저 생성(ManyToMany필드 중에 한개는 먼저 만들고 참조관계 생성)
@@ -63,6 +63,7 @@ def TMDB(request):
         # 끝났으니 front 페이지로 이동
         return redirect('http://121.178.32.250:8080')
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def movie(request, movie_id):
@@ -84,12 +85,14 @@ def movie(request, movie_id):
 
     return Response({'movies': serializer.data, 'genres': genres, 'actors': actors, 'chats': chats})
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search(request, keyword):
     movies = Movie.objects.filter(title__contains=keyword).order_by('-popularity')
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -116,6 +119,7 @@ def annual_movies(request, year):
     movies = Movie.objects.filter(release_date__startswith=year).order_by('-popularity')
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def chat(request, movie_id):
