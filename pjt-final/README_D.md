@@ -6,3 +6,12 @@
 - 배경 디스코드 채팅색 적용   
 - 로그인, 로그아웃, 회원가입 적용(bootstrap모달 적용했지만, 직접 만들계획), google로그인 새창띄움했지만, 오류가 있음   
 - django accounts/models.py 초안 작성   
+
+## 11.18
+- serializers   
+- view   
+- 영화 DB 저장   
+```py
+#utf8로 dumpdata 만들기
+python -Xutf8 ./manage.py dumpdata
+```
