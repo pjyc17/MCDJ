@@ -16,7 +16,7 @@ def review_list_create(request):
         return Response(serializers.data)
     else:
         serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valild(raise_exception=True):
+        if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -35,13 +35,15 @@ def review_update_delete(request, review_pk):
 
 # 리뷰 항목의 comment 를 review의 것임을 확인하고 comment 달아주는 작업이 진행이 잘 안됨
 @api_view(['POST'])
-def create_comment(request, review_pk):
+def comment(request, review_id):
     serializer = CommentSerializer(data=request.data)
-    if serializer.is_valid():
-        review = get_object_or_404(Review, pk=review_pk)
+    if serializer.is_valid(raise_exception=True):
+        review = get_object_or_404(Review, pk=review_id)
         serializer.save(user=request.user, review=review)
         return Response(serializer.data)
-   
-
-
-
+@api_view(['DELETE'])
+def delcom(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user == comment.user:
+        comment.delete()
+    return Response({'message': '삭제했다잉'})
