@@ -2,11 +2,11 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/dog.gif">
     <div>
-      <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="4"></b-form-select>
-      <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="4"></b-form-select>
-      <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="4"></b-form-select>
+      <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
+      <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
+      <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
       <div class="mt-3"> 
-        <strong v-if="y_selected">{{ y_selected[0] }}년     </strong> 
+        <strong v-if="y_selected">{{ y_selected[0] }}년 </strong> 
         <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
         <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
       </div>
