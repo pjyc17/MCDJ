@@ -34,7 +34,13 @@ def TMDB(request):
                 movieId = movie.get('id')
                 #영상여부확인
                 get_videos = f"{TMDB_URL}/movie/{movieId}/videos?api_key={API_KEY}"
-                if requests.get(get_videos).json().get('results'):
+                videos = requests.get(get_videos).json().get('results')
+                if videos:
+                    for video in videos:
+                        if video.get('site') == 'YouTube':
+                            break
+                    else:
+                        continue
                     #영화테이블에 이미 존재하는 영화는 삭제
                     if Movie.objects.filter(pk=movieId).exists():
                         instance = Movie.objects.get(pk=movieId)
@@ -53,6 +59,7 @@ def TMDB(request):
                         actor_ids.append(actorId)
                     #배우id리스트 movie에 data에 추가
                     movie['actor_ids'] = actor_ids
+                    movie['youtube_key'] = video.get('key')
                     serializer = MovieSerializer(data=movie)
                     if serializer.is_valid():
                         serializer.save()
@@ -72,15 +79,15 @@ def movie(request, movie_id):
     genres = []
     genre_set = movie.genres.all()
     for genre in genre_set:
-        genres.append(genre.name)
+        genres.append({'name': genre.name, 'id': genre.id})
     actors = []
     actor_set = movie.actors.all()
     for actor in actor_set:
-        actors.append(actor.name)
+        actors.append({'name': actor.name, 'id': actor.id})
     chats = []
     chat_set = movie.chats.all() 
     for chat in chat_set:
-        chats.append({'created': chat.created, 'user': chat.user.username, 'content': chat.content})
+        chats.append({'created': chat.created, 'user': chat.user.username, 'content': chat.content, 'id': chat.id})
     chats.sort(key=lambda x: x['created'])
 
     return Response({'movies': serializer.data, 'genres': genres, 'actors': actors, 'chats': chats})

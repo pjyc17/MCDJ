@@ -1,21 +1,25 @@
 <template>
   <div class="home">
+<<<<<<< HEAD
     <img alt="Vue logo" src="../assets/dog.gif">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div>
       <b-form-select v-model="selected" :options="options" multiple :select-size="4"></b-form-select>
       <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
+=======
+    <img alt="Vue logo" src="../assets/logo.png">
+>>>>>>> ac9475996946fdf3c87abe9ac822566da5f520ee
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
+<<<<<<< HEAD
     HelloWorld
   },
   jyp_m: '03',
@@ -35,5 +39,8 @@ export default {
         ]
       }
     }
+=======
+  },
+>>>>>>> ac9475996946fdf3c87abe9ac822566da5f520ee
 }
 </script>
