@@ -5,6 +5,8 @@ app_name = 'community'
 
 urlpatterns = [
     path('', views.review_list_create),
-    path('<int:review_pk>/', views.review_update_delete),
-    path('<int:review_pk>/comments/create/', views.create_comment),
+    path('<int:review_id>/', views.review_update_delete),
+    path('<int:review_id>/comment/', views.comment),
+    path('comment/<int:comment_id>/', views.delcom),
     # path('<int:review_pk>/like/', views.like, name='like'),
+]
