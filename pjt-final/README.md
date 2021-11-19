@@ -540,3 +540,93 @@ def create_comment(request, review_pk):
 ```
 
 **오늘의 마지막 수정 - 김동유, 현재시각 04:44.**
+
+---
+
+# 11.19 (계획)
+
+>  ### 데이터베이스 부분을 구축 완료한다.
+>
+> ### 프론트 엔드를 시작한다.
+>
+> ### 무한스크롤 적용 및 영화의 시대적 분류, 출연진들과 영화의 연결, 등
+>
+> ### 메인페이지 디자인, 유저의 생년월일 정보 입력가능 구현
+
+
+
+
+
+---
+
+# 11.19 (중간점검)
+
+#### *문제의 comment  부분을 해결하고 css 구현하는 페어(동유)에 부러움이 들어 like 기능을 접어두고 vue를 잡아 시작페이지 디자인을 시작했다.*
+
+![image-20211119200252524](README.assets/image-20211119200252524.png)
+
+#### 가장 난관이 되었던 부분인 dropdown 부분을 해결하고 다음과 같이 작성된 모습을 볼 수 있었다.
+
+```
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/dog.gif">
+    <div>
+      <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="4"></b-form-select>
+      <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="4"></b-form-select>
+      <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="4"></b-form-select>
+      <div class="mt-3"> 
+        <strong v-if="y_selected">{{ y_selected[0] }}년     </strong> 
+        <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
+        <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
+      </div>
+  </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+
+export default {
+  name: 'Home',
+  components: {
+  },
+
+  data() {
+      
+      const y_options = []
+      const m_options = []
+      const d_options = []
+      for (let y_index = 1938; y_index < 2022; y_index++) {
+        y_options.push({value: y_index, text: y_index})
+      }
+      for (let m_index = 1; m_index < 13; m_index++) {
+        m_options.push({value: m_index, text: m_index})
+      }
+      for (let d_index = 1; d_index < 32; d_index++) {
+        d_options.push({value: d_index, text: d_index})
+      }
+      return {
+        y_selected: [1995], // Array reference
+        m_selected: [3], // Array reference
+        d_selected: [26], // Array reference
+        y_options,
+        m_options,
+        d_options
+      }
+    }
+}
+</script>
+```
+
+
+
+![image-20211119195411905](README.assets/image-20211119195411905.png)
+
+### 자바스크립트 언어가 익숙치 않아서 발생한 오류들
+
+- push => append 이용
+- for문 헤멤
+- const, let 선언 
+- list문의 출력을 string 으로 출력하는 데 어려움 겪음
+
