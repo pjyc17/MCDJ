@@ -1,15 +1,10 @@
 <template>
   <div class="home">
-<<<<<<< HEAD
     <img alt="Vue logo" src="../assets/dog.gif">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div>
       <b-form-select v-model="selected" :options="options" multiple :select-size="4"></b-form-select>
       <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
-=======
-    <img alt="Vue logo" src="../assets/logo.png">
->>>>>>> ac9475996946fdf3c87abe9ac822566da5f520ee
   </div>
 </template>
 
@@ -19,28 +14,19 @@
 export default {
   name: 'Home',
   components: {
-<<<<<<< HEAD
-    HelloWorld
   },
   jyp_m: '03',
   jyp_d: '26',
 
   data() {
+      const options = []
+      for (let index = 1; index < 13; index++) {
+        options.push({value: index, text: index})
+      }
       return {
         selected: ['1995'], // Array reference
-        options: [
-          { value: 'a', text: 'This is First option' },
-          { value: 'b', text: 'Default Selected Option' },
-          { value: 'c', text: 'This is another option' },
-          { value: 'd', text: 'This one is disabled', disabled: true },
-          { value: 'e', text: 'This is option e' },
-          { value: 'f', text: 'This is option f' },
-          { value: 'g', text: 'This is option g' }
-        ]
+        options
       }
-    }
-=======
-  },
->>>>>>> ac9475996946fdf3c87abe9ac822566da5f520ee
+    },
 }
 </script>
