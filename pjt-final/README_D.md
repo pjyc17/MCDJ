@@ -210,3 +210,12 @@ fixture로 받아두기 위해, dumpdata를 시행하는데, 오류가 나서 �
 python -Xutf8 ./manage.py dumpdata
 ```
 이 방법은, 문제를 해결해줄 뿐만 아니라, utf로 변경하여 저장하여, 텍스트파일로 열어 다시 json으로 저장하는 번거로움을 덜어주기까지 한다.   
+
+
+
+## 11.19
+
+오늘은 frontend와 backend끼리 소통하며, 화면에 렌더링
+
+즉, 각종 기능들 구현
+

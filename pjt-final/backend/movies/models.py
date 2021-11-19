@@ -11,6 +11,7 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     vote_average = models.FloatField()
     popularity = models.FloatField()
+    youtube_key = models.CharField(max_length=100)
 
     def __str__(self):
         return f'title : {self.title}'

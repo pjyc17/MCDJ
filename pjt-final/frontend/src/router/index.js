@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Chronology from '@/views/Movie/Chronology/Chronology.vue'
+import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
+import MovieDetail from '@/views/Movie/MovieDetail.vue'
 import Signup from '@/views/accounts/signup.vue'
 import NotFound from '@/views/NotFound.vue'
 
@@ -11,6 +14,21 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/chronology',
+    name: 'Chronology',
+    component: Chronology
+  },
+  {
+    path: '/chronology/:year',
+    name: 'YearMovies',
+    component: YearMovies
+  },
+  {
+    path: '/movie/:movieId',
+    name: 'MovieDetail',
+    component: MovieDetail
   },
   {
     path: '/signup',
