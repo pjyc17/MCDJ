@@ -1,12 +1,6 @@
 from rest_framework import serializers
 from .models import Movie, Genre, Actor, Chat
 
-class GenreListSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Genre
-        fields = ('name',)
-
 
 class GenreSerializer(serializers.ModelSerializer):
     class Movies(serializers.ModelSerializer):
@@ -68,13 +62,6 @@ class MovieSerializer(serializers.ModelSerializer):
     #     for genre_pk in genre_ids:
     #         movie.genres.add(genre_pk)
     #     return movie
-
-class ActorListSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Actor
-        fields = ('name',)
-
 
 class ActorSerializer(serializers.ModelSerializer):
     class Movies(serializers.ModelSerializer):
