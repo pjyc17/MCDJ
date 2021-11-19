@@ -169,7 +169,7 @@ class Review(models.Model):
 ## 오늘의 할일 - 계획
 
 - 영화데이터에서 serializer 사용해서 데이터 받아오기(pjt08, pjt02 확인)
-- ![image-20211118102804650](C:\Users\pjyc1\AppData\Roaming\Typora\typora-user-images\image-20211118102804650.png)
+- ![image-20211118102804650](README.assets/image-20211118102804650.png)
 - 데이터 받아온 것 app.vue 에서 뿌려주기
 
 장르테이블 - 장르 아이디 장르이름 

@@ -34,21 +34,14 @@ def review_update_delete(request, review_pk):
 
 
 # 리뷰 항목의 comment 를 review의 것임을 확인하고 comment 달아주는 작업이 진행이 잘 안됨
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def create_comment(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-
-    if request.method == 'GET':
-        comments = get_list_or_404(Comment, review=review_pk)
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializers.data)
-    # else:
-    #     serializer = CommentSerializer(data=request.data)
-    #     if serializer.is_valild(raise_exception=True):
-    #         serializer.save(user=request.user)
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid():
+        review = get_object_or_404(Review, pk=review_pk)
+        serializer.save(user=request.user, review=review)
+        return Response(serializer.data)
+   
 
 
 
