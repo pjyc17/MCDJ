@@ -41,6 +41,7 @@ def comment(request, review_id):
         review = get_object_or_404(Review, pk=review_id)
         serializer.save(user=request.user, review=review)
         return Response(serializer.data)
+        
 @api_view(['DELETE'])
 def delcom(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
