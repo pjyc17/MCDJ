@@ -24,20 +24,13 @@ export default {
       shownMovies: [],
       movies: [],
       cnt: 20,
-      flag: true,
     }
   },
   methods: {
     listenScroll: function() {
-      if (this.flag) {
-        const {scrollHeight, scrollTop, clientHeight} = document.documentElement
-        if (scrollHeight - Math.round(scrollTop) <= 2 * clientHeight) {
-          this.flag = false
-          this.shownMovies.push(...this.movies.splice(0, this.cnt))
-          if (this.movies) {
-            this.flag = true
-          }
-        }
+      const {scrollHeight, scrollTop, clientHeight} = document.documentElement
+      if (scrollHeight - Math.round(scrollTop) <= 2 * clientHeight) {
+        this.shownMovies.push(...this.movies.splice(0, this.cnt))
       }
     }
   },
