@@ -1,3 +1,16 @@
+/* #starbg {
+  width: 100%;
+  height: 100%;
+  background: #36393f url("밤하늘별.jpg") center 0 / repeat-y 1000px;
+  animation: movebg 2s linear infinite;
+}
+
+
+@keyframes movebg {
+  0% {background-position:center 0;}
+  100% {background-position:center 1000px;}
+} */
+
 #starbg {
   -moz-animation: bg 60s linear infinite;
   -webkit-animation: bg 60s linear infinite;
@@ -13,13 +26,12 @@
   transform: translate3d(0,0,0);
 /* Set your background with this */
 
-  background: #36393f url("밤하늘별.jpg") top right;
+  background:url("밤하늘별.jpg");
   background-repeat: repeat-y;
   width: 100%;
-  right: 0;
+  bottom: 0;
   opacity: 1;
   position: fixed; z-index: -1000;
-  bottom: 0;
 }
 
 @-moz-keyframes bg {
@@ -88,5 +100,5 @@
 
 #starbg {
   background-size: auto 50vw;
-  height: 1000000px;
+  height: 2000px;
 }

@@ -23,17 +23,6 @@ export default {
   },
 
   data() {
-<<<<<<< HEAD
-      const options = []
-      for (let index = 1; index < 13; index++) {
-        options.push({value: index, text: index})
-      }
-      return {
-        selected: ['1995'], // Array reference
-        options
-      }
-    },
-=======
       
       const y_options = []
       const m_options = []
@@ -56,6 +45,5 @@ export default {
         d_options
       }
     }
->>>>>>> 6ccd18cf59526a095234fce031e67b99d4273641
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="detail-box">
     <div v-if="movie" class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-8 float-left">
         <div class="video-container">
           <iframe :src="`https://www.youtube.com/embed/${movie.movies.youtube_key}?autoplay=1&mute=1`" frameborder="0"></iframe>
           <div class="title">
@@ -23,18 +23,20 @@
           </span>
         </div>
         <div>
-          <star-rating v-model="rating" :star-size="20" :rounded-corners="true" class="right"></star-rating>
+          <star-rating v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
         </div>
       </div>
-      <div class="col-12 col-md-6 text-box">
-        <p class="overview">{{movie.movies.overview}}</p>
+      <div class="col-12 col-md-4 text-box">
         <div>
           <i class="fas fa-comment-dots chat-btn right"></i>
+        </div>
+        <div>
+          <p class="overview">{{movie.movies.overview}}</p>
         </div>
       </div>
     </div>
     <div class="row">
-      <div @click="goToMovieDetail" v-for="movie in similarMovies" :key="movie.key" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
+      <div v-for="movie in similarMovies" :key="movie.key" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
         <div class="card h-100">
           <div class="card-img-box">
             <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="card-img" :alt="movie.title">
@@ -87,6 +89,9 @@ export default {
 </script>
 
 <style scoped>
+.float-left {
+  float: left;
+}
 .detail-box {
   margin: 0 3rem;
 }
@@ -100,7 +105,9 @@ export default {
   display: inline-block;
 }
 .right {
-  float: right;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
 }
 .video-container {
   float: inline-start;
