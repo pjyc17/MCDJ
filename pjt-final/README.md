@@ -630,3 +630,8 @@ export default {
 - const, let 선언 
 - list문의 출력을 string 으로 출력하는 데 어려움 겪음
 
+---
+
+![image-20211120102421090](README.assets/image-20211120102421090.png)![image-20211120102504417](README.assets/image-20211120102504417.png)
+
+도우미개, 앱뷰 네브바랑 글씨색 변경한 부분 확인바람~!!

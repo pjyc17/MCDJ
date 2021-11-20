@@ -34,7 +34,7 @@
       </div>
     </b-modal>
     <!--도우미 개-->
-    <img height="250" id="helper-dog" src="@/assets/dogyawn.gif" alt="강아지 도우미">
+    <!-- <img height="250" id="helper-dog" src="@/assets/dogyawn.gif" alt="강아지 도우미"> -->
   </div>
 </template>
 
@@ -102,12 +102,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* color: #2c3e50; */
+  color: #575a5e;
   height: 100%;
 }
-#nav {
+/* #nav {
   padding: 30px;
-}
+} */
 
 #nav a {
   font-weight: bold;
