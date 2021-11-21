@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+
+
 // const domain = process.env.BACKEND_DOMAIN
 const today = new Date()
 const todayYear = today.getFullYear()
@@ -40,5 +43,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-  }
+  },
+  plugins: [createPersistedState()],
 })

@@ -403,6 +403,10 @@ export default {
 
 오늘은 재밌는 거만 하는 날?!
 
+동유네 집에 갔다 ㅋㅋㅋ
+
+![image-20211122015401323](README_J.assets/image-20211122015401323.png)
+
 ![image-20211120101210997](README_J.assets/image-20211120101210997.png)
 
 가장 우선적으로 홈페이지 화면을 변경해 보았다.
@@ -410,3 +414,64 @@ export default {
 중요한 점은 내가 어제 작성한 연월일 입력창이 안보임...
 
 배경이 뒤로 가야하는데 앞으로 나온 탓인듯...
+
+# 11.21
+
+동유네 가서 2일째
+
+![image-20211122015414051](README_J.assets/image-20211122015414051.png)
+
+동구를 보고싶었으나 동구는 1층에서 나는 2층에서
+
+![image-20211122013407698](README_J.assets/image-20211122013407698.png)
+
+프로필 페이지를 작성했다.
+
+store에 정보 저장, 불러오기를 사용한 나이정보 표시
+
+경로 : src -> store -> index.js 
+
+추가한 내용
+
+```
+import createPersistedState from "vuex-persistedstate";
+```
+
+```
+const today = new Date()
+const todayYear = today.getFullYear()
+const todayMonth = today.getMonth() + 1
+const todayDate = today.getDate()
+const todayYMD = {
+  year: todayYear,
+  month: todayMonth,
+  date: todayDate,
+}
+// export~
+export default new Vuex.Store({
+//	...
+    user: {
+          id: 0,
+          username: '',
+          birthday: {...todayYMD,},
+        },
+    mutations: {
+    //	...
+        GET_BIRTHDAY: (state, birthday) => state.user.birthday = {...birthday},
+    },
+    plugins: [createPersistedState()],
+```
+
+profile.vue
+
+```
+<h1>{{ $store.state.user.username }}의 프로필</h1>
+<h3>나이 : {{ 2022 - $store.state.user.birthday.year }}</h3>
+<h3 v-if="($store.state.user.birthday.month == 1 && $store.state.user.birthday.day >= 20) || ($store.state.user.birthday.month == 2 && $store.state.user.birthday.day <= 18) ">별자리 : 물병자리 </h3>
+    
+```
+
+별자리 정보를 다른 방식으로 분류가능한 방법이 있을까???
+
+
+
