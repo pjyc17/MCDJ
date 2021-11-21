@@ -16,13 +16,8 @@ export default {
   data: function() {
     return {
       review: {
-<<<<<<< HEAD
-        title: null,
-        content: null,
-=======
         title: "",
         content: "",
->>>>>>> 061dac872d277680b0b252853a4f2b2d03d695c1
       }
     }
   },
@@ -31,17 +26,6 @@ export default {
       return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
     },
     createReview: function() {
-<<<<<<< HEAD
-      const review = this.review
-      console.log(review)
-      axios({
-        headers: this.setToken(),
-        method: 'post',
-        url: `${this.$store.state.domain}/community/`,
-        data: review
-      })
-        .then()
-=======
       const review = {title: this.review.title.trim(), content: this.review.content.trim()}
       if (review.title && review.content) {
         axios({
@@ -54,7 +38,6 @@ export default {
       } else {alert("제대로 입력하세요!")}
       this.review.title = ""
       this.review.content = ""
->>>>>>> 061dac872d277680b0b252853a4f2b2d03d695c1
     }
   }
 }

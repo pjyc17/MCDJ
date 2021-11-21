@@ -2,44 +2,46 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from .serializers import ReviewSerializer, CommentSerializer, ReviewListSerializer
 from .models import Review, Comment
 
 
-@api_view(['GET', 'POST'])
-def review_list_create(request):
-    if request.method == 'GET':
-        reviews = Review.objects.all()
-        serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
-    else:
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+@api_view(['POST'])
+def review_create(request):
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def all(request):
     reviews = Review.objects.all().order_by('-created')
     if reviews:
-        serializer = ReviewListSerializer(reviews)
+        serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
     else:
         return Response({})
 
-@api_view(['PUT', 'DELETE'])
-def review_update_delete(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    if request.method == 'PUT':
-        serializer = ReviewSerializer(review, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-    else:
-        review.delete()
-        return Response({'id': review_pk})
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([AllowAny])
+def review_detail_update_delete(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.method == 'GET':
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)
+    elif request.user == review.user: 
+        if request.method == 'PUT':
+            serializer = ReviewSerializer(review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        else:
+            review.delete()
+            return Response({'id': review_id})
+    return Response({})
 
 
 # 리뷰 항목의 comment 를 review의 것임을 확인하고 comment 달아주는 작업이 진행이 잘 안됨
