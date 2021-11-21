@@ -3,9 +3,9 @@
     <div v-if="movie" class="row">
       <div class="col-12 col-md-8 float-left">
         <div class="video-container">
-          <iframe :src="`https://www.youtube.com/embed/${movie.movies.youtube_key}?autoplay=1&mute=1`" frameborder="0"></iframe>
+          <iframe :src="`https://www.youtube.com/embed/${movie.youtube_key}?autoplay=1&mute=1`" frameborder="0"></iframe>
           <div class="title">
-            <img src="@/assets/MCDJ.png" alt="" height="32px"><strong>{{movie.movies.title}}</strong>
+            <img src="@/assets/MCDJ.png" alt="" height="32px"><strong>{{movie.title}}</strong>
           </div>
         </div>
         <div class="flex tomato-box">
@@ -29,7 +29,7 @@
           <i class="fas fa-comment-dots chat-btn inline-block"></i>
         </div>
         <div class="text-box">
-          <p class="overview">{{movie.movies.overview}}</p>
+          <p class="overview">{{movie.overview}}</p>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
             .then((res) => {
               this.similarMovies = []
               for (let similarMovie of res.data.results) {
-                if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id)) {
+                if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id && movie.id !== this.movie.id)) {
                   this.similarMovies.push(similarMovie)
                 }
                 if (this.similarMovies.length === 6) {

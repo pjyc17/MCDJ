@@ -97,7 +97,7 @@ def movie(request, movie_id):
         chats.append({'created': chat.created, 'user': chat.user.username, 'content': chat.content, 'id': chat.id})
     chats.sort(key=lambda x: x['created'])
 
-    return Response({'movies': serializer.data, 'genres': genres, 'actors': actors, 'chats': chats})
+    return Response({**serializer.data, 'genres': genres, 'actors': actors, 'chats': chats})
 
 
 @api_view(['GET'])
