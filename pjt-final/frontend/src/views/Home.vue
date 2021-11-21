@@ -28,9 +28,15 @@
   </div>
   
 </template>
+<<<<<<< HEAD
 <script>
 // @ is an alias to /src
 
+=======
+
+<script>
+// @ is an alias to /src
+>>>>>>> 2b49f138659437b082ad29c6d296727335ad0f8c
 export default {
   name: 'Home',
   components: {
