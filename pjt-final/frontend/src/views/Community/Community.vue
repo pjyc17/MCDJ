@@ -1,7 +1,7 @@
 <template>
   <div>
     여기는 커뮤니티
-    <button @click="goToCreate">Create</button>
+    <button v-if="$store.state.user.id !== 0" @click="goToCreate">Create</button>
     <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
       <hr>
       <h2>{{review.title}}</h2>
@@ -37,7 +37,9 @@ export default {
       return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
     },
     goToCreate: function() {
-      this.$router.push({name: 'Review', params: {reviewId: 'create'}})
+      if (this.$store.state.user.id !== 0) {
+        this.$router.push({name: 'Review', params: {reviewId: 'create'}})
+      }
     }
   },
   created() {

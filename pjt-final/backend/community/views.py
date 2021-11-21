@@ -28,7 +28,7 @@ def all(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([AllowAny])
 def review_detail_update_delete(request, review_id):
-    review = get_object_or_404(Review, pk=review_id)
+    review = Review.objects.get(pk=review_id)
     if request.method == 'GET':
         serializer = ReviewSerializer(review)
         return Response(serializer.data)

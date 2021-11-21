@@ -8,9 +8,10 @@
     <p>작성: {{review.created}} / 수정: {{review.updated}}</p>
     <p>작성자: {{review.user.username}}</p>
     <p>내용: {{review.content}}</p>
-    <div><i class="fas fa-thumbs-up cursor"></i> {{review.likes_cnt}}</div>
+    <div><i class="fas fa-thumbs-up cursor" @click="likeReview"></i> {{review.likes_cnt}}</div>
+    <button @click="goToCommunity">뒤로가기</button>
     <hr>
-    <review-comment/>
+    <review-comment :comments="review.comments" />
   </div>
 </template>
 
@@ -50,6 +51,14 @@ export default {
           .then(() => this.$router.push({name: 'Community'}))
           .catch(() => this.notFound())
       }
+    },
+    likeReview: function() {
+      axios({
+        
+      })
+    },
+    goToCommunity: function() {
+      this.$router.push({name: 'Community'})
     },
   },
   created() {

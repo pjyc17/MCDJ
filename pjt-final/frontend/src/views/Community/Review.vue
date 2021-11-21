@@ -32,6 +32,7 @@ export default {
     },
     createOrUpdate: function() {
       const review = {title: this.review.title.trim(), content: this.review.content.trim()}
+      if (this.$store.state.user.id === 0) {this.$router.push({name: 'Community'})}
       if (review.title && review.content) {
         if (this.$route.params.reviewId === 'create') {
           axios({
@@ -57,21 +58,25 @@ export default {
     }
   },
   created() {
-    if (this.$route.params.reviewId !== 'create') {
-      axios({
-        headers: this.setToken(),
-        method: 'get',
-        url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
-      })
-        .then(res => {
-          if (res.data.user.id !== this.$store.state.user.id) {
-            this.$router.push({name: 'ReviewDetail', params: {reviewId: this.$route.params.reviewId}})
-          } else {
-            this.review.title = res.data.title
-            this.review.content = res.data.content
-          }
+    if (this.$store.state.user.id === 0) {
+      this.$router.push({name: 'Community'})
+    } else {
+      if (this.$route.params.reviewId !== 'create') {
+        axios({
+          headers: this.setToken(),
+          method: 'get',
+          url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
         })
-        .catch(() => this.$router.push({name: 'NotFound'}))
+          .then(res => {
+            if (res.data.user.id !== this.$store.state.user.id) {
+              this.$router.push({name: 'ReviewDetail', params: {reviewId: this.$route.params.reviewId}})
+            } else {
+              this.review.title = res.data.title
+              this.review.content = res.data.content
+            }
+          })
+          .catch(() => this.$router.push({name: 'NotFound'}))
+      }
     }
   }
 }

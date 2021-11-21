@@ -2,22 +2,28 @@
   <div>
     <div v-if="$store.state.user.id !== 0">
       <!-- <label for="comment">댓글</label> -->
-      <input type="text"><button>입력</button>
+      <input v-model="comment" type="text"><button @click="createComment">입력</button>
     </div>
     <div v-for="comment in comments" :key="comment.id">
-      {{comment.content}}
+      {{comment.content}} - {{comment.user.username}} <br> {{comment.created}} <br>
+      <button @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</button>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'ReviewComment',
+  props: {
+    comments: {
+      type: Array,
+    }
+  },
   data: function() {
     return {
-      comments: [],
+      comment: '',
     }
   },
   methods: {
@@ -27,6 +33,33 @@ export default {
     setToken: function() {
       return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
     },
+    createComment: function() {
+      const comment = this.comment.trim()
+      if (comment) {
+        axios({
+          headers: this.setToken(),
+          method: 'post',
+          url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/comment/`,
+          data: {content: this.comment,},
+        })
+          .then((res) => this.comments.push(res.data))
+          .catch(() => this.$router.push({name: 'NotFound'}))
+      } else {alert("빈칸이 있어요!")}
+      this.comment = ''
+    },
+    deleteComment: function(deletedComment) {
+      if (deletedComment.user.id === this.$store.state.user.id) {
+        axios({
+          headers: this.setToken(),
+          method: 'delete',
+          url: `${this.$store.state.domain}/community/comment/${deletedComment.id}/`,
+        })
+          .then(() => {
+            this.comments.splice(this.comments.indexOf(deletedComment), 1)
+          })
+          .catch(() => this.$router.push({name: 'NotFound'}))
+      }
+    }
   },
 }
 </script>

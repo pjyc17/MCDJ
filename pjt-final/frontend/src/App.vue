@@ -76,6 +76,10 @@ export default {
         url: `${this.$store.state.domain}/accounts/user/`,
       })
         .then(res => this.$store.commit('GET_USER', res.data))
+        .catch(() => {
+          alert("로그아웃 되었습니다.")
+          this.logout()
+        })
     },
     login: function () {
       axios({
