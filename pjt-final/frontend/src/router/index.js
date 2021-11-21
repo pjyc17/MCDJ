@@ -8,6 +8,7 @@ import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
 import Community from '@/views/Community/Community.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
 import Review from '@/views/Community/Review.vue'
+import Profile from '@/views/accounts/Profile.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import NotFound from '@/views/NotFound.vue'
 
@@ -58,6 +59,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component:Profile
   },
   {
     path: '/404',
