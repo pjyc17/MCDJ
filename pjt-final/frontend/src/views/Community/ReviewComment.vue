@@ -5,7 +5,7 @@
       <input v-model="comment" type="text"><button @click="createComment">입력</button>
     </div>
     <div v-for="comment in comments" :key="comment.id">
-      {{comment.content}} - {{comment.user.username}} <br> {{comment.created}} <br>
+      {{comment.content}} - {{comment.user.username}} <br> {{convertDate(comment.created)}} <br>
       <button @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</button>
     </div>
   </div>
@@ -59,7 +59,13 @@ export default {
           })
           .catch(() => this.$router.push({name: 'NotFound'}))
       }
-    }
+    },
+    convertDate: function(responseDate) {
+      let dateComponents = responseDate.split('T');
+      let date = dateComponents[0].split("-");
+      let time = dateComponents[1].substring(0,8).split(":");
+      return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
+    },
   },
 }
 </script>

@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:review_id>/', views.review_detail_update_delete),
     path('<int:review_id>/comment/', views.comment),
     path('comment/<int:comment_id>/', views.delcom),
-    # path('<int:review_pk>/like/', views.like, name='like'),
+    path('<int:review_id>/like/', views.like),
 ]

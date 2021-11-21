@@ -5,10 +5,16 @@
       <button @click="goToUpdate">수정</button>
       <button @click="deleteReview">삭제</button>
     </div>
-    <p>작성: {{review.created}} / 수정: {{review.updated}}</p>
+    <p>작성: {{convertDate(review.created)}} / 수정: {{convertDate(review.updated)}}</p>
     <p>작성자: {{review.user.username}}</p>
     <p>내용: {{review.content}}</p>
-    <div><i class="fas fa-thumbs-up cursor" @click="likeReview"></i> {{review.likes_cnt}}</div>
+    <div>
+      <i class="fas fa-thumbs-up" @click="likeReview"
+        :class="{'cursor': $store.state.user.id, 'is-liked': isLiked}"
+      >
+      </i>
+       {{review.likes_cnt}}
+    </div>
     <button @click="goToCommunity">뒤로가기</button>
     <hr>
     <review-comment :comments="review.comments" />
@@ -27,6 +33,7 @@ export default {
   data: function() {
     return {
       review: null,
+      isLiked: false,
     }
   },
   methods: {
@@ -52,10 +59,25 @@ export default {
           .catch(() => this.notFound())
       }
     },
+    convertDate: function(responseDate) {
+      let dateComponents = responseDate.split('T');
+      let date = dateComponents[0].split("-");
+      let time = dateComponents[1].substring(0,8).split(":");
+      return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
+    },
     likeReview: function() {
-      axios({
-        
-      })
+      if (this.$store.state.user.id !== 0) {
+        axios({
+          headers: this.setToken(),
+          method: 'put',
+          url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/like/`
+        })
+          .then(res => {
+            this.review.likes_cnt = res.data.likes_cnt
+            this.isLiked = res.data.isLiked
+          })
+          .catch(() => this.notFound())
+      }
     },
     goToCommunity: function() {
       this.$router.push({name: 'Community'})
@@ -66,12 +88,24 @@ export default {
       method: 'get',
       url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
     })
-      .then(res => this.review = res.data)
+      .then(res => {
+        this.review = res.data
+        if (this.$store.state.user.id !== 0) {
+          axios({
+            headers: this.setToken(),
+            method: 'get',
+            url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/like/`
+          })
+          .then(res => this.isLiked = res.data.isLiked)
+        }
+      })
       .catch(() => this.notFound())
   }
 }
 </script>
 
 <style>
-
+.is-liked {
+  color: royalblue;
+}
 </style>

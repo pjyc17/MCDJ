@@ -59,3 +59,21 @@ def delcom(request, comment_id):
     if request.user == comment.user:
         comment.delete()
     return Response({'message': '삭제했다잉'})
+
+
+@api_view(['GET', 'PUT'])
+def like(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.method == 'GET':
+        if review.like_users.filter(pk=request.user.pk).exists():
+            isLiked = True
+        else:
+            isLiked = False
+    else:
+        if review.like_users.filter(pk=request.user.pk).exists():
+            review.like_users.remove(request.user)
+            isLiked = False
+        else:
+            review.like_users.add(request.user)
+            isLiked = True
+    return Response({'isLiked': isLiked, 'likes_cnt': review.like_users.count()})
