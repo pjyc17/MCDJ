@@ -7,6 +7,12 @@
 <script>
 export default {
   name: 'ReviewComment',
+  methods: {
+
+  },
+  created() {
+
+  }
 }
 </script>
 

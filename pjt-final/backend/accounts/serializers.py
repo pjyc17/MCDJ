@@ -3,13 +3,18 @@ from django.contrib.auth import get_user_model
 
 from .models import Age
 
+class UserBaseSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username',)
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password')
+        fields = ('username', 'password',)
 
 class AgeSerializer(serializers.ModelSerializer):
     class human(serializers.ModelSerializer):

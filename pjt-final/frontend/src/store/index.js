@@ -6,14 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    domain: 'http://127.0.0.1:8000',
-    // domain: 'http://121.178.32.250:8000',
+    // domain: 'http://127.0.0.1:8000',
+    domain: 'http://121.178.32.250:8000',
     TMDB_KEY: '843ed6063914aca6ab7f2fcf47870d67',
     TMDB_URL: 'https://api.themoviedb.org/3',
+    user: {
+      id: 0,
+      username: '',
+    },
     allMovies: [],
   },
   mutations: {
     GET_ALL_MOVIES: (state, movies) => state.allMovies = movies,
+    GET_USER: (state, user) => state.user = {...user},
   },
   actions: {
   },

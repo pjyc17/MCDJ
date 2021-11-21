@@ -32,7 +32,7 @@
         <input type="password" id="password" v-model="credentials.password" @keyup.enter="login"><br> <br>
         <div class="rflex w-100">
           <a class="no-decoration-text" href="/signup">회원가입</a>
-          <div @click="login" class="btn btn-sm btn-primary">로그인</div>
+          <button @click="login" class="btn btn-sm btn-primary">로그인</button>
         </div>
       </div>
       <hr>
@@ -68,6 +68,14 @@ export default {
     setToken: function() {
       return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
     },
+    getUser: function() {
+      axios({
+        headers: this.setToken(),
+        method:'get',
+        url: `${this.$store.state.domain}/accounts/user/`,
+      })
+        .then(res => this.$store.commit('GET_USER', res.data))
+    },
     login: function () {
       axios({
         method: 'post',
@@ -77,6 +85,7 @@ export default {
         .then(res => {
           localStorage.setItem('MCDJ_jwt', res.data.token)
           this.isLogin = true
+          this.getUser()
           // const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
           // loginModal.hide()
           // this.$router.push({name: 'Home'}).catch(() => {})
@@ -107,6 +116,7 @@ export default {
   created() {
     if (localStorage.getItem('MCDJ_jwt')) {
       this.isLogin = true
+      this.getUser()
     }
     axios({
       method: 'get',
@@ -117,6 +127,7 @@ export default {
   updated() {
       if (localStorage.getItem('MCDJ_jwt')) {
         this.isLogin = true
+        this.getUser()
       }
     }
 }
