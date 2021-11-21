@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{$route.params.year}} 년도</h1>
     <div class="flex">
       <movie
         v-for="(movie, idx) in shownMovies" :key="idx"
@@ -15,14 +14,14 @@ import axios from 'axios'
 import Movie from '@/views/Movie/Movie.vue'
 
 export default {
-  name: 'YearMovies',
+  name: 'Movies',
   components: {
     Movie,
   },
   data: function() {
     return {
-      shownMovies: [],
       movies: [],
+      shownMovies: [],
       cnt: 20,
     }
   },
@@ -37,13 +36,13 @@ export default {
   created() {
     axios({
       method: 'get',
-      url: `${this.$store.state.domain}/movies/annual_movies/${this.$route.params.year}/`,
+      url: `${this.$store.state.domain}/movies/search/${this.$route.params.keyword}/`,
     })
       .then(res => {
         this.movies = res.data
         this.shownMovies.push(...this.movies.splice(0, this.cnt))
       })
-      window.addEventListener('scroll', this.listenScroll);
+    window.addEventListener('scroll', this.listenScroll);
   },
   destroyed() {
     window.removeEventListener('scroll', this.listenScroll);

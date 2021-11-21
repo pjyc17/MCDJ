@@ -1,9 +1,16 @@
 <template>
   <div id="app">
+    <!-- 검색바 -->
+    <div id="search-bar">
+      <input @keyup.enter="searchMovie" v-model="keyword" type="text">
+      <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
+    </div>
+    <div class="height-30"></div>
     <div id="nav">
       <router-link :to="{name: 'Home'}">Home</router-link> | 
       <span v-if="isLogin">
         <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
+        <router-link :to="{name: 'Community'}">Community</router-link> | 
         <router-link @click.native="logout" to="">Logout</router-link>
       </span>
       <span v-else>
@@ -11,6 +18,8 @@
       </span>
     </div>
     <router-view/>
+
+
     <!-- Login 모달 -->
     <b-modal id="loginModal" hide-footer>
       <template #modal-title>
@@ -52,9 +61,15 @@ export default {
         password: null,
       },
       isLogin: false,
+      keyword: null,
     }
   },
   created() {
+    axios({
+      method: 'get',
+      url: `${this.$store.state.domain}/movies/all/`
+    })
+      .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
     if (localStorage.getItem('MCDJ_jwt')) {
       this.isLogin = true
     }
@@ -91,6 +106,14 @@ export default {
       // window.open("/", "", "_blank");
       console.log(this.$store.state)
       window.open(`${this.$store.state.domain}/accounts/google/login/`, "_blank", "width=500,height=600,top=200,left=750,")
+    },
+    searchMovie: function () {
+      const keyword = this.keyword.trim()
+      if (keyword) {
+        window.location.href = `/movies/${keyword}`
+      } else {
+        this.keyword = null
+      }
     }
   }
 }
@@ -102,7 +125,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #575a5e;
   height: 100%;
 }
 /* #nav {
@@ -143,5 +165,17 @@ export default {
   display: flex;
   justify-content: center;
   margin: 0 auto;
+}
+#search-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -0%);
+}
+.cursor {
+  cursor: pointer;
+}
+.height-30 {
+  height: 30px;
 }
 </style>

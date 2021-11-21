@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'YearMovie',
+  name: 'Movie',
   props: {
     movie: {
       type: Object,

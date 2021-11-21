@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Movies from '@/views/Movie/Movies.vue'
+import MovieDetail from '@/views/Movie/MovieDetail.vue'
 import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
-import MovieDetail from '@/views/Movie/MovieDetail.vue'
+import Community from '@/views/Community/Community.vue'
 import Signup from '@/views/accounts/signup.vue'
 import NotFound from '@/views/NotFound.vue'
 
@@ -16,6 +18,16 @@ const routes = [
     component: Home
   },
   {
+    path: '/movies/:keyword',
+    name: 'Movies',
+    component: Movies
+  },
+  {
+    path: '/movie/:movieId',
+    name: 'MovieDetail',
+    component: MovieDetail
+  },
+  {
     path: '/chronology',
     name: 'Chronology',
     component: Chronology
@@ -26,9 +38,9 @@ const routes = [
     component: YearMovies
   },
   {
-    path: '/movie/:movieId',
-    name: 'MovieDetail',
-    component: MovieDetail
+    path: '/community',
+    name: 'Community',
+    component: Community
   },
   {
     path: '/signup',

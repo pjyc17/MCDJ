@@ -10,16 +10,16 @@
         </div>
         <div class="flex tomato-box">
           장르: 
-          <span class="click">{{movie.genres[0].name}}</span> 
           <span v-for="(genre, idx) in movie.genres" :key="idx">
-            <span v-if="idx !== 1" class="click">, {{genre.name}}</span>
+            <span @click="genreMovies(genre.id)" class="click">{{genre.name}}</span>
+            <span v-if="idx!==movie.genres.length - 1">, </span>
           </span>
         </div>
         <div class="flex dogerblue-box">
           출연진: 
-          <span class="click">{{movie.actors[0].name}}</span> 
           <span v-for="(actor, idx) in movie.actors" :key="idx">
-            <span v-if="idx !== 1" class="click">, {{actor.name}}</span>
+            <span @click="actorMovies(actor.id)" class="click">{{actor.name}}</span>
+            <span v-if="idx!==movie.actors.length - 1">, </span>
           </span>
         </div>
         <div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row">
-      <div v-for="movie in similarMovies" :key="movie.key" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
+      <div v-for="movie in similarMovies" :key="movie.key" @click="goToMovieDetail(movie.id)" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
         <div class="card h-100">
           <div class="card-img-box">
             <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="card-img" :alt="movie.title">
@@ -66,25 +66,60 @@ export default {
       rating: 0
     }
   },
-  created() {
-    axios({
-      method: 'get',
-      url: `${this.$store.state.domain}/movies/${this.$route.params.movieId}/`,
-    })
-      .then(res => this.movie = res.data)
-      .then(() => {
-        axios({
-          method: 'get',
-          url: `${this.$store.state.TMDB_URL}/movie/${this.$route.params.movieId}/similar`,
-          params: {
-            api_key: this.$store.state.TMDB_KEY,
-            language: 'ko-KR'
-          },
-        })
-          .then((res) => this.similarMovies = res.data.results.slice(0, 5))
+  methods: {
+    getMovie: function() {
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/${this.$route.params.movieId}/`,
       })
-      .catch(() => window.location.href = '/404')
-  }
+        .then(res => this.movie = res.data)
+        .then(() => {
+          axios({
+            method: 'get',
+            url: `${this.$store.state.TMDB_URL}/movie/${this.$route.params.movieId}/similar`,
+            params: {
+              api_key: this.$store.state.TMDB_KEY,
+              language: 'ko-KR'
+            },
+          })
+            .then((res) => {
+              // this.similarMovies = []
+              // for (let similarMovie in res.data.results) {
+              //   console.log(similarMovie)
+              //   if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id)) {
+              //     this.similarMovies.push(similarMovie)
+              //   }
+              //   if (this.similarMovies.length === 6) {
+              //     break
+              //   }
+              // }
+              this.similarMovies = res.data.results.slice(0, 5)
+            })
+        })
+        .catch(() => window.location.href = '/404')
+    },
+    genreMovies: function(genre_id) {
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/genre/${genre_id}/`,
+      })
+        .then((res) => this.similarMovies = res.data.slice(0, 5))
+    },
+    actorMovies: function(actor_id) {
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/actor/${actor_id}/`,
+      })
+        .then((res) => this.similarMovies = res.data.slice(0, 5))
+    },
+    goToMovieDetail: function(movieId) {
+      this.$router.push({name: 'MovieDetail', params: {movieId: movieId}})
+      this.getMovie()
+    }
+  },
+  created() {
+    this.getMovie()
+  },
 }
 </script>
 
@@ -145,7 +180,7 @@ export default {
   overflow: hidden;
   text-overflow:ellipsis;
   /* display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical; */
   border-radius: 4px;
   border-style: solid; 
@@ -153,7 +188,8 @@ export default {
   padding: 12px; 
   word-break: break-all;
   border-color: LightGray; 
-  background-color:#252526;
+  background-color:#141414;
+  opacity: 50%;
 }
 .overview:hover {
   background-color: black;

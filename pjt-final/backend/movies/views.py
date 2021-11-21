@@ -73,6 +73,13 @@ def TMDB(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def all(request):
+    movies = Movie.objects.all().order_by('-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def movie(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
@@ -142,3 +149,17 @@ def delete(request, chat_id):
     if request.user == chat.user:
         chat.delete()
     return Response({'message': '삭제완료'})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def genre(request, genre_id):
+    movies = Movie.objects.prefetch_related('genres').filter(genres=genre_id).order_by('-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def actor(request, actor_id):
+    movies = Movie.objects.prefetch_related('actors').filter(actors=actor_id).order_by('-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
