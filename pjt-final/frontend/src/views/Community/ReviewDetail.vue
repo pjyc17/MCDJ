@@ -1,6 +1,10 @@
 <template>
   <div v-if="review">
     <h2>제목: {{review.title}}</h2>
+    <div v-if="review.user.id === $store.state.user.id">
+      <button @click="goToUpdate">수정</button>
+      <button @click="deleteReview">삭제</button>
+    </div>
     <p>작성: {{review.created}} / 수정: {{review.updated}}</p>
     <p>작성자: {{review.user.username}}</p>
     <p>내용: {{review.content}}</p>
@@ -25,7 +29,28 @@ export default {
     }
   },
   methods: {
-
+    notFound: function() {
+      this.$router.push({name: 'NotFound'})
+    },
+    setToken: function() {
+      return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
+    },
+    goToUpdate: function() {
+      if (this.review.user.id === this.$store.state.user.id) {
+        this.$router.push({name: 'Review', params: {reviewId: this.$route.params.reviewId}})
+      }
+    },
+    deleteReview: function() {
+      if (this.review.user.id === this.$store.state.user.id) {
+        axios({
+          headers: this.setToken(),
+          method: 'delete',
+          url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
+        })
+          .then(() => this.$router.push({name: 'Community'}))
+          .catch(() => this.notFound())
+      }
+    },
   },
   created() {
     axios({
@@ -33,6 +58,7 @@ export default {
       url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
     })
       .then(res => this.review = res.data)
+      .catch(() => this.notFound())
   }
 }
 </script>

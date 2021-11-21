@@ -20,6 +20,11 @@ export default new Vuex.Store({
     domain: 'http://121.178.32.250:8000',
     TMDB_KEY: '843ed6063914aca6ab7f2fcf47870d67',
     TMDB_URL: 'https://api.themoviedb.org/3',
+    anonymousUser: {
+      id: 0,
+      username: '',
+      // birthday: {...todayYMD,},
+    },
     user: {
       id: 0,
       username: '',

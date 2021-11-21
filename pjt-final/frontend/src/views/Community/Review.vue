@@ -64,9 +64,12 @@ export default {
         url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
       })
         .then(res => {
-          // if (res.data.user.id !== ) 
-          this.review.title = res.data.title
-          this.review.content = res.data.content
+          if (res.data.user.id !== this.$store.state.user.id) {
+            this.$router.push({name: 'ReviewDetail', params: {reviewId: this.$route.params.reviewId}})
+          } else {
+            this.review.title = res.data.title
+            this.review.content = res.data.content
+          }
         })
         .catch(() => this.$router.push({name: 'NotFound'}))
     }

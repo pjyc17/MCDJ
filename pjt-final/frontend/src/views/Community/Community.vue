@@ -42,7 +42,6 @@ export default {
   },
   created() {
     axios({
-      headers: this.setToken(),
       method: 'get',
       url: `${this.$store.state.domain}/community/all/`
     })
