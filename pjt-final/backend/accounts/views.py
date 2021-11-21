@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserBaseSerializer
 
 
 @api_view(['POST'])
@@ -19,3 +19,8 @@ def signup(request):
         user.set_password(request.data.get('password'))
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def user(request):
+    serializer = UserBaseSerializer(request.user)
+    return Response(serializer.data)

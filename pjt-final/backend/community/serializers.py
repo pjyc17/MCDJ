@@ -21,8 +21,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
             fields = ('id', 'username')
-            read_only_fields = ('username',)
-    
+            # read_only_fields = ('username',)
+
     user = User('user', read_only=True)
     likes_cnt = serializers.IntegerField(source='like_users.count', read_only=True)
     class Meta:

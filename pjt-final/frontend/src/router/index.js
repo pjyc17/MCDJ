@@ -7,6 +7,7 @@ import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
 import Community from '@/views/Community/Community.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
+import Review from '@/views/Community/Review.vue'
 import Profile from '@/views/accounts/Profile.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -49,6 +50,11 @@ const routes = [
   name: 'ReviewDetail',
   component: ReviewDetail
   },
+  {
+    path: '/community/review/:reviewId',
+    name: 'Review',
+    component: Review
+    },
   {
     path: '/signup',
     name: 'Signup',

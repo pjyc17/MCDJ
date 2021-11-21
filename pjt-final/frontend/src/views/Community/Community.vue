@@ -1,7 +1,7 @@
 <template>
   <div>
     여기는 커뮤니티
-    <create-review/>
+    <button @click="goToCreate">Create</button>
     <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
       <hr>
       <h2>{{review.title}}</h2>
@@ -15,7 +15,6 @@
 
 <script>
 import axios from 'axios'
-import CreateReview from '@/views/Community/CreateReview.vue'
 
 export default {
   name: 'Community',
@@ -23,9 +22,6 @@ export default {
     return {
       reviews: [],
     }
-  },
-  components: {
-    CreateReview,
   },
   methods: {
     setToken: function() {
@@ -40,6 +36,9 @@ export default {
       let time = dateComponents[1].substring(0,8).split(":");
       return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
     },
+    goToCreate: function() {
+      this.$router.push({name: 'Review', params: {reviewId: 'create'}})
+    }
   },
   created() {
     axios({
