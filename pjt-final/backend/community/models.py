@@ -16,10 +16,6 @@ class Review(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-<<<<<<< HEAD
-    
-=======
->>>>>>> 061dac872d277680b0b252853a4f2b2d03d695c1
     def __str__(self):
         return f"title : {self.title}"
 
