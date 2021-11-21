@@ -635,3 +635,50 @@ export default {
 ![image-20211120102421090](README.assets/image-20211120102421090.png)![image-20211120102504417](README.assets/image-20211120102504417.png)
 
 도우미개, 앱뷰 네브바랑 글씨색 변경한 부분 확인바람~!!
+
+# 11.20 ~ 11.21
+
+주말동안 신나게 놀고... 는 꿈같은 소리 
+
+
+
+#### 전체 페이지 영화 검색 기능 구현
+
+![image-20211122085542613](README.assets/image-20211122085542613.png)
+
+상단의 검색 바를 이용 (해당 글자가 속한 영화 정보 출력)
+
+#### community serializers.py, views.py 작성 토대로 vue 페이지 작성(review, comment, likes)
+
+![image-20211122085714046](README.assets/image-20211122085714046.png)
+
+
+
+
+
+#### store 에 user 정보(id, username, birthday) 임시 저장 (home에서 입력한 정보이용 나이 파악)
+
+#### -> profile 및 community 이용
+
+![image-20211122085818666](README.assets/image-20211122085818666.png)
+
+프로필 페이지와 작용
+
+![image-20211122085830106](README.assets/image-20211122085830106.png)
+
+나이정보 이용한 별자리 확인
+
+![image-20211122085908205](README.assets/image-20211122085908205.png)
+
+#### 각종 로그인시 비 로그인시 발생하는 오류 수정(임의로 만든 토큰이용시 강제 로그아웃, 비로그인시 발생하는 버튼들 비공개 및 url 어거지로 들어오는 경로 차단)
+
+
+
+
+
+
+
+#### 코드의 간략화
+
+
+
