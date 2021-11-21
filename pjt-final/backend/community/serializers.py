@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.fields import ReadOnlyField
 from .models import Review, Comment
 from django.contrib.auth import get_user_model
 
