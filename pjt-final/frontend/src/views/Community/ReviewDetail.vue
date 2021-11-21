@@ -5,7 +5,7 @@
       <button @click="goToUpdate">수정</button>
       <button @click="deleteReview">삭제</button>
     </div>
-    <p>작성: {{convertDate(review.created)}} / 수정: {{convertDate(review.updated)}}</p>
+    <p>작성: {{convertDate(review.created)}} <br> 수정: {{convertDate(review.updated)}}</p>
     <p>작성자: {{review.user.username}}</p>
     <p>내용: {{review.content}}</p>
     <div>
@@ -37,12 +37,6 @@ export default {
     }
   },
   methods: {
-    convertDate: function(responseDate) {
-      let dateComponents = responseDate.split('T');
-      let date = dateComponents[0].split("-");
-      let time = dateComponents[1].substring(0,8).split(":");
-      return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
-    },
     notFound: function() {
       this.$router.push({name: 'NotFound'})
     },
