@@ -64,22 +64,10 @@ export default {
       keyword: null,
     }
   },
-  created() {
-    axios({
-      method: 'get',
-      url: `${this.$store.state.domain}/movies/all/`
-    })
-      .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
-    if (localStorage.getItem('MCDJ_jwt')) {
-      this.isLogin = true
-    }
-  },
-  updated() {
-    if (localStorage.getItem('MCDJ_jwt')) {
-      this.isLogin = true
-    }
-  },
   methods: {
+    setToken: function() {
+      return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
+    },
     login: function () {
       axios({
         method: 'post',
@@ -115,7 +103,22 @@ export default {
         this.keyword = null
       }
     }
-  }
+  },
+  created() {
+    if (localStorage.getItem('MCDJ_jwt')) {
+      this.isLogin = true
+    }
+    axios({
+      method: 'get',
+      url: `${this.$store.state.domain}/movies/all/`
+    })
+      .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
+  },
+  updated() {
+      if (localStorage.getItem('MCDJ_jwt')) {
+        this.isLogin = true
+      }
+    }
 }
 </script>
 

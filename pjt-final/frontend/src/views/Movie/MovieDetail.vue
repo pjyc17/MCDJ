@@ -22,15 +22,13 @@
             <span v-if="idx!==movie.actors.length - 1">, </span>
           </span>
         </div>
-        <div>
-          <star-rating v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
-        </div>
       </div>
-      <div class="col-12 col-md-4 text-box">
-        <div>
-          <i class="fas fa-comment-dots chat-btn right"></i>
+      <div class="col-12 col-md-4">
+        <div class="star-cat-box">
+          <star-rating v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
+          <i class="fas fa-comment-dots chat-btn inline-block"></i>
         </div>
-        <div>
+        <div class="text-box">
           <p class="overview">{{movie.movies.overview}}</p>
         </div>
       </div>
@@ -138,10 +136,12 @@ export default {
 .item {
   display: inline-block;
 }
-.right {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
+.star-cat-box {
+  display: flex;
+  justify-content: space-between;
+}
+.inline-block {
+  display: inline-block;
 }
 .video-container {
   float: inline-start;
@@ -176,10 +176,11 @@ export default {
   background-color:rgba(30, 144, 255, 0.2);
 }
 .overview {
+  height: calc(100vw / 3);
   overflow: hidden;
   text-overflow:ellipsis;
-  /* display: -webkit-box;
-  -webkit-line-clamp: 10;
+  /* display: -webkit-box; */
+  /* -webkit-line-clamp: 10;
   -webkit-box-orient: vertical; */
   border-radius: 4px;
   border-style: solid; 

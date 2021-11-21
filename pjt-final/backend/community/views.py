@@ -4,7 +4,7 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers import ReviewSerializer, CommentSerializer
+from .serializers import ReviewSerializer, CommentSerializer, ReviewListSerializer
 from .models import Review, Comment
 
 
@@ -13,12 +13,21 @@ def review_list_create(request):
     if request.method == 'GET':
         reviews = Review.objects.all()
         serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializers.data)
+        return Response(serializer.data)
     else:
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def all(request):
+    reviews = Review.objects.all().order_by('-created')
+    if reviews:
+        serializer = ReviewListSerializer(reviews)
+        return Response(serializer.data)
+    else:
+        return Response({})
 
 @api_view(['PUT', 'DELETE'])
 def review_update_delete(request, review_pk):
