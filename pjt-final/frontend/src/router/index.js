@@ -7,7 +7,8 @@ import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
 import Community from '@/views/Community/Community.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
-import Signup from '@/views/accounts/signup.vue'
+import Profile from '@/views/accounts/Profile.vue'
+import Signup from '@/views/accounts/Signup.vue'
 import NotFound from '@/views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -52,6 +53,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component:Profile
   },
   {
     path: '/404',

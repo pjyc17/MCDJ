@@ -12,7 +12,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'CreateView',
+  name: 'CreateReview',
   data: function() {
     return {
       review: {

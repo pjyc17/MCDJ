@@ -11,6 +11,7 @@
       <span v-if="isLogin">
         <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
         <router-link :to="{name: 'Community'}">Community</router-link> | 
+        <router-link :to="{name: 'Profile'}">Profile</router-link> | 
         <router-link @click.native="logout" to="">Logout</router-link>
       </span>
       <span v-else>
@@ -32,7 +33,7 @@
         <input type="password" id="password" v-model="credentials.password" @keyup.enter="login"><br> <br>
         <div class="rflex w-100">
           <a class="no-decoration-text" href="/signup">회원가입</a>
-          <div @click="login" class="btn btn-sm btn-primary">로그인</div>
+          <button @click="login" class="btn btn-sm btn-primary">로그인</button>
         </div>
       </div>
       <hr>

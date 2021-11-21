@@ -22,21 +22,17 @@
         <strong v-if="y_selected">{{ y_selected[0] }}년 </strong> 
         <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
         <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
+        <br>
+        <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
       </div>
     </div>
 
   </div>
   
 </template>
-<<<<<<< HEAD
-<script>
-// @ is an alias to /src
-
-=======
 
 <script>
 // @ is an alias to /src
->>>>>>> 2b49f138659437b082ad29c6d296727335ad0f8c
 export default {
   name: 'Home',
   components: {
@@ -79,11 +75,10 @@ export default {
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/im-fell-french-canon-pro.woff2') format('woff2');
 } */
 header { 
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mountain-range.jpg) no-repeat;
-  padding-top: 61.93333333%;
+  background: url(../assets/gorhf.png) no-repeat;
+  padding-top: 51.93333333%;
   background-size: cover;
   font-family: 'Sucrose Bold Two';
-  
 }
 header img {
   position: absolute;
