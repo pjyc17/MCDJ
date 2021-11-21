@@ -16,8 +16,8 @@ export default {
   data: function() {
     return {
       review: {
-        title: null,
-        content: null,
+        title: "",
+        content: "",
       }
     }
   },
@@ -26,15 +26,18 @@ export default {
       return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
     },
     createReview: function() {
-      const review = this.review
-      console.log(review)
-      axios({
-        headers: this.setToken(),
-        method: 'post',
-        url: `${this.$store.state.domain}/community/`,
-        data: review
-      })
-        .then()
+      const review = {title: this.review.title.trim(), content: this.review.content.trim()}
+      if (review.title && review.content) {
+        axios({
+          headers: this.setToken(),
+          method: 'post',
+          url: `${this.$store.state.domain}/community/`,
+          data: review
+        })
+          .then()
+      } else {alert("제대로 입력하세요!")}
+      this.review.title = ""
+      this.review.content = ""
     }
   }
 }
