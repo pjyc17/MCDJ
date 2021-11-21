@@ -15,7 +15,7 @@
       <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
       <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
       <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
-      <button v->입력</button>
+      <button>입력</button>
     </div>
     <div>
       <div class="mt-3"> 
