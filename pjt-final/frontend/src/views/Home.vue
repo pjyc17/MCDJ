@@ -26,7 +26,6 @@
         <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
       </div>
     </div>
-
   </div>
   
 </template>
@@ -37,38 +36,41 @@ export default {
   name: 'Home',
   components: {
   },
+  
+
   data() {
-    const y_options = []
-    const m_options = []
-    const d_options = []
-    for (let y_index = 1938; y_index < 2022; y_index++) {
-      y_options.push({value: y_index, text: y_index})
-    }
-    for (let m_index = 1; m_index < 13; m_index++) {
-      m_options.push({value: m_index, text: m_index})
-    }
-    for (let d_index = 1; d_index < 32; d_index++) {
-      d_options.push({value: d_index, text: d_index})
-    }
-    return {
-      y_selected: [1995], // Array reference
-      m_selected: [3], // Array reference
-      d_selected: [26], // Array reference
-      y_options,
-      m_options,
-      d_options
-    }
-  },
-  methods: {
-    getBirthday: function() {
-      const birthday = {
-        year: this.y_selected,
-        month: this.m_selected,
-        day: this.d_selected,
+      
+      const y_options = []
+      const m_options = []
+      const d_options = []
+      for (let y_index = 1938; y_index < 2022; y_index++) {
+        y_options.push({value: y_index, text: y_index})
       }
-      this.$store.commit('GET_BIRTHDAY', birthday)
+      for (let m_index = 1; m_index < 13; m_index++) {
+        m_options.push({value: m_index, text: m_index})
+      }
+      for (let d_index = 1; d_index < 32; d_index++) {
+        d_options.push({value: d_index, text: d_index})
+      }
+      return {
+        y_selected: [1995], // Array reference
+        m_selected: [3], // Array reference
+        d_selected: [26], // Array reference
+        y_options,
+        m_options,
+        d_options
+      }
+    },
+    methods: {
+      getBirthday: function () {
+        const birthday = {
+          year: this.y_selected,
+          month: this.m_selected,
+          day: this.d_selected,
+        }
+        this.$store.commit('GET_BIRTHDAY', birthday)
+      }
     }
-  },
 }
 
 </script>
