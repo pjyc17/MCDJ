@@ -74,7 +74,8 @@ export default {
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/im-fell-french-canon-pro.woff2') format('woff2');
 }
 header { 
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mountain-range.jpg) no-repeat;
+  /* background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mountain-range.jpg) no-repeat; */
+  background: url("../assets/gorhf.png") no-repeat;
   padding-top: 61.93333333%;
   background-size: cover;
   font-family: 'Sucrose Bold Two';

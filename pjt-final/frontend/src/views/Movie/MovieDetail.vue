@@ -83,17 +83,16 @@ export default {
             },
           })
             .then((res) => {
-              // this.similarMovies = []
-              // for (let similarMovie in res.data.results) {
-              //   console.log(similarMovie)
-              //   if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id)) {
-              //     this.similarMovies.push(similarMovie)
-              //   }
-              //   if (this.similarMovies.length === 6) {
-              //     break
-              //   }
-              // }
-              this.similarMovies = res.data.results.slice(0, 5)
+              this.similarMovies = []
+              for (let similarMovie of res.data.results) {
+                if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id)) {
+                  this.similarMovies.push(similarMovie)
+                }
+                if (this.similarMovies.length === 6) {
+                  break
+                }
+              }
+              // this.similarMovies = res.data.results.slice(0, 5)
             })
         })
         .catch(() => window.location.href = '/404')
