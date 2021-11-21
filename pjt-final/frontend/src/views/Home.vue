@@ -23,21 +23,76 @@
         <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
         <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
       </div>
-      
-      
-        
     </div>
-  </div>
-      
-</template>
+    <html lang="ko">
 
+      <body>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                1번 슬라이드입니다.<br>마우스로 움직여보세요.
+            </div>
+            <div class="swiper-slide">
+                2번 슬라이드입니다.<br>
+                레이아웃만 제대로 설정되어 있다면 슬라이드에 어떤 것이든 넣을 수 있습니다.
+            </div>
+            <div class="swiper-slide">
+                <img src="https://image.flaticon.com/icons/png/128/1933/1933588.png" alt=""><br>
+                이렇게 이미지도 넣을 수 있습니다.
+            </div>
+              
+              ...
+
+          </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            
+            <div class="swiper-scrollbar"></div>
+        </div>
+        
+        
+      </body>
+    </html>
+  </div>
+  
+</template>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
 // @ is an alias to /src
+new Swiper('.swiper-container', {
+// 슬라이드를 버튼으로 움직일 수 있습니다.
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+    
+// 현재 페이지를 나타내는 점이 생깁니다. 클릭하면 이동합니다.
+  pagination: {
+    el: '.swiper-pagination',
+    type: 'bullets',
+  },
+
+// 현재 페이지를 나타내는 스크롤이 생깁니다. 클릭하면 이동합니다.
+  scrollbar: {
+    el: '.swiper-scrollbar',
+    draggable: true,
+  },
+    
+// 3초마다 자동으로 슬라이드가 넘어갑니다. 1초 = 1000
+  autoplay: {
+    delay: 3000,
+  },
+})
 
 export default {
   name: 'Home',
   components: {
   },
+  
 
   data() {
       
@@ -63,6 +118,7 @@ export default {
       }
     }
 }
+
 </script>
 <style scoped>
 @font-face {
@@ -74,8 +130,7 @@ export default {
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/im-fell-french-canon-pro.woff2') format('woff2');
 }
 header { 
-  /* background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mountain-range.jpg) no-repeat; */
-  background: url("../assets/gorhf.png") no-repeat;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mountain-range.jpg) no-repeat;
   padding-top: 61.93333333%;
   background-size: cover;
   font-family: 'Sucrose Bold Two';
