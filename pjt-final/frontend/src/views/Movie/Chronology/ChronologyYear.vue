@@ -34,7 +34,6 @@
 import axios from 'axios'
 import {Carousel, Slide} from 'vue-carousel'
 
-
 export default {
   name: 'ChronologyYear',
   components: {
@@ -46,6 +45,7 @@ export default {
       years: [],
       index: -1,
       flag: true,
+      time: 0,
     }
   },
   methods: {
@@ -54,6 +54,20 @@ export default {
     },
     goToYear: function(year) {
       this.$router.push({name: "Year", params: {year: year}})
+    },
+    mouseMove: function(m) {
+      var X = m.clientX
+      var Y = m.clientY
+      if (this.index >= 0 && this.index <= this.years.length) {
+        if (Y > 150 && Y < 650) {
+          if (X > window.innerWidth * 0.66 && this.index < this.years.length) {this.time+=1} else {
+            if (X < window.innerWidth * 0.33 && this.index > 0) {this.time-=1}
+          }
+        }
+      }
+      if (this.time > 30) {this.index+=1;this.time-=30} else {
+        if (this.time < -30) {this.index-=1;this.time+=30}
+      }
     },
   },
   created() {
@@ -64,6 +78,10 @@ export default {
       .then(res => {
         this.years = res.data.chronology_poster
       })
+    window.addEventListener('mousemove', this.mouseMove)
+  },
+  destroyed() {
+    window.removeEventListener('mousemove', this.mouseMove)
   },
   computed: {
     idxes: function() {
