@@ -1,9 +1,9 @@
 <template>
-  <div @mouseover="startCarousel">
+  <div @mousemove="startCarousel">
     <br>
-    <h1>{{$route.params.year}}년도 기준</h1>
+    <div @mouseover="startCarousel" @click="goToChronology" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <!-- <carousel class="width-100" :value="10" :perPageCustom="[[320, 2], [480, 3], [640, 4], [800, 5], [960, 6], [1120, 7]]" > -->
-    <carousel id="carousel" class="width-100" v-model="index" :perPage="1" :paginationSize="0">
+    <carousel @mouseover="startCarousel" id="carousel" class="width-100" v-model="index" :perPage="1" :paginationSize="0" :loop="true">
       <slide v-for="idx of idxes" :key="idx" class="slide_item item" aria-hidden="true">
         <div @click="goToYear(years[idx].year)" class="movie-card">
           <div class="card h-100">
@@ -27,6 +27,7 @@
         </div>
       </slide>
     </carousel>
+    <div @mouseover="startCarousel" class="big-opac-box"></div>
   </div>
 </template>
 
@@ -44,12 +45,18 @@ export default {
     return {
       years: [],
       index: -1,
+      keep: -1,
       flag: true,
+      flag2: true,
       time: 0,
     }
   },
   methods: {
     startCarousel: function() {
+      if (this.flag2) {
+        this.index = this.keep
+        this.flag2 = false
+      }
       this.fuck.setAttribute("style", "padding: 0 100vw 0 0;")
     },
     goToYear: function(year) {
@@ -69,6 +76,9 @@ export default {
         if (this.time < -30) {this.index-=1;this.time+=30}
       }
     },
+    goToChronology: function() {
+      this.$router.push({name: 'Chronology'})
+    }
   },
   created() {
     axios({
@@ -104,8 +114,11 @@ export default {
   },
   updated() {
     if (this.flag) {
-      this.index = parseInt(this.years.length / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year + 1) / 2)
-      if (this.index !== -1) {this.flag = false}
+      this.keep = parseInt(this.years.length / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year + 1) / 2)
+      if (this.keep !== -1) {this.flag = false}
+    }
+    if (this.index === -1) {
+      this.index = this.keep
     }
   },
 }
@@ -150,5 +163,11 @@ export default {
   top: 0;
   height: 100%;
   width: 100%;
+}
+.big-opac-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 100;
 }
 </style>

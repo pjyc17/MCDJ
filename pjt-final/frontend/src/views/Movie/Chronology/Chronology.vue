@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <!-- <h1>Chronology</h1> -->
+  <div class="container">
+    <br>
+    <div @click="goToChronologyYear" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}슬라이드 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <div class="flex">
       <each-year 
         v-for="(eachYear, idx) in years" :key="idx"
@@ -22,6 +23,11 @@ export default {
   data: function() {
     return {
       years: [],
+    }
+  },
+  methods: {
+    goToChronologyYear: function() {
+      this.$router.push({name: 'ChronologyYear', params: {year: this.$store.state.user.birthday.year}})
     }
   },
   created() {

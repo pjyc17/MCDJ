@@ -6,8 +6,10 @@ from django.http.response import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer
+from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer, GenreListSerializer
 from .models import Chat, Genre, Movie, Actor
+from django.db.models import Prefetch, Count, Q
+
 TMDB_URL = 'https://api.themoviedb.org/3'
 API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
 
@@ -80,6 +82,13 @@ def all(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def genres(request):
+    genres = Genre.objects.all()
+    serializer = GenreListSerializer(genres, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def movie(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
@@ -107,6 +116,14 @@ def search(request, keyword):
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def search_by_genre(request, genre_id, keyword):
+    movies = Movie.objects.prefetch_related(Prefetch('genres', queryset=Genre.objects.filter(pk=genre_id))).annotate(genres_cnt=Count('genres')).filter(~Q(genres_cnt=0), title__contains=keyword).order_by('-popularity')
+    for movie in movies:
+        print(movie.genres_cnt)
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
