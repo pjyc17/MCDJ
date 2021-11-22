@@ -1,7 +1,7 @@
 <template>
   <div id="app"> 
     <header>
-      <h3 v-if="($store.state.user.birthday.month == 1 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 2 && $store.state.user.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt=""></h3>
+      <!-- <h3 v-if="($store.state.user.birthday.month == 1 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 2 && $store.state.user.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt=""></h3>
       <h3 v-if="($store.state.user.birthday.month == 2 && $store.state.user.birthday.date >= 19) || ($store.state.user.birthday.month == 3 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt=""></h3>
       <h3 v-if="($store.state.user.birthday.month == 3 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 4 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/양자리.png" alt=""></h3>
       <h3 v-if="($store.state.user.birthday.month == 4 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 5 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/황소자리.png" alt=""></h3>
@@ -12,7 +12,7 @@
       <h3 v-if="($store.state.user.birthday.month == 9 && $store.state.user.birthday.date >= 24) || ($store.state.user.birthday.month == 10 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/천칭자리.png" alt=""></h3>
       <h3 v-if="($store.state.user.birthday.month == 10 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 11 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/전갈자리.png" alt=""></h3>
       <h3 v-if="($store.state.user.birthday.month == 11 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 12 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt=""></h3>
+      <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt=""></h3> -->
       
       <h1>{{ $store.state.user.username }}'s Profile</h1>
       <h3>age : {{ 2022 - $store.state.user.birthday.year }}</h3>
@@ -49,12 +49,12 @@ header {
   /* width: 100%; */
   /* height: 100%; */
   /* text-align: center; */
-  /* position: relative; */
   position: relative;
   font-family: 'Sucrose Bold Two';
   background: url(../../assets/gorhf.png) no-repeat;
   background-size: cover;
-  padding-top:31.93333333%;
+  padding-top:30.93333333%;
+  opacity: 0.3;
   /* z-index: 1; */
 }
 /* header::after {
@@ -64,7 +64,6 @@ header {
   height: 100%;
   content: "";
   position: absolute;
-  opacity: 0.3;
   z-index: -1;
   
 } */

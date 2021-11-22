@@ -92,7 +92,7 @@ export default {
 
 </script>
 <style scoped>
-.logo {
+/* .logo {
   position: relative;
   top: 100px;
   
@@ -101,7 +101,7 @@ export default {
   position: relative;
   top: 100px;
 
-}
+} */
 @font-face {
     font-family: 'Sucrose Bold Two';
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
