@@ -34,9 +34,11 @@ export default new Vuex.Store({
       birthday: {...todayYMD,},
     },
     allMovies: [],
+    allGenres: [],
   },
   mutations: {
     GET_ALL_MOVIES: (state, movies) => state.allMovies = movies,
+    GET_ALL_GENRES: (state, genres) => state.allGenres = genres,
     GET_USER: (state, user) => state.user = {...state.user, ...user},
     GET_BIRTHDAY: (state, birthday) => state.user.birthday = {...birthday},
   },

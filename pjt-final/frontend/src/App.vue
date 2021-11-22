@@ -2,10 +2,14 @@
   <div id="app">
     <!-- 검색바 -->
     <div id="search-bar">
+      <select v-model="selected">
+        <option value="*">전체</option>
+        <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
+      </select>
       <input @keyup.enter="searchMovie" v-model="keyword" type="text">
       <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
     </div>
-    <div class="height-30"></div>
+    <div style="height: 50px;"></div>
 
     <div id="nav">
       <router-link :to="{name: 'Home'}">Home</router-link> | 
@@ -63,6 +67,7 @@ export default {
         password: null,
       },
       isLogin: false,
+      selected: '*',
       keyword: null,
     }
   },
@@ -119,7 +124,7 @@ export default {
     searchMovie: function () {
       const keyword = this.keyword.trim()
       if (keyword) {
-        this.$router.push({name: 'Movies', params: {keyword: keyword}})
+        this.$router.push({name: 'Movies', params: {genreId: this.selected, keyword: keyword}})
         // window.location.href = `/movies/${keyword}`
       } else {
         this.keyword = null
@@ -136,6 +141,11 @@ export default {
       url: `${this.$store.state.domain}/movies/all/`
     })
       .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
+    axios({
+      method: 'get',
+      url: `${this.$store.state.domain}/movies/genres/all/`
+    })
+      .then(res => this.$store.commit('GET_ALL_GENRES', res.data))
   },
 }
 </script>
@@ -188,16 +198,19 @@ export default {
   margin: 0 auto;
 }
 #search-bar {
+  border-color:white;
+  border-style: solid; 
+  border-width: 1px;
+  display: flex;
+  justify-content: center;
   position: fixed;
+  padding: 0.5rem;
   top: 0;
   left: 50%;
   transform: translate(-50%, -0%);
 }
 .cursor {
   cursor: pointer;
-}
-.height-30 {
-  height: 30px;
 }
 .inline-block {
   display: inline-block;

@@ -4,8 +4,10 @@ from . import views
 urlpatterns = [
     path('TMDB/', views.TMDB),
     path('all/', views.all),
+    path('genres/all/', views.genres),
     path('<int:movie_id>/', views.movie),
     path('search/<keyword>/', views.search),
+    path('<int:genre_id>/search/<keyword>/', views.search_by_genre),
     path('annually_poster/', views.annually_poster),
     path('annual_movies/<int:year>/', views.annual_movies),
     path('<int:movie_id>/chat/', views.chat),

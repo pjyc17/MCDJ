@@ -22,7 +22,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/movies/:keyword',
+    path: '/movies/:genreId/:keyword',
     name: 'Movies',
     component: Movies
   },
