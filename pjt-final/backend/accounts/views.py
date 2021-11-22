@@ -31,21 +31,7 @@ def user(request):
 @permission_classes([AllowAny])
 def profile(request, user_id):
     person = get_object_or_404(get_user_model(), pk=user_id)
-    print(person)
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    serializer = ProfileSerializer(data=person)
-    print('########')
-    print(serializer.data)
+    serializer = ProfileSerializer(person)
     return Response(serializer.data)
 
 # def follow(request, user_pk):

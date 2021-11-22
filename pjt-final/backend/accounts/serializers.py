@@ -38,4 +38,4 @@ class ProfileSerializer(serializers.ModelSerializer):
     followings_cnt = serializers.IntegerField(source='followings.count', read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username', 'followers_cnt', 'followings_cnt,', )# 'birth', 
+        fields = ('id', 'username', 'followers_cnt', 'followings_cnt', )# 'birth', 
