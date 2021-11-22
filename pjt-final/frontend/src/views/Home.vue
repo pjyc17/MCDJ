@@ -10,25 +10,10 @@
           <p>From Issi, he marched a single stage—five parasangs—to the gates of Cilicia and Syria. This was a double fortress: the inner and nearer one, which protects Cilicia, was held by Syennesis and a garrison of Cilicians; the outer and further one, protecting Syria, was reported to be garrisoned by a body of the king's troops. Through the gap between the two fortresses flows a river named the Carsus, which is a hundred feet broad, and the whole space between was scarcely more than six hundred yards. To force a passage here would be impossible, so narrow was the pass itself, with the fortification walls stretching down to the sea, and precipitous rocks above; while both fortresses were furnished with gates. It was the existence of this pass which had induced Cyrus to send for the fleet, so as to enable him to lead a body of hoplites inside and outside the gates; and so to force a passage through the enemy, if he were guarding the Syrian gate, as he fully expected to find Abrocomas doing with a large army. This, however, Abrocomas had not done; but as soon as he learnt that Cyrus was in Cilicia, he had turned round and made his exit from Phoenicia, to join the king with an army amounting, as report said, to three hundred thousand men.</p>
           <p>From this point Cyrus pursued his march, through Syria a single stage—five parasangs—to Myriandus, a city inhabited by Phoenicians, on the sea-coast. This was a commercial port, and numerous merchant vessels were riding at anchor in the harbour. Here they halted seven days, and here Xenias the Arcadian general, and Pasion the Megarian got on board a trader, and having stowed away their most valuable effects, set sail for home; most people explained the act as the outcome of a fit of jealousy, because Cyrus had allowed Clearchus to retain their men, who had deserted to him, in hopes of returning to Hellas instead of marching against the king; when the two had so vanished, a rumour spread that Cyrus was after them with some ships of war, and some hoped the cowards might be caught, others pitied them, if that should be their fate.</p>
         </main> -->
-    <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png">
-<<<<<<< HEAD
-    <div>
-      <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
-      <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
-      <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
-      <button @click="getBirthday">
-        입력
-      </button>
+    <div class="logo">
+      <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png">
     </div>
-    <div>
-      <div class="mt-3"> 
-        <strong v-if="y_selected">{{ y_selected[0] }}년 </strong> 
-        <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
-        <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
-        <br>
-        <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
-=======
-    <div v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
+    <div class="timeline" v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
@@ -43,7 +28,6 @@
           <br>
           <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
         </div>
->>>>>>> c5bd83846aaadb120a8c2e53875190c9ca91fa62
       </div>
     </div>
   </div>
@@ -110,6 +94,16 @@ export default {
 
 </script>
 <style scoped>
+.logo {
+  position: relative;
+  top: 100px;
+  
+}
+.timeline {
+  position: relative;
+  top: 100px;
+
+}
 @font-face {
     font-family: 'Sucrose Bold Two';
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
@@ -123,7 +117,7 @@ export default {
   padding-top: 51.93333333%;
   background-size: cover;
   font-family: 'Sucrose Bold Two';
-} */
+}
 header img {
   position: absolute;
   top: 0;
@@ -155,5 +149,5 @@ main {
 }
 @media all and (max-width: 400px) {
   main { padding: 2rem; }
-}
+} */
 </style>
