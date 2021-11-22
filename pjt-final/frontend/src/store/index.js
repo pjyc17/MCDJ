@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
 
-// const domain = process.env.BACKEND_DOMAIN
+const domain = process.env.VUE_APP_BACKEND_DOMAIN
 const today = new Date()
 const todayYear = today.getFullYear()
 const todayMonth = today.getMonth() + 1
@@ -19,8 +19,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // domain: 'http://127.0.0.1:8000',
-    domain: 'http://121.178.32.250:8000',
+    domain: domain,
     TMDB_KEY: '843ed6063914aca6ab7f2fcf47870d67',
     TMDB_URL: 'https://api.themoviedb.org/3',
     anonymousUser: {
