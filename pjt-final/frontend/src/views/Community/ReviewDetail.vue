@@ -1,23 +1,33 @@
 <template>
-  <div v-if="review">
-    <h2>제목: {{review.title}}</h2>
-    <div v-if="review.user.id === $store.state.user.id">
-      <button @click="goToUpdate">수정</button>
-      <button @click="deleteReview">삭제</button>
+  <div class="container review-box text-left" v-if="review">
+    <hr>
+    <h2>{{review.title}}</h2>
+    <div class="fontsize-12">
+      <span>{{review.user.username}}가 </span>
+      <span v-if="review.created === review.updated">{{convertDate(review.created)}}에 작성함</span>
+      <span v-else>{{convertDate(review.updated)}}에 수정함 <br>({{convertDate(review.created)}}에 작성됨)</span>
     </div>
-    <p>작성: {{convertDate(review.created)}} <br> 수정: {{convertDate(review.updated)}}</p>
-    <p>작성자: {{review.user.username}}</p>
-    <p>내용: {{review.content}}</p>
-    <div>
+    <br>
+    <div>{{review.content}}</div>
+    <br>
+    <div class="text-center">
       <i class="fas fa-thumbs-up" @click="likeReview"
         :class="{'cursor': $store.state.user.id, 'is-liked': isLiked}"
       >
       </i>
        {{review.likes_cnt}}
     </div>
-    <button @click="goToCommunity">뒤로가기</button>
+    <div class="flex-right">
+      <div v-if="review.user.id === $store.state.user.id">
+        <button @click="goToUpdate">수정</button>
+        <button @click="deleteReview">삭제</button>
+      </div>
+      <button @click="goToCommunity">뒤로가기</button>
+    </div>
     <hr>
-    <review-comment :comments="review.comments" />
+    <div class="flex-center">
+      <review-comment :comments="review.comments" />
+    </div>
   </div>
 </template>
 
@@ -107,5 +117,33 @@ export default {
 <style>
 .is-liked {
   color: royalblue;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.fontsize-12 {
+  font-size: 12px;
+}
+.flex-right {
+  display: flex;
+  justify-content: right;
+}
+.review-box {
+  border-radius: 1rem;
+  border-style: solid; 
+  border-width: 2px; 
+  padding: 12px; 
+  word-break: break-all;
+  border-color: LightGray; 
+  background-color:#141414;
+  opacity: 100%;
+  color: white;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
 }
 </style>

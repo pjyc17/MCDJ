@@ -113,7 +113,8 @@ export default {
     searchMovie: function () {
       const keyword = this.keyword.trim()
       if (keyword) {
-        window.location.href = `/movies/${keyword}`
+        this.$router.push({name: 'Movies', params: {keyword: keyword}})
+        // window.location.href = `/movies/${keyword}`
       } else {
         this.keyword = null
       }
@@ -197,5 +198,8 @@ export default {
 }
 .height-30 {
   height: 30px;
+}
+.inline-block {
+  display: inline-block;
 }
 </style>

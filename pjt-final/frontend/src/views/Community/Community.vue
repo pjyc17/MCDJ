@@ -1,13 +1,22 @@
 <template>
-  <div>
-    여기는 커뮤니티
-    <button v-if="$store.state.user.id !== 0" @click="goToCreate">Create</button>
+  <div class="container">
+    <div class="flex-right">
+      <button v-if="$store.state.user.id !== 0" @click="goToCreate">Create</button>
+    </div>
+    <hr>
     <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
-      <hr>
       <h2>{{review.title}}</h2>
-      <p>{{review.user.username}}</p>
-      <p>수정: {{convertDate(review.updated)}}</p>
-      <p>좋아요: {{review.likes_cnt}} / 댓글: {{review.reviews_cnt}}</p>
+      <div class="fontsize-12">
+        <span>{{review.user.username}}가 </span>
+        <span v-if="review.updated !== review.created">
+          {{convertDate(review.updated)}}에 수정함
+        </span>
+        <span v-else>
+          {{convertDate(review.created)}}에 작성함
+        </span>
+      </div>
+      <p>좋아요: {{review.likes_cnt}}개 / 댓글: {{review.reviews_cnt}}개</p>
+      <hr>
     </div>
 
   </div>
@@ -55,5 +64,12 @@ export default {
 <style scoped>
 .cursor {
   cursor: pointer;
+}
+.flex-right {
+  display: flex;
+  justify-content: right;
+}
+.fontsize-12 {
+  font-size: 12px;
 }
 </style>

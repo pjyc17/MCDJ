@@ -94,7 +94,7 @@ def movie(request, movie_id):
     chats = []
     chat_set = movie.chats.all() 
     for chat in chat_set:
-        chats.append({'created': chat.created, 'user': chat.user.username, 'content': chat.content, 'id': chat.id})
+        chats.append({'rating': chat.rating, 'created': chat.created, 'user': {'id': chat.user.id, 'username': chat.user.username}, 'content': chat.content, 'id': chat.id})
     chats.sort(key=lambda x: x['created'])
 
     return Response({**serializer.data, 'genres': genres, 'actors': actors, 'chats': chats})
@@ -134,22 +134,6 @@ def annual_movies(request, year):
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
-
-@api_view(['POST'])
-def chat(request, movie_id):
-    serializer = ChatSerializer(data=request.data)
-    if serializer.is_valid():
-        movie = get_object_or_404(Movie, pk=movie_id)
-        serializer.save(user=request.user, movie=movie)
-        return Response(serializer.data)
-
-@api_view(['delete'])
-def delete(request, chat_id):
-    chat = get_object_or_404(Chat, pk=chat_id)
-    if request.user == chat.user:
-        chat.delete()
-    return Response({'message': '삭제완료'})
-
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def genre(request, genre_id):
@@ -163,3 +147,18 @@ def actor(request, actor_id):
     movies = Movie.objects.prefetch_related('actors').filter(actors=actor_id).order_by('-popularity')
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def chat(request, movie_id):
+    serializer = ChatSerializer(data=request.data)
+    if serializer.is_valid():
+        movie = get_object_or_404(Movie, pk=movie_id)
+        serializer.save(user=request.user, movie=movie)
+        return Response({**serializer.data, 'user': {'id': request.user.id, 'username': request.user.username}})
+
+@api_view(['DELETE'])
+def delete(request, chat_id):
+    chat = get_object_or_404(Chat, pk=chat_id)
+    if request.user == chat.user:
+        chat.delete()
+    return Response({'message': '삭제완료'})

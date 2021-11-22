@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "vue-cli-plugin-markdown": "~0.1.2"
+  },
+  "dependencies": {
+    "vue-markdown-v2": "^0.1.7"
+  }
+}
