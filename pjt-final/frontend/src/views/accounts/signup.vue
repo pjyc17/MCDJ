@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h1tag">
     <h1>Signup</h1>
     <div>
       <label for="username">사용자 이름:</label>
@@ -62,5 +62,9 @@ export default {
 </script>
 
 <style>
-
+.h1tag {
+  position: relative;
+  top: 48px;
+  text-align: center;
+}
 </style>

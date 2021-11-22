@@ -92,6 +92,16 @@ export default {
 
 </script>
 <style scoped>
+/* .logo {
+  position: relative;
+  top: 100px;
+  
+}
+.timeline {
+  position: relative;
+  top: 100px;
+
+} */
 @font-face {
     font-family: 'Sucrose Bold Two';
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
@@ -105,7 +115,7 @@ export default {
   padding-top: 51.93333333%;
   background-size: cover;
   font-family: 'Sucrose Bold Two';
-} */
+}
 header img {
   position: absolute;
   top: 0;
@@ -137,5 +147,5 @@ main {
 }
 @media all and (max-width: 400px) {
   main { padding: 2rem; }
-}
+} */
 </style>

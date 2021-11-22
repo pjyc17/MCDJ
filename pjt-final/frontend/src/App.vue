@@ -6,6 +6,7 @@
       <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
     </div>
     <div class="height-30"></div>
+
     <div id="nav">
       <router-link :to="{name: 'Home'}">Home</router-link> | 
       <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
