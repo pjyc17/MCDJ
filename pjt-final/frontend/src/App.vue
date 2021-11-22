@@ -75,7 +75,12 @@ export default {
         method:'get',
         url: `${this.$store.state.domain}/accounts/user/`,
       })
-        .then(res => this.$store.commit('GET_USER', res.data))
+        .then(res => {
+          this.$store.commit('GET_USER', {id: res.data.id, username: res.data.username,})
+          if (res.data.birthday) {
+            this.$store.commit('GET_BIRTHDAY', {year: parseInt(res.data.birthday.birthday.substring(0,4)), month: parseInt(res.data.birthday.birthday.substring(5,7)), date: parseInt(res.data.birthday.birthday.substring(8,10)),})
+          }
+        })
         .catch(() => {
           alert("로그아웃 되었습니다.")
           this.logout()

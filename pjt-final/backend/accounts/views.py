@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
+from .models import Birthday
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import ProfileSerializer, UserSerializer, UserBaseSerializer
+from .serializers import ProfileSerializer, UserSerializer, UserBaseSerializer, BirthdaySerializer
 
 
 @api_view(['POST'])
@@ -31,21 +32,17 @@ def user(request):
 @permission_classes([AllowAny])
 def profile(request, user_id):
     person = get_object_or_404(get_user_model(), pk=user_id)
-    print(person)
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    print('########')
-    serializer = ProfileSerializer(data=person)
-    print('########')
-    print(serializer.data)
+    serializer = ProfileSerializer(person)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def birthday(request):
+    if Birthday.objects.filter(user=request.user).exists():
+        birthday = get_object_or_404(Birthday, user=request.user)
+        birthday.delete()
+    serializer = BirthdaySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
     return Response(serializer.data)
 
 # def follow(request, user_pk):
