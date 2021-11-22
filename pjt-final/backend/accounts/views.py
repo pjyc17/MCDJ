@@ -33,8 +33,6 @@ def user(request):
 def profile(request, user_id):
     person = get_object_or_404(get_user_model(), pk=user_id)
     serializer = ProfileSerializer(person)
-<<<<<<< HEAD
-=======
     return Response(serializer.data)
 
 @api_view(['PUT'])
@@ -45,7 +43,6 @@ def birthday(request):
     serializer = BirthdaySerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(user=request.user)
->>>>>>> c5bd83846aaadb120a8c2e53875190c9ca91fa62
     return Response(serializer.data)
 
 # def follow(request, user_pk):
