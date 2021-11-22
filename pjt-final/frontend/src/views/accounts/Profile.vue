@@ -32,15 +32,23 @@
       <h3 v-if="($store.state.user.birthday.month == 11 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 12 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
       <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
       <h3>likes article : {{  }}</h3>
-      <h3>written review : {{  }}</h3>
+      <h3 v-if="review.user.id === $store.state.user.id">written review : {{ review.title }}</h3>
       <!-- <img height="30" v-if="($store.state.user.birthday.month == 3 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 4 && $store.state.user.birthday.date <= 19)" src="@/assets/양자리.png" alt=""> -->
     </header>
   </div>
 </template>
 <script>
+// import axios from 'axios'
+// import Profile from '@/accounts/Profile.vue'
 
 export default {
-  name: 'profile'
+  name: 'profile',
+  // data: function() {
+  //   return {
+  //     review: null,
+  //     isLiked: false,
+  //   }
+  // },
 }
 </script>
 
