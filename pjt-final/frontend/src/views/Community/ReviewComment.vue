@@ -1,12 +1,18 @@
 <template>
-  <div>
-    <div v-if="$store.state.user.id !== 0">
+  <div class="flex-col">
+    <div v-if="$store.state.user.id !== 0" class="comment-input-box">
       <!-- <label for="comment">댓글</label> -->
-      <input v-model="comment" type="text"><button @click="createComment">입력</button>
+      <textarea v-model="comment" type="text" rows="2" style="width:100%;" />
+      <button @click="createComment">입력</button>
     </div>
-    <div v-for="comment in comments" :key="comment.id">
-      {{comment.content}} - {{comment.user.username}} <br> {{convertDate(comment.created)}} <br>
-      <button @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</button>
+    <div v-for="comment in comments" :key="comment.id" class="comment-box">
+      <div>
+        {{comment.content}}{{'\u00a0'}}{{'\u00a0'}}
+        <div class="delete-comment" @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</div>
+      </div>
+      <div class="fontsize-12">
+        {{comment.user.username}}가 {{convertDate(comment.created)}}에 작성함
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +76,39 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.flex-col {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-items: stretch;
+  align-items: center;
+}
+.comment-input-box {
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+}
+.comment-box {
+  width: 100%;
+  border-radius: 2px;
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #949597;
+  background-color: #35363a;
+}
+.fontsize-12 {
+  font-size: 12px;
+}
+.delete-comment {
+  font-size: 10px;
+  color: #949597;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0 3px;
+  border-radius: 2px;
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #949597;
+}
 </style>

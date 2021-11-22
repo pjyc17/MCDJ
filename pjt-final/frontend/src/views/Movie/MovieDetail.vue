@@ -24,12 +24,11 @@
         </div>
       </div>
       <div class="col-12 col-md-4">
-        <div class="star-cat-box">
-          <star-rating v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
-          <i class="fas fa-comment-dots chat-btn inline-block"></i>
+        <div class="right-box">
+          <i @click="showChats" class="fas fa-comment-dots chat-btn inline-block"></i>
         </div>
         <div class="text-box">
-          <p class="overview">{{movie.overview}}</p>
+          <div class="overview">{{movie.overview}}</div>
         </div>
       </div>
     </div>
@@ -42,6 +41,39 @@
           <div class="card-body">
             <p class="card-title reduce-content">{{movie.title}}</p>
           </div>
+        </div>
+      </div>
+    </div>
+    <div @mouseleave="notShown" class="chats col-11 col-sm-7 col-md-6 col-lg-5 col-xl-4" :class="{'hidden-chat': !isShown}">
+      <div id="chat-box-content" class="chat-content">
+        <div v-for="chat in chats" :key="chat.id">
+          <div v-if="chat.user.id === $store.state.user.id" class="flex-right">
+            <div class="inline-block">
+              <div class="chat-box-content">
+                {{chat.content}}<br>
+                <star-rating :inline="true" :rating="chat.rating" :read-only="true" :star-size="10" :rounded-corners="true" :show-rating="false" />
+              </div>
+              <div class="small-font">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
+            </div>
+            <div class="chat-box-user">{{chat.user.username}}</div>
+          </div>
+          <div v-else class="flex-left">
+            <div class="chat-box-user">{{chat.user.username}}</div>
+            <div class="inline-block">
+              <div class="chat-box-content">
+                {{chat.content}}<br>
+                <star-rating :inline="true" :rating="chat.rating" :read-only="true" :star-size="10" :rounded-corners="true" :show-rating="false" />
+              </div>
+              <div class="small-font">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="$store.state.user.id !== 0" class="chat-input">
+        <star-rating :inline="true" v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
+        <div class="chat-input-box">
+          <textarea v-model="chat" style="width:70%;" rows="2" />
+          <button @click="writeChat">작성</button>
         </div>
       </div>
     </div>
@@ -61,16 +93,25 @@ export default {
     return {
       movie: null,
       similarMovies: [],
-      rating: 0
+      chats: [],
+      isShown: false,
+      rating: 3,
+      chat: '',
     }
   },
   methods: {
+    notFound: function() {
+      this.$router.push({name: 'NotFound'})
+    },
+    setToken: function() {
+      return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
+    },
     getMovie: function() {
       axios({
         method: 'get',
         url: `${this.$store.state.domain}/movies/${this.$route.params.movieId}/`,
       })
-        .then(res => this.movie = res.data)
+        .then(res => {this.movie = res.data; this.chats.push(...this.movie.chats)})
         .then(() => {
           axios({
             method: 'get',
@@ -100,23 +141,85 @@ export default {
         method: 'get',
         url: `${this.$store.state.domain}/movies/genre/${genre_id}/`,
       })
-        .then((res) => this.similarMovies = res.data.slice(0, 5))
+        .then((res) => {
+          this.similarMovies = []
+          for (let similarMovie of res.data) {
+            if (similarMovie.id !== this.movie.id) {
+              this.similarMovies.push(similarMovie)
+            }
+            if (this.similarMovies.length === 6) {
+              break
+            }
+          }
+          // this.similarMovies = res.data.slice(0, 5)
+        })
     },
     actorMovies: function(actor_id) {
       axios({
         method: 'get',
         url: `${this.$store.state.domain}/movies/actor/${actor_id}/`,
       })
-        .then((res) => this.similarMovies = res.data.slice(0, 5))
+        .then((res) => {
+          this.similarMovies = []
+          for (let similarMovie of res.data) {
+            if (similarMovie.id !== this.movie.id) {
+              this.similarMovies.push(similarMovie)
+            }
+            if (this.similarMovies.length === 6) {
+              break
+            }
+          }
+          // this.similarMovies = res.data.slice(0, 5)
+        })
     },
     goToMovieDetail: function(movieId) {
       this.$router.push({name: 'MovieDetail', params: {movieId: movieId}})
       this.getMovie()
-    }
+    },
+    showChats: function() {this.isShown = !this.isShown},
+    notShown: function() {this.isShown = false},
+    writeChat: function() {
+      const chat = this.chat.trim()
+      if (chat) {
+        axios({
+          headers: this.setToken(),
+          method: 'post',
+          url: `${this.$store.state.domain}/movies/${this.$route.params.movieId}/chat/`,
+          data: {
+            content: chat,
+            rating: this.rating,
+          },
+        })
+          .then((res) => this.chats.push(res.data))
+      } else {alert("빈칸이 있어요!")}
+      this.chat = ''
+    },
+    deleteChat: function(deletedChat) {
+      if (deletedChat.user.id === this.$store.state.user.id) {
+        axios({
+          headers: this.setToken(),
+          method: 'delete',
+          url: `${this.$store.state.domain}/movies/delete/${deletedChat.id}/`,
+        })
+          .then(() => {
+            this.chats.splice(this.chats.indexOf(deletedChat), 1)
+          })
+          .catch(() => this.$router.push({name: 'NotFound'}))
+      }
+    },
+    convertDate: function(responseDate) {
+      let dateComponents = responseDate.split('T');
+      let date = dateComponents[0].split("-");
+      let time = dateComponents[1].substring(0,8).split(":");
+      return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
+    },
   },
   created() {
     this.getMovie()
   },
+  updated() {
+    window.document.getElementById('chat-box-content').scrollTop = window.document.getElementById('chat-box-content').scrollHeight;
+  }
 }
 </script>
 
@@ -136,9 +239,9 @@ export default {
 .item {
   display: inline-block;
 }
-.star-cat-box {
+.right-box {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
 }
 .inline-block {
   display: inline-block;
@@ -177,12 +280,12 @@ export default {
 }
 .overview {
   height: calc(100vw / 3);
-  overflow: hidden;
+  overflow: auto;
   text-overflow:ellipsis;
   /* display: -webkit-box; */
   /* -webkit-line-clamp: 10;
   -webkit-box-orient: vertical; */
-  border-radius: 4px;
+  border-radius: 0px;
   border-style: solid; 
   border-width: 2px; 
   padding: 12px; 
@@ -193,6 +296,8 @@ export default {
 }
 .overview:hover {
   background-color: black;
+  border-color: white;
+  opacity: 100%;
 }
 .click {
   cursor: pointer;
@@ -235,5 +340,84 @@ export default {
   top: 0;
   height: 100%;
   width: 100%;
+}
+.chats {
+  position: fixed;
+  background-color: royalblue;
+  /* margin: 3rem; */
+  top: 5.4rem;
+  right: 1rem;
+  height: 60%;
+  /* width: calc((100% - 6rem) / 3); */
+  transform: translate(-0%, -0%);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-style: solid; 
+  border-width: 2px; 
+  border-color: #141414; 
+}
+.hidden-chat {
+  visibility: hidden;
+}
+.chat-content {
+  overflow: auto;
+  height: 80%;
+}
+.chat-box {
+  display: inline-block;
+}
+.flex-right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.flex-left {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.chat-box-user {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  border-radius: 16px;
+  border-style: solid; 
+  border-width: 2px; 
+  word-break: break-all;
+  border-color: LightGray; 
+  background-color:#141414;
+}
+.chat-box-content {
+  text-align: left;
+  color: black;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  border-radius: 4px;
+  border-style: solid; 
+  border-width: 1px; 
+  word-break: break-all;
+  border-color: #141414;
+  background-color: LightGray;
+}
+.small-font {
+  font-size: 10px;
+}
+.delete-chat {
+  color: black;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 2px;
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: black;
+}
+.chat-input {
+  height: 20%;
+}
+.chat-input-box {
+  display: flex;
+  justify-content: center;
 }
 </style>

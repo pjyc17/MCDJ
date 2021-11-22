@@ -78,6 +78,7 @@ class ActorSerializer(serializers.ModelSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Chat
-        fields = ('id', 'content',)
+        fields = ('id', 'content', 'rating', 'created',)

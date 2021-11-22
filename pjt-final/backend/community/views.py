@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .serializers import ReviewSerializer, CommentSerializer, ReviewListSerializer
 from .models import Review, Comment
-
+from django.db.models import Count
 
 @api_view(['POST'])
 def review_create(request):
@@ -18,7 +18,7 @@ def review_create(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def all(request):
-    reviews = Review.objects.all().order_by('-created')
+    reviews = Review.objects.annotate(likes=Count('like_users')).all().order_by('-likes', '-updated')
     if reviews:
         serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
