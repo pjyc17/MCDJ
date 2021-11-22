@@ -1,13 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from .models import Birthday
 
-from .models import Age# , Profile
 
 class UserBaseSerializer(serializers.ModelSerializer):
-    
+    class UserBirthday(serializers.ModelSerializer):
+        class Meta:
+            model = Birthday
+            fields = ('id', 'birthday',)
+    birthday = UserBirthday('birthday', read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username',)
+        fields = ('id', 'username', 'birthday',)
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -16,17 +20,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ('username', 'password',)
 
-class AgeSerializer(serializers.ModelSerializer):
-    class human(serializers.ModelSerializer):
-        class Meta:
-            model = get_user_model()
-            fields = ('id',)
-
-    user = human(write_only=True)
+class BirthdaySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Age
-        fields = ('id', 'user', 'age',)
+        model = Birthday
+        fields = ('id', 'birthday',)
 
 class ProfileSerializer(serializers.ModelSerializer):
     # class User(serializers.ModelSerializer):

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 
 const domain = process.env.VUE_APP_BACKEND_DOMAIN
@@ -27,6 +27,7 @@ export default new Vuex.Store({
       username: '',
       // birthday: {...todayYMD,},
     },
+    today: {...todayYMD,},
     user: {
       id: 0,
       username: '',
@@ -43,5 +44,4 @@ export default new Vuex.Store({
   },
   modules: {
   },
-  plugins: [createPersistedState()],
 })
