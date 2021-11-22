@@ -11,6 +11,23 @@
           <p>From this point Cyrus pursued his march, through Syria a single stage—five parasangs—to Myriandus, a city inhabited by Phoenicians, on the sea-coast. This was a commercial port, and numerous merchant vessels were riding at anchor in the harbour. Here they halted seven days, and here Xenias the Arcadian general, and Pasion the Megarian got on board a trader, and having stowed away their most valuable effects, set sail for home; most people explained the act as the outcome of a fit of jealousy, because Cyrus had allowed Clearchus to retain their men, who had deserted to him, in hopes of returning to Hellas instead of marching against the king; when the two had so vanished, a rumour spread that Cyrus was after them with some ships of war, and some hoped the cowards might be caught, others pitied them, if that should be their fate.</p>
         </main> -->
     <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png">
+<<<<<<< HEAD
+    <div>
+      <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
+      <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
+      <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
+      <button @click="getBirthday">
+        입력
+      </button>
+    </div>
+    <div>
+      <div class="mt-3"> 
+        <strong v-if="y_selected">{{ y_selected[0] }}년 </strong> 
+        <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
+        <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
+        <br>
+        <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
+=======
     <div v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
@@ -26,6 +43,7 @@
           <br>
           <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
         </div>
+>>>>>>> c5bd83846aaadb120a8c2e53875190c9ca91fa62
       </div>
     </div>
   </div>
