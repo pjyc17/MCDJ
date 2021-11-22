@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Chronology</h1>
+    <!-- <h1>Chronology</h1> -->
     <div class="flex">
       <each-year 
         v-for="(eachYear, idx) in years" :key="idx"
@@ -29,7 +29,11 @@ export default {
       method: 'get',
       url: `${this.$store.state.domain}/movies/annually_poster/`,
     })
-      .then(res => this.years = res.data.chronology_poster)
+      .then(res => {
+        while (res.data.chronology_poster.length) {
+          this.years.push(...res.data.chronology_poster.splice(res.data.chronology_poster.length - 1, 1))
+        }
+      })
   }
 }
 </script>

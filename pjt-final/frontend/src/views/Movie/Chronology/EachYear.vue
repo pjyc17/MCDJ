@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     goToYear: function() {
-      this.$router.push({name: 'YearMovies', params: {year: this.eachYear.year}})
+      this.$router.push({name: 'Year', params: {year: this.eachYear.year}})
     }
   }
 }

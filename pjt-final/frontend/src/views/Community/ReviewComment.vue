@@ -3,11 +3,11 @@
     <div v-if="$store.state.user.id !== 0" class="comment-input-box">
       <!-- <label for="comment">댓글</label> -->
       <textarea v-model="comment" type="text" rows="2" style="width:100%;" />
-      <button @click="createComment">입력</button>
+      <button @click="createComment" style="width: 4rem;" >입력</button>
     </div>
     <div v-for="comment in comments" :key="comment.id" class="comment-box">
-      <div>
-        {{comment.content}}{{'\u00a0'}}{{'\u00a0'}}
+      <div class="flex-align-ceter">
+        <pre class="comment-block">{{comment.content}}</pre>{{'\u00a0'}}{{'\u00a0'}}
         <div class="delete-comment" @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</div>
       </div>
       <div class="fontsize-12">
@@ -97,6 +97,10 @@ export default {
   border-color: #949597;
   background-color: #35363a;
 }
+.comment-block {
+  display: inline-block;
+  margin: 0;
+}
 .fontsize-12 {
   font-size: 12px;
 }
@@ -110,5 +114,9 @@ export default {
   border-style: solid; 
   border-width: 1px; 
   border-color: #949597;
+}
+.flex-align-ceter {
+  display: flex;
+  align-items: center;
 }
 </style>

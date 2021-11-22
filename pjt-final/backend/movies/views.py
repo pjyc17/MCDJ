@@ -124,7 +124,7 @@ def annually_poster(request):
         item['year'] = year
         poster_paths.append(item)
         year -= 1
-    poster_paths.sort(key=lambda x: -x['year'])
+    poster_paths.sort(key=lambda x: x['year'])
     return Response({'chronology_poster': poster_paths})
 
 @api_view(['GET'])

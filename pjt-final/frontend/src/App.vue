@@ -9,9 +9,9 @@
 
     <div id="nav">
       <router-link :to="{name: 'Home'}">Home</router-link> | 
+      <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
       <router-link :to="{name: 'Community'}">Community</router-link> | 
       <span v-if="isLogin">
-        <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
         <router-link :to="{name: 'Profile'}">Profile</router-link> | 
         <router-link @click.native="logout" to="">Logout</router-link>
       </span>
@@ -137,12 +137,6 @@ export default {
     })
       .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
   },
-  updated() {
-      if (localStorage.getItem('MCDJ_jwt')) {
-        this.isLogin = true
-        this.getUser()
-      }
-    }
 }
 </script>
 

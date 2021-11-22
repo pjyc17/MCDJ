@@ -5,7 +5,7 @@ import Movies from '@/views/Movie/Movies.vue'
 import MovieDetail from '@/views/Movie/MovieDetail.vue'
 import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import ChronologyYear from '@/views/Movie/Chronology/ChronologyYear.vue'
-import YearMovies from '@/views/Movie/Chronology/YearMovies.vue'
+import Year from '@/views/Movie/Chronology/Year.vue'
 import Community from '@/views/Community/Community.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
 import Review from '@/views/Community/Review.vue'
@@ -42,9 +42,9 @@ const routes = [
     component: ChronologyYear
   },
   {
-    path: '/movies/:year',
-    name: 'YearMovies',
-    component: YearMovies
+    path: '/year/:year',
+    name: 'Year',
+    component: Year
   },
   {
     path: '/community',
