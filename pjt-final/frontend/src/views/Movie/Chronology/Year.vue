@@ -15,7 +15,7 @@ import axios from 'axios'
 import Movie from '@/views/Movie/Movie.vue'
 
 export default {
-  name: 'YearMovies',
+  name: 'Year',
   components: {
     Movie,
   },
@@ -43,11 +43,13 @@ export default {
         this.movies = res.data
         this.shownMovies.push(...this.movies.splice(0, this.cnt))
       })
-      window.addEventListener('scroll', this.listenScroll);
+    window.addEventListener('scroll', this.listenScroll);
   },
   destroyed() {
     window.removeEventListener('scroll', this.listenScroll);
   },
+  updated() {
+  }
 }
 </script>
 

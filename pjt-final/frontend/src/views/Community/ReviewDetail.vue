@@ -8,7 +8,7 @@
       <span v-else>{{convertDate(review.updated)}}에 수정함 <br>({{convertDate(review.created)}}에 작성됨)</span>
     </div>
     <br>
-    <div>{{review.content}}</div>
+    <div><pre>{{review.content}}</pre></div>
     <br>
     <div class="text-center">
       <i class="fas fa-thumbs-up" @click="likeReview"
