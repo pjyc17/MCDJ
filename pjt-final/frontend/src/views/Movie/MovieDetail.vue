@@ -76,6 +76,12 @@
           <button @click="writeChat">작성</button>
         </div>
       </div>
+      <div v-else class="chat-input">
+        <div class="chat-input-box">
+          <textarea disabled style="width:70%;" rows="2">로그인 후 이용해주세요.</textarea>
+          <button class="cursor-disabled">작성</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -419,5 +425,8 @@ export default {
 .chat-input-box {
   display: flex;
   justify-content: center;
+}
+.cursor-disabled {
+  cursor: default;
 }
 </style>

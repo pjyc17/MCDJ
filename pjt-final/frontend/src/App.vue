@@ -136,12 +136,6 @@ export default {
     })
       .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
   },
-  updated() {
-      if (localStorage.getItem('MCDJ_jwt')) {
-        this.isLogin = true
-        this.getUser()
-      }
-    }
 }
 </script>
 
