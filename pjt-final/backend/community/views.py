@@ -77,3 +77,17 @@ def like(request, review_id):
             review.like_users.add(request.user)
             isLiked = True
     return Response({'isLiked': isLiked, 'likes_cnt': review.like_users.count()})
+
+@api_view(['GET',])
+@permission_classes([AllowAny])
+def review(request, user_id):
+    reviews = Review.objects.prefetch_related('user').filter(user_id=user_id).order_by('-created')
+    serializer = ReviewListSerializer(reviews, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+@permission_classes([AllowAny])
+def liked_review(request, user_id):
+    reviews = Review.objects.prefetch_related('like_users').filter(like_users__id=user_id).order_by('-created')
+    serializer = ReviewListSerializer(reviews, many=True)
+    return Response(serializer.data)

@@ -164,7 +164,7 @@ export default {
     }
     axios({
       method: 'get',
-      url: `${this.$store.state.domain}/movies/all/`
+      url: `${this.$store.state.domain}/movies/recommend/all/`
     })
       .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
     axios({

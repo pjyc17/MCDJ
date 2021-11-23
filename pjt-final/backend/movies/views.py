@@ -306,3 +306,70 @@ def recom_by_year(request, year):
             .filter(release_date__year=year).order_by('-recommend', '-popularity')
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recom_genres(request, birthday, user_id):
+    data = []
+    genre_dict = dict()
+    genres = Genre.objects.all()
+    i = 0
+    for genre in genres:
+        genre_dict[genre.id] = i
+        data.append({'id': genre.id, 'name': genre.name, 'point': 0})
+        i += 1
+    if user_id:
+        movies = Movie.objects.prefetch_related('logs').filter(logs__user_id=user_id)
+    else:
+        movies = Movie.objects.prefetch_related('logs').filter(logs__id__gt=0)
+    for movie in movies:
+        for genre in movie.genres.all():
+            data[genre_dict[genre.id]]['point'] += 1
+    md = int(birthday)
+    if 120 <= md <= 131 or 201 <= md <= 218:
+        for genre_id in [28, 36, 37, 99, 9648, 10749, 10752]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 219 <= md <= 229 or 301 <= md <= 320:
+        for genre_id in [16, 18, 10402, 10751, 10770]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 321 <= md <= 331 or 401 <= md <= 419:
+        for genre_id in [12, 14,  27, 28, 35, 37, 53, 80, 878, 10752]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 420 <= md <= 430 or 501 <= md <= 520:
+        for genre_id in [18, 36, 99, 9648, 10402, 10751]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 521 <= md <= 531 or 601 <= md <= 621:
+        for genre_id in [12, 14, 16,   37, 10749, 10752, 10770]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 622 <= md <= 630 or 701 <= md <= 722:
+        for genre_id in [28, 35, 27, 53, 878]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 723 <= md <= 731 or 801 <= md <= 822:
+        for genre_id in [12, 18, 27, 35, 53, 80, 878, 10749]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 823 <= md <= 831 or 901 <= md <= 923:
+        for genre_id in [16, 10402, 10749, 10751, 10770]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 924 <= md <= 930 or 1001 <= md <= 1022:
+        for genre_id in [12, 14, 27, 28, 35, 37, 53, 80, 878, 10752]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 1023 <= md <= 1031 or 1101 <= md <= 1122:
+        for genre_id in [18, 36, 99, 9648, 10402, 10751]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 1123 <= md <= 1130 or 1201 <= md <= 1224:
+        for genre_id in [16 , 37, 10749, 10752, 10770]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    elif 1225 <= md <= 1231 or 101 <= md <= 119:
+        for genre_id in [18, 27, 28, 35, 53, 80, 878]:
+            data[genre_dict[genre_id]]['point'] *= 1.25
+    data.sort(key=lambda x: x['point'], reverse=True)
+    return Response({'genres': data})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def user_cart(request, user_id):
+    movies = Movie.objects.prefetch_related('carts').filter(carts__user_id=user_id).order_by('-pk')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
