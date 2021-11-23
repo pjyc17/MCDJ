@@ -3,7 +3,7 @@
     <br>
     <div @mouseover="startCarousel" @click="goToChronology" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <!-- <carousel class="width-100" :value="10" :perPageCustom="[[320, 2], [480, 3], [640, 4], [800, 5], [960, 6], [1120, 7]]" > -->
-    <carousel @mouseover="startCarousel" id="carousel" class="width-100" v-model="index" :perPage="1" :paginationSize="0" :loop="true">
+    <carousel @mouseover="startCarousel" id="carousel" class="width-10rem" v-model="index" :perPage="1" :paginationSize="0" :loop="true">
       <slide v-for="idx of idxes" :key="idx" class="slide_item item" aria-hidden="true">
         <div @click="goToYear(years[idx].year)" class="movie-card">
           <div class="card h-100">
@@ -129,7 +129,7 @@ export default {
   padding: 10rem !important;
 }
 /* style="padding: 0 100vw 0 0;" */
-.width-100 {
+.width-10rem {
   width: 10rem;
 }
 .item {

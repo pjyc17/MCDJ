@@ -99,7 +99,6 @@ export default {
       url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
     })
       .then(res => {
-        console.log(this.$route)
         this.review = res.data
         if (this.$store.state.user.id !== 0) {
           axios({

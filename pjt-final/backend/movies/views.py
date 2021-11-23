@@ -3,12 +3,18 @@ from datetime import datetime
 from random import choice
 from django.shortcuts import redirect, get_object_or_404, get_list_or_404
 from django.http.response import JsonResponse
+from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer, GenreListSerializer
-from .models import Chat, Genre, Movie, Actor
-from django.db.models import Prefetch, Count, Q
+from rest_framework.serializers import Serializer
+from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer, GenreListSerializer, LogSerializer, CartSerializer
+from .models import Chat, Genre, Movie, Actor, Cart, Log
+from django.db.models import Prefetch, Count, Avg, Q, F
+from django.db.models.functions import Coalesce
+from django.db.models import FloatField
+from django.db.models.functions import Cast
+from django.contrib.auth import get_user_model
 
 TMDB_URL = 'https://api.themoviedb.org/3'
 API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
@@ -119,9 +125,10 @@ def search(request, keyword):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search_by_genre(request, genre_id, keyword):
-    movies = Movie.objects.prefetch_related(Prefetch('genres', queryset=Genre.objects.filter(pk=genre_id))).annotate(genres_cnt=Count('genres')).filter(~Q(genres_cnt=0), title__contains=keyword).order_by('-popularity')
-    for movie in movies:
-        print(movie.genres_cnt)
+    # movies = Movie.objects.prefetch_related(Prefetch('genres', queryset=Genre.objects.filter(pk=genre_id))).annotate(genres_cnt=Count('genres')).filter(~Q(genres_cnt=0), title__contains=keyword).order_by('-popularity')
+    #########################################################################################################
+    movies = Movie.objects.filter(genres__id=genre_id, title__contains=keyword).order_by('-popularity')######
+    #########################################################################################################
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -179,3 +186,123 @@ def delete(request, chat_id):
     if request.user == chat.user:
         chat.delete()
     return Response({'message': '삭제완료'})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def log(request, movie_id):
+    serializer = LogSerializer(data=request.data)
+    if serializer.is_valid():
+        isCart = False ###cart때문에 넣음
+        movie = get_object_or_404(Movie, pk=movie_id)
+        if request.user.pk:
+            if request.user.carts.filter(movie__pk=movie_id).exists():
+                isCart = True ###cart때문에 넣음
+            serializer.save(user=request.user, movie=movie)
+        else:
+            serializer.save(movie=movie)
+        return Response({'isCart': isCart}) ###cart때문에 넣음
+    # if request.user.pk == None:
+    #     if not get_user_model().objects.filter(pk=0).exists():
+    #         get_user_model().objects.create(pk=0, username="")
+    #     user = get_object_or_404(get_user_model(), pk=0)
+    # else:
+    #     user = request.user
+    #     if user.carts.filter(movie__pk=movie_id).exists():
+    #         isCart = True ###cart때문에 넣음
+
+
+@api_view(['PUT'])
+def cart(request, movie_id):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=movie_id)
+    if user.carts.filter(movie__pk=movie_id).exists():
+        cart = user.carts.get(movie=movie_id)
+        cart.delete()
+        return Response({'isCart': False})
+    else:
+        serializer = CartSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, movie=movie)
+            return Response({'isCart': True})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recom_all(request):
+    if request.user.pk:
+        movies = Movie.objects\
+            .annotate(recommend = (Cast(Count('logs', filter=Q(logs__user_id=request.user.pk), distinct=True), FloatField()) * Coalesce(Avg('chats__rating', filter=Q(logs__user_id=request.user.pk)), 3.0)) * 5 + (Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0)) * 3)\
+            .order_by('-recommend', '-popularity')
+    else:
+        movies = Movie.objects\
+            .annotate(recommend = Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0))\
+            .order_by('-recommend', '-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+    # logcnt = Log.objects.count()
+    # movies = Movie.objects\
+    #     .annotate(rec1=Count('logs'))\
+    #     .annotate(log_per = Cast(Count('logs'), FloatField()) * 100 / logcnt)
+    # movies = movies.annotate(recommend = Cast('log_per' * Coalesce(Avg('chats__rating'), 3.0), FloatField())).order_by('-recommend', '-popularity')
+    # movies = Movie.objects.annotate(log_per= Cast(Count('logs'), FloatField()), avg_rate=Coalesce(Avg('chats__rating'), 3.0))
+    # movies = movies.annotate(recommend=F('log_per') * F('avg_rate')).order_by('-recommend', '-popularity')
+    # i = 0
+    # print(movies)
+    # for movie in movies:
+    #     print(movie.logs.count())
+    #     print(movie.id, movie.recommend)
+    #     i += 1
+    #     if i == 10: break
+    # print(str(Movie.objects\
+    #     .annotate(rec0=Count('logs')).query))
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recom_every_genres(request):
+    genres = []
+    genre_set = Genre.objects.all()
+    for genre in genre_set:
+        if request.user.pk:
+            movies = Movie.objects\
+                .annotate(recommend = (Cast(Count('logs', filter=Q(logs__user_id=request.user.pk), distinct=True), FloatField()) * Coalesce(Avg('chats__rating', filter=Q(logs__user_id=request.user.pk)), 3.0)) * 5 + (Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0)) * 3)\
+                .filter(genres__id=genre.id).order_by('-recommend', '-popularity')
+        else:
+            movies = Movie.objects\
+                .annotate(recommend = Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0))\
+                .filter(genres__id=genre.id).order_by('-recommend', '-popularity')
+        serializer = MovieListSerializer(movies, many=True)
+        genres.append({'id': genre.id, 'name': genre.name, 'movies': serializer.data})
+    return Response({'genres': genres})
+    # if request.user.pk:
+    #     movies = Movie.objects\
+    #         .annotate(recommend = (Cast(Count('logs', filter=Q(logs__user_id=request.user.pk), distinct=True), FloatField()) * Coalesce(Avg('chats__rating', filter=Q(logs__user_id=request.user.pk)), 3.0)) * 5 + (Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0)) * 3)\
+    #         .order_by('-recommend', '-popularity')
+    # else:
+    #     movies = Movie.objects\
+    #         .annotate(recommend = Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0))\
+    #         .order_by('-recommend', '-popularity')
+    # serializer = []
+    # genre_dict = dict()
+    # genres = Genre.objects.all()
+    # i = 0
+    # for genre in genres:
+    #     genre_dict[genre.id] = i
+    #     serializer.append({'id': genre.id, 'name': genre.name, 'movies': []})
+    #     i += 1
+    # for movie in movies:
+    #     for genre in movie.genres.all():
+    #         serializer[genre_dict[genre.id]]['movies'].append({'id': movie.id, 'title': movie.title, 'poster_path': movie.poster_path})
+    # return Response({'genres': serializer})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recom_by_year(request, year):
+    if request.user.pk:
+        movies = Movie.objects\
+            .annotate(recommend = (Cast(Count('logs', filter=Q(logs__user_id=request.user.pk), distinct=True), FloatField()) * Coalesce(Avg('chats__rating', filter=Q(logs__user_id=request.user.pk)), 3.0)) * 5 + (Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0)) * 3)\
+            .filter(release_date__year=year).order_by('-recommend', '-popularity')
+    else:
+        movies = Movie.objects\
+            .annotate(recommend = Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0))\
+            .filter(release_date__year=year).order_by('-recommend', '-popularity')
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, Genre, Actor, Chat
+from .models import Movie, Genre, Actor, Chat, Cart, Log
 
 
 class GenreListSerializer(serializers.ModelSerializer):
@@ -88,3 +88,16 @@ class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = ('id', 'content', 'rating', 'created',)
+
+
+class LogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Log
+        fields = ('id',)
+
+class CartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cart
+        fields = ('id',)

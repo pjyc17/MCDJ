@@ -25,6 +25,7 @@
     </div>
     <router-view/>
 
+    <!-- 새로고침 방지용 -->
 
     <!-- Login 모달 -->
     <b-modal id="loginModal" hide-footer>
@@ -124,8 +125,33 @@ export default {
     searchMovie: function () {
       const keyword = this.keyword.trim()
       if (keyword) {
-        this.$router.push({name: 'Movies', params: {genreId: this.selected, keyword: keyword}})
-        // window.location.href = `/movies/${keyword}`
+        if (this.$route.name !== 'Movies') {
+          this.$router.push({name: 'Movies', params: {genreId: this.selected, keyword: keyword}})
+        }
+        if (this.selected === '*') {
+          axios({
+            method: 'get',
+            url: `${this.$store.state.domain}/movies/search/${keyword}/`,
+          })
+            .then(res => {
+              window.scrollTo(0, 0)
+              this.$store.commit('RESET_SHOWNMOVIES')
+              this.$store.commit('SEARCH_MOVIES', res.data)
+              this.$store.commit('SPLICE_SEARCH_MOVIES')
+            })
+        } else {
+          axios({
+            method: 'get',
+            url: `${this.$store.state.domain}/movies/${this.selected}/search/${this.keyword}/`,
+          })
+            .then(res => {
+              window.scrollTo(0, 0)
+              this.$store.commit('RESET_SHOWNMOVIES')
+              this.$store.commit('SEARCH_MOVIES', res.data)
+              this.$store.commit('SPLICE_SEARCH_MOVIES')
+            })
+        }
+        // window.location.href = `/movies/${this.selected}/${keyword}`
       } else {
         this.keyword = null
       }
@@ -146,6 +172,12 @@ export default {
       url: `${this.$store.state.domain}/movies/genres/all/`
     })
       .then(res => this.$store.commit('GET_ALL_GENRES', res.data))
+  },
+  updated() {
+    if (localStorage.getItem('MCDJ_jwt')) {
+      this.isLogin = true
+      this.getUser()
+    }
   },
 }
 </script>
@@ -204,6 +236,7 @@ export default {
   display: flex;
   justify-content: center;
   position: fixed;
+  z-index: 1000;
   padding: 0.5rem;
   top: 0;
   left: 50%;
