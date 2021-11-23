@@ -40,7 +40,7 @@ class Chat(models.Model):
 
 
 class Log(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logs')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logs', null=True)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='logs')
 
 

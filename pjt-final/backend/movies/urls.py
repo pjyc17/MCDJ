@@ -16,4 +16,7 @@ urlpatterns = [
     path('actor/<int:actor_id>/', views.actor),
     path('log/<movie_id>/', views.log),
     path('cart/<movie_id>/', views.cart),
+    path('recommend/all/', views.recom_all),
+    path('recommend/every_genre/', views.recom_every_genres),
+    path('recommend/<int:year>/', views.recom_by_year),
 ]
