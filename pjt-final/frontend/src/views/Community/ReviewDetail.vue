@@ -96,7 +96,8 @@ export default {
   created() {
     axios({
       method: 'get',
-      url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`
+      url: `${this.$store.state.domain}/community/${this.$route.params.reviewId}/`,
+      // console.log(`${this.$route.params.reviewId}`)
     })
       .then(res => {
         this.review = res.data

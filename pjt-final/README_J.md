@@ -503,3 +503,24 @@ profile.vue
 - 팔로윙 기능 작성
 - 태그들 이용해 이동할 url 작성해주기
 - 비로그인 사용자의 경우도 부분적 profile 허용?! -> 페어와 얘기 해보기
+
+# 11.23
+
+### 온종일 프로필 페이지 작성
+
+<video src="README_J.assets/녹화_2021_11_24_05_25_52_141.mp4"></video>
+
+프로필 페이지의 반복된 작업을 통해 영화 엔딩 크레딧 화면과 같이 꾸며보고자 작성
+
+- css animation 효과
+- profile 유저의 변경해야 할 점 
+  - -> $store.state.user.username -> $route.params.userId
+  - components 만들면서 router(profileEmit) 이동 버튼을 변경
+  - <profile-emit/> 에 bind 되지 않는 점 확인...
+  - review 부분 키값 설정이 안되어서인지 나타나지 않는 점 확인
+
+- 하게될 일
+  - nav바 생성시 홈 화면 변경
+  - profile 페이지 완벽히 작성하기
+  - 방금 확인한 점-> profile 페이지에서 refresh 하면 돌아가는 화면이 home화면... 수정하기
+  - 
