@@ -30,7 +30,7 @@
       <h3 v-if="($store.state.user.birthday.month == 11 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 12 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
       <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
       
-      <h3>followings : {{  }} / followers : {{  }}</h3>
+      <!--   <h3>followings : {{  }} / followers : {{  }}</h3> -->
 <br>
       <div id="group">
         <div class="container">
@@ -38,7 +38,7 @@
             <a href="">stack your genre</a>
         </div>
         <div class="container">
-          <h3>watched : {{ /*본 영화를 체크한 것 db저장 후 제목 출력*/ }}</h3>
+          <h3>want : {{ /*본 영화를 체크한 것 db저장 후 제목 출력*/ }}</h3>
           <a href="">what have you seen??</a>
         </div>
         <div class="container">
@@ -83,14 +83,40 @@ header {
   font-family: 'Sucrose Bold Two';
   background: url(../../assets/gorhf.png) no-repeat;
   background-size: cover;
-  padding-top:30.93333333%;
+  padding-top:20.93333333%;
   opacity: 0.3;
-  /* z-index: 1; */
+  /* z-index: -1; */
 }
 #group {
   display: flex;
   justify-content: space-evenly;
 
+}
+h1 {
+  animation-duration: 4s;
+  animation-name: slidein;
+  /* animation-name: slidein2; */
+}
+@keyframes slidein {
+  from {
+    margin-top: 100%;
+    width: 500%
+  }
+
+  to {
+    margin-top: 0%;
+    width: 100%;
+  }
+}
+@keyframes slidein2 {
+  from {
+    margin-top: -20%;
+    width: 100%;
+  }
+  to {
+    margin-top: 0%;
+    width: 100%;
+  }
 }
 /* #jagan {
   word-spacing: 2em;
