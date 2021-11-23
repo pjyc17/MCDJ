@@ -6,9 +6,11 @@ from django.http.response import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer, GenreListSerializer
-from .models import Chat, Genre, Movie, Actor
+from rest_framework.serializers import Serializer
+from .serializers import GenreSerializer, MovieSerializer, ActorSerializer, MovieListSerializer, ChatSerializer, GenreListSerializer, LogSerializer, CartSerializer
+from .models import Chat, Genre, Movie, Actor, Log, Cart
 from django.db.models import Prefetch, Count, Q
+from django.contrib.auth import get_user_model
 
 TMDB_URL = 'https://api.themoviedb.org/3'
 API_KEY = '843ed6063914aca6ab7f2fcf47870d67'
@@ -119,9 +121,10 @@ def search(request, keyword):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search_by_genre(request, genre_id, keyword):
-    movies = Movie.objects.prefetch_related(Prefetch('genres', queryset=Genre.objects.filter(pk=genre_id))).annotate(genres_cnt=Count('genres')).filter(~Q(genres_cnt=0), title__contains=keyword).order_by('-popularity')
-    for movie in movies:
-        print(movie.genres_cnt)
+    # movies = Movie.objects.prefetch_related(Prefetch('genres', queryset=Genre.objects.filter(pk=genre_id))).annotate(genres_cnt=Count('genres')).filter(~Q(genres_cnt=0), title__contains=keyword).order_by('-popularity')
+    #########################################################################################################
+    movies = Movie.objects.filter(genres__id=genre_id, title__contains=keyword).order_by('-popularity')######
+    #########################################################################################################
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -179,3 +182,35 @@ def delete(request, chat_id):
     if request.user == chat.user:
         chat.delete()
     return Response({'message': '삭제완료'})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def log(request, movie_id):
+    isCart = False ###cart때문에 넣음
+    if request.user.pk == None:
+        if not get_user_model().objects.filter(pk=0).exists():
+            get_user_model().objects.create(pk=0, username="")
+        user = get_object_or_404(get_user_model(), pk=0)
+    else:
+        user = request.user
+        if user.carts.filter(movie__pk=movie_id).exists():
+            isCart = True ###cart때문에 넣음
+    serializer = LogSerializer(data=request.data)
+    if serializer.is_valid():
+        movie = get_object_or_404(Movie, pk=movie_id)
+        serializer.save(user=user, movie=movie)
+        return Response({'isCart': isCart}) ###cart때문에 넣음
+
+@api_view(['PUT'])
+def cart(request, movie_id):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=movie_id)
+    if user.carts.filter(movie__pk=movie_id).exists():
+        cart = user.carts.get(movie=movie_id)
+        cart.delete()
+        return Response({'isCart': False})
+    else:
+        serializer = CartSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, movie=movie)
+            return Response({'isCart': True})

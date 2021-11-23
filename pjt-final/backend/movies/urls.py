@@ -14,4 +14,6 @@ urlpatterns = [
     path('delete/<int:chat_id>/', views.delete),
     path('genre/<int:genre_id>/', views.genre),
     path('actor/<int:actor_id>/', views.actor),
+    path('log/<movie_id>/', views.log),
+    path('cart/<movie_id>/', views.cart),
 ]

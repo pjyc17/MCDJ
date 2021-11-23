@@ -37,5 +37,13 @@ class Chat(models.Model):
     rating = models.PositiveIntegerField()
     def __str__(self):
         return f'{self.movie_id}, {self.content}'
-    
 
+
+class Log(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logs')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='logs')
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='carts')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='carts')

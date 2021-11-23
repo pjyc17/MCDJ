@@ -8,19 +8,24 @@
             <img src="@/assets/MCDJ.png" alt="" height="32px"><strong>{{movie.title}}</strong>
           </div>
         </div>
-        <div class="flex tomato-box">
-          장르: 
-          <span v-for="(genre, idx) in movie.genres" :key="idx">
-            <span @click="genreMovies(genre.id)" class="click">{{genre.name}}</span>
-            <span v-if="idx!==movie.genres.length - 1">, </span>
-          </span>
-        </div>
-        <div class="flex dogerblue-box">
-          출연진: 
-          <span v-for="(actor, idx) in movie.actors" :key="idx">
-            <span @click="actorMovies(actor.id)" class="click">{{actor.name}}</span>
-            <span v-if="idx!==movie.actors.length - 1">, </span>
-          </span>
+        <div class="genre-actor-cart-box">
+          <i v-if="$store.state.user.id" :class="{'selected-cart-btn': isCart}" @click="putInCart" class="fas fa-shopping-cart cart-btn inline-block"></i>
+          <div>
+            <div class="flex tomato-box">
+              장르: 
+              <span v-for="(genre, idx) in movie.genres" :key="idx">
+                <span @click="genreMovies(genre.id)" class="click">{{genre.name}}</span>
+                <span v-if="idx!==movie.genres.length - 1">, </span>
+              </span>
+            </div>
+            <div class="flex dogerblue-box">
+              출연진: 
+              <span v-for="(actor, idx) in movie.actors" :key="idx">
+                <span @click="actorMovies(actor.id)" class="click">{{actor.name}}</span>
+                <span v-if="idx!==movie.actors.length - 1">, </span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-4">
@@ -103,6 +108,7 @@ export default {
       isShown: false,
       rating: 3,
       chat: '',
+      isCart: false,
     }
   },
   methods: {
@@ -113,6 +119,19 @@ export default {
       return {Authorization: `JWT ${localStorage.getItem('MCDJ_jwt')}`}
     },
     getMovie: function() {
+      if (this.$store.state.user.id === 0) {
+        axios({
+          method: 'post',
+          url: `${this.$store.state.domain}/movies/log/${this.$route.params.movieId}/`
+        })
+      } else {
+        axios({
+          headers: this.setToken(),
+          method: 'post',
+          url: `${this.$store.state.domain}/movies/log/${this.$route.params.movieId}/`
+        })
+          .then(res => this.isCart = res.data.isCart)
+      }
       axios({
         method: 'get',
         url: `${this.$store.state.domain}/movies/${this.$route.params.movieId}/`,
@@ -181,6 +200,14 @@ export default {
     goToMovieDetail: function(movieId) {
       this.$router.push({name: 'MovieDetail', params: {movieId: movieId}})
       this.getMovie()
+    },
+    putInCart: function() {
+      axios({
+        headers: this.setToken(),
+        method: 'put',
+        url: `${this.$store.state.domain}/movies/cart/${this.$route.params.movieId}/`,
+      })
+        .then(res => this.isCart = res.data.isCart)
     },
     showChats: function() {this.isShown = !this.isShown},
     notShown: function() {this.isShown = false},
@@ -307,6 +334,30 @@ export default {
 }
 .click {
   cursor: pointer;
+}
+.genre-actor-cart-box {
+  position: relative;
+}
+.cart-btn {
+  position: absolute;
+  right: 0;
+  top:25%;
+  right: 0.5rem;
+  /* transform: translate(-50%, -50%); */
+  font-size: 1.5em;
+  cursor: pointer;
+  /* 좌우 대칭 */
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+.cart-btn:hover {
+  color: #eddc5a;
+}
+.selected-cart-btn {
+  color: #eddc5a;
 }
 .chat-btn {
   font-size: 2em;
