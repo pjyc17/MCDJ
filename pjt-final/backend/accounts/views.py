@@ -61,5 +61,3 @@ def follow(request, user_pk):
             person.followers.add(request.user)
             isFollowed = True
     return Response({'isFollowed': isFollowed,'follows_cnt': person.followers.count()})
-        
-    

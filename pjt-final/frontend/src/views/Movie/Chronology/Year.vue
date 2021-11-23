@@ -37,7 +37,7 @@ export default {
   created() {
     axios({
       method: 'get',
-      url: `${this.$store.state.domain}/movies/annual_movies/${this.$route.params.year}/`,
+      url: `${this.$store.state.domain}/movies/recommend/${this.$route.params.year}/`,
     })
       .then(res => {
         this.movies = res.data

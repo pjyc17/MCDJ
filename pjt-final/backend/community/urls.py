@@ -8,4 +8,8 @@ urlpatterns = [
     path('<int:review_id>/comment/', views.comment),
     path('comment/<int:comment_id>/', views.delcom),
     path('<int:review_id>/like/', views.like),
+
+    ###프로필###
+    path('review/<int:user_id>/', views.review),
+    path('liked_review/<int:user_id>/', views.liked_review),
 ]
