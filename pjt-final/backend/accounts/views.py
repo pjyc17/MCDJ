@@ -45,12 +45,21 @@ def birthday(request):
         serializer.save(user=request.user)
     return Response(serializer.data)
 
-# def follow(request, user_pk):
-#     person = get_object_or_404(get_user_model(), pk=user_pk)
-#     if person.followers.filter(pk=request.user.pk).exists():
-#         person.followers.remove(request.user)
-#     else:
-#         person.followers.add(request.user)
-#     return
+@api_view(['GET', 'PUT'])
+def follow(request, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    if request.method == 'GET':
+        if person.followers.filter(pk=request.user.pk).exists():
+            isFollowed = True
+        else:
+            isFollowed = False
+    else:
+        if person.followers.filter(pk=request.user.pk).exists():
+            person.followers.remove(request.user)
+            isFollowed = False
+        else:
+            person.followers.add(request.user)
+            isFollowed = True
+    return Response({'isFollowed': isFollowed,'follows_cnt': person.followers.count()})
         
     
