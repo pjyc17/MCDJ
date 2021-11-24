@@ -4,6 +4,7 @@
       <div id="word" v-if="is_birthday">
         <h1 >{{ person.username }}'s Profile</h1>
         <h3>age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}</h3>
+        <router-link :to="{name: 'ProfileEdit2', params: {userId: $store.state.user.id}}">Edit Birthday</router-link>
 
         <h3 v-if="(person.birthday.birthday.substring(5,7) == 1 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
         <h3 v-if="(person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) >= 19) || (person.birthday.birthday.substring(5,7) == 3 && person.birthday.birthday.substring(8,10) <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces </h3>
@@ -129,9 +130,6 @@ export default {
     goToReview: function (reviewId) {
       this.$router.push({name: 'ReviewDetail', params: {reviewId: reviewId}})
     },
-    // goToReview:function (reviewId) {
-    //   this.$router.push({name: 'ReviewDetail', params: {}})
-    // },
     goToHome: function() {
       this.$router.push({name:'Home'})
     }
