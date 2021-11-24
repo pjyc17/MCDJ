@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png">
+    <!-- <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png"> -->
 
-
+    
     <!-- <div v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)"> -->
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
@@ -84,60 +84,5 @@ export default {
 
 </script>
 <style scoped>
-/* .logo {
-  position: relative;
-  top: 100px;
-  
-}
-.timeline {
-  position: relative;
-  top: 100px;
 
-} */
-@font-face {
-    font-family: 'Sucrose Bold Two';
-    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
-    }
-/* @font-face {
-    font-family: 'IM Fell French Canon Pro';
-    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/im-fell-french-canon-pro.woff2') format('woff2');
-} */
-/* header { 
-  background: url(../assets/gorhf.png) no-repeat;
-  padding-top: 51.93333333%;
-  background-size: cover;
-  font-family: 'Sucrose Bold Two';
-}
-header img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 45.8%;
-}
-header h1 { 
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  font-size: 12vw;
-  line-height: .8;
-  margin-top: 0;
-  text-align: center;
-}
-header h1 span {
-  display: block;
-  font-size: 8.75vw;
-}
-main { 
-  background: #000;
-  position: relative;
-  border: 1px solid #fff;
-  font-family: 'IM Fell French Canon Pro';
-  font-size: 1.4rem;
-  padding: 2rem 25%;
-  line-height: 1.6;
-  
-}
-@media all and (max-width: 400px) {
-  main { padding: 2rem; }
-} */
 </style>

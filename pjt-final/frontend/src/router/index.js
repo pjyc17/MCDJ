@@ -13,6 +13,7 @@ import Review from '@/views/Community/Review.vue'
 import Profile from '@/views/accounts/Profile.vue'
 import Profile2 from '@/views/accounts/Profile2.vue'
 import ProfileEdit from '@/views/accounts/ProfileEdit.vue'
+import ProfileEdit2 from '@/views/accounts/ProfileEdit2.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import NotFound from '@/views/NotFound.vue'
 
@@ -88,6 +89,11 @@ const routes = [
     path: '/profile/edit/:userId',
     name: 'ProfileEdit',
     component:ProfileEdit
+  },
+  {
+    path: '/profile/edit2/:userId',
+    name: 'ProfileEdit2',
+    component:ProfileEdit2
   },
   {
     path: '/404',
