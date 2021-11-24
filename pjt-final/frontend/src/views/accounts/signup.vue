@@ -1,21 +1,20 @@
 <template>
   <div class="h1tag">
-    <h1>Signup</h1>
+    <h1>회원가입</h1>
     <div>
-      <label for="username">사용자 이름:</label>
-      <input type="text" id="username" v-model="credentials.username">
       <div>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" v-model="credentials.password">
+        <input type="text" id="username" v-model="credentials.username" placeholder="사용자이름" class="input">
       </div>
       <div>
-        <label for="password2">비밀번호 확인:</label>
-        <input type="password" id="password2" 
+        <input type="password" id="password" v-model="credentials.password" placeholder="비밀번호" class="input">
+      </div>
+      <div>
+        <input type="password" id="password2" placeholder="비밀번호 확인" class="input"
           v-model="credentials.password2"
           @keyup.enter="signup"
         >
       </div>
-      <button @click="signup">Signup</button>
+      <div @click="signup" class="signup-btn">회원가입</div>
     </div>
   </div>
 </template>
@@ -28,10 +27,10 @@ export default {
   data: function () {
     return {
       credentials: {
-        username: null,
-        password: null,
-        password2: null,
-      }
+        username: '',
+        password: '',
+        password2: '',
+      },
     }
   },
   methods: {
@@ -51,10 +50,11 @@ export default {
               localStorage.setItem('MCDJ_jwt', res.data.token)
               this.$router.push({name: 'Home'})
             })
-            .catch(err => console.log(err))
         })
-        .catch(err => {
-          console.log(err)
+        .catch(() => {
+          alert("잘못 입력하셨어요!")
+          this.credentials.password = ''
+          this.credentials.password2 = ''
         })
     }
   }
@@ -64,7 +64,28 @@ export default {
 <style>
 .h1tag {
   position: relative;
-  top: 48px;
+  top: calc(50vh - 220px);
   text-align: center;
+}
+.input {
+  font-size: 1rem;
+  height: 2.5rem;
+  width: 30rem;
+}
+.signup-btn {
+  cursor: pointer;
+  margin: 1rem 0 0 0;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  display: inline-block;
+  width: 30rem;
+  background-color: #1AAB8A;
+  font-weight: bold;
+  font-size:1.2rem;
+  border-radius: 0.3rem;
+}
+@font-face {
+  font-family: 'Sucrose Bold Two';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
 }
 </style>

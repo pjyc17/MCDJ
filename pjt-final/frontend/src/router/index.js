@@ -5,9 +5,11 @@ import Movies from '@/views/Movie/Movies.vue'
 import MovieDetail from '@/views/Movie/MovieDetail.vue'
 import GenreMovies from '@/views/Movie/GenreMovies.vue'
 import Chronology from '@/views/Movie/Chronology/Chronology.vue'
+import Chronology2 from '@/views/Movie/Chronology/Chronology2.vue'
 import ChronologyYear from '@/views/Movie/Chronology/ChronologyYear.vue'
 import Year from '@/views/Movie/Chronology/Year.vue'
 import Community from '@/views/Community/Community.vue'
+import Community2 from '@/views/Community/Community2.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
 import Review from '@/views/Community/Review.vue'
 import Profile from '@/views/accounts/Profile.vue'
@@ -46,6 +48,11 @@ const routes = [
     component: Chronology
   },
   {
+    path: '/chronology',
+    name: 'Chronology2',
+    component: Chronology2
+  },
+  {
     path: '/chronology/:year',
     name: 'ChronologyYear',
     component: ChronologyYear
@@ -59,6 +66,11 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community
+  },
+  {
+    path: '/community',
+    name: 'Community2',
+    component: Community2
   },
   {
   path: '/community/:reviewId',
