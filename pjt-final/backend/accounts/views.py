@@ -28,12 +28,6 @@ def user(request):
     serializer = UserBaseSerializer(request.user)
     return Response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def profile(request, user_id):
-    person = get_object_or_404(get_user_model(), pk=user_id)
-    serializer = ProfileSerializer(person)
-    return Response(serializer.data)
 
 @api_view(['PUT'])
 def birthday(request):
@@ -61,3 +55,11 @@ def follow(request, user_pk):
             person.followers.add(request.user)
             isFollowed = True
     return Response({'isFollowed': isFollowed,'follows_cnt': person.followers.count()})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def profile(request, user_id):
+    person = get_object_or_404(get_user_model(), pk=user_id)
+    serializer = UserBaseSerializer(person)
+    return Response(serializer.data)

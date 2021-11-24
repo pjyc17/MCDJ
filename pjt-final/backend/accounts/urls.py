@@ -9,9 +9,9 @@ urlpatterns = [
     path('user/', views.user),
 
     path('<int:user_pk>/follow/', views.follow),
+    path('birthday/', views.birthday),
     ###profile###
     path('<int:user_id>/', views.profile),
-    path('birthday/', views.birthday),
 ]
 ### 아이디를 만들 url 생성하고 -> views.py 생성 ###
 ### 프로필 유저의 id, username, birthday(year) ###
