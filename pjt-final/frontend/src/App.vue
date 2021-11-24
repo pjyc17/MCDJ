@@ -173,12 +173,12 @@ export default {
     })
       .then(res => this.$store.commit('GET_ALL_GENRES', res.data))
   },
-  updated() {
-    if (localStorage.getItem('MCDJ_jwt')) {
-      this.isLogin = true
-      this.getUser()
-    }
-  },
+  // updated() {
+  //   if (localStorage.getItem('MCDJ_jwt')) {
+  //     this.isLogin = true
+  //     this.getUser()
+  //   }
+  // },
 }
 </script>
 
