@@ -12,8 +12,8 @@
           <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
         </div>
       </div>
-      <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-primary': isLogin, 'text-secondary': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
-      <button class="btn z-top" :class="{'btn-primary': isLogin, 'btn-secondary': !isLogin}" type="button" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas" aria-controls="myOffcanvas">MENU</button>
+      <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-Y': isLogin, 'text-N': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
+      <div :class="{'btn-Y': isLogin, 'btn-N': !isLogin}" type="button" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas" aria-controls="myOffcanvas">MENU</div>
 
     </nav>
       <div class="offcanvas offcanvas-end text-black" data-bs-scroll="true" tabindex="-1" id="myOffcanvas" aria-labelledby="myOffcanvasLabel">
@@ -191,7 +191,7 @@ export default {
   },
   updated() {
     if (!this.isCanvas) {
-      this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; background-color: transparent;')
+      this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; background-color: transparent; border-width: 0;')
       this.isCanvas = true
     }
   }
@@ -230,6 +230,36 @@ export default {
 #nav a {
   font-weight: bold;
   /* color: #2c3e50; */
+}
+.text-Y {
+  color: #eddc5a;
+}
+.text-N {
+  color: #949597;
+}
+.btn-Y {
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  border-radius: 0.3rem;
+  padding: 0 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  color: #141414;
+  font-weight: bold;
+  background-color: #eddc5a;
+}
+.btn-N {
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  border-radius: 0.3rem;
+  padding: 0 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  color: #141414;
+  font-weight: bold;
+  background-color: #949597;
 }
 /* #nav a.router-link-exact-active {
   color: #42b983;
