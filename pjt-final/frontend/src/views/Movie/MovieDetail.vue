@@ -69,7 +69,7 @@
                 {{chat.content}}<br>
                 <star-rating :inline="true" :rating="chat.rating" :read-only="true" :star-size="10" :rounded-corners="true" :show-rating="false" />
               </div>
-              <div class="fontsize-10">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
+              <div class="fontsize-10">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id"><i class="fas fa-times"></i></div></div>
             </div>
           </div>
         </div>
@@ -376,13 +376,14 @@ export default {
   position: fixed;
   background-color: royalblue;
   /* margin: 3rem; */
-  top: 5.4rem;
+  top: 9rem;
   right: 1rem;
   height: 60%;
   /* width: calc((100% - 6rem) / 3); */
   transform: translate(-0%, -0%);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-radius: 1rem;
+  /* border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px; */
   border-style: solid; 
   border-width: 2px; 
   border-color: #141414; 
@@ -429,16 +430,29 @@ export default {
   background-color: LightGray;
 }
 .delete-chat {
-  color: black;
+  font-size: 10px;
+  color: #141414;
   display: inline-block;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0 3px;
   border-radius: 2px;
   border-style: solid; 
   border-width: 1px; 
-  border-color: black;
+  border-color: #141414;
+}
+.chat-input-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: stretch;
+  align-items: center;
 }
 .chat-input {
   height: 20%;
+}
+.flex-align-ceter {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
 }
 </style>

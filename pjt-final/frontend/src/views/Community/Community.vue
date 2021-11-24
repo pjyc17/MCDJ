@@ -4,7 +4,7 @@
       <button v-if="$store.state.user.id !== 0" @click="goToCreate">Create</button>
     </div>
     <div class="rl-line"></div>
-    <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
+    <!-- <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
       <h2>{{review.title}}</h2>
       <div class="fontsize-10">
         <span>{{review.user.username}}(이)가 </span>
@@ -17,8 +17,18 @@
       </div>
       <div class="fontsize-12">좋아요: {{review.likes_cnt}}개 / 댓글: {{review.reviews_cnt}}개</div>
       <div class="rl-line"></div>
+    </div> -->
+    <table border="1" bordercolor="#949597" width="100%" height="100%">
+      <th class="fontsize-20 py-2">작성자</th><th class="fontsize-20" width="50%">제목</th><th class="fontsize-20">좋아요</th><th class="fontsize-20">댓글</th><th class="fontsize-20">작성</th>
+      <tr class="table-row" v-for="review in shownReviews" :key="review.id">
+        <td class="py-2 cursor hover-btn" @click="goToProfile(review.user.id)">{{review.user.username}}</td><td class="cursor" @click="goToDetail(review.id)">{{review.title}}</td><td>{{review.likes_cnt}}</td><td>{{review.reviews_cnt}}</td><td class="fontsize-10">{{convertDate(review.created)}}</td>
+      </tr>
+    </table>
+    <div class="flex-center my-3">
+      <i @click="moveOnePage(-1)" class="fas fa-caret-left mx-3 cursor" style="font-size: 2rem;"></i>
+      <input @keyup.enter="movePage" type="text" style="width: 3rem; text-align: center;" v-model="page2">
+      <i @click="moveOnePage(1)" class="fas fa-caret-right mx-3 cursor" style="font-size: 2rem;"></i>
     </div>
-
   </div>
 </template>
 
@@ -30,6 +40,11 @@ export default {
   data: function() {
     return {
       reviews: [],
+      shownReviews: [],
+      cnt: 15,
+      page: 1,
+      page2: 1,
+      maxPage: 1,
     }
   },
   methods: {
@@ -38,6 +53,9 @@ export default {
     },
     goToDetail: function(reviewId) {
       this.$router.push({name: 'ReviewDetail', params: {reviewId: reviewId}})
+    },
+    goToProfile: function(userId) {
+      this.$router.push({name: 'Profile', params: {userId: userId}})
     },
     convertDate: function(responseDate) {
       let dateComponents = responseDate.split('T');
@@ -50,14 +68,34 @@ export default {
         this.$router.push({name: 'Review', params: {reviewId: 'create'}})
       }
     },
+    movePage: function() {
+      if (isNaN(this.page2)) {this.page2 = this.page}
+      this.page2 = parseInt(this.page2)
+      if (this.page2 < 1) {this.page2 = 1} 
+      else if(this.page2 > this.maxPage) {this.page2 = this.maxPage}
+      this.page = this.page2
+      this.shownReviews = this.reviews.slice(this.cnt * (this.page - 1), this.cnt * this.page)
+    },
+    moveOnePage: function(num) {
+      this.page += num
+      if (this.page < 1) {this.page = 1} 
+      else if(this.page > this.maxPage) {this.page = this.maxPage}
+      this.page2 = this.page
+      this.shownReviews = this.reviews.slice(this.cnt * (this.page - 1), this.cnt * this.page)
+    },
   },
   created() {
     axios({
       method: 'get',
       url: `${this.$store.state.domain}/community/all/`
     })
-      .then(res => this.reviews = res.data)
-  }
+      .then(res => {
+        this.reviews = res.data
+        // this.cnt = parseInt((window.innerHeight - 260) / 41)
+        this.maxPage = parseInt((this.reviews.length - 0.1) / this.cnt) + 1
+        this.shownReviews = this.reviews.slice(this.cnt * (this.page - 1), this.cnt * this.page)
+      })
+  },
 }
 </script>
 
@@ -71,5 +109,9 @@ export default {
 .hover-btn:hover {
   z-index: 999;
   color: #eddc5a;
+}
+.table-row {
+  border-color: #949597;
+  border-width: 1px;
 }
 </style>

@@ -1,16 +1,14 @@
 <template>
   <div class="container">
-    <div class="text-center" v-if="isLoading">
-      <br><br><br><br>
+    <div class="text-center loading-center" v-if="isLoading">
       <label for="spinner"><img src="@/assets/dog.gif" alt="두리번.. 두리번.."></label>
       <div>
         <b-spinner id="spinner" style="color: grey;">     
         </b-spinner>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       </div>
     </div>
     <br>
-    <div @click="goToChronologyYear" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}슬라이드 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
+    <div v-if="!isLoading" @click="goToChronologyYear" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}슬라이드 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <div class="flex">
       <each-year 
         v-for="(eachYear, idx) in years" :key="idx"
@@ -70,5 +68,23 @@ export default {
   font-size: 4em;
   -webkit-text-stroke: 1.5px black;
   margin-bottom: 0;
+}
+.mint-btn {
+  cursor: pointer;
+  margin: 1rem 0 0 0;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  display: inline-block;
+  width: 20rem;
+  background-color: #1AAB8A;
+  font-weight: bold;
+  font-size:1.2rem;
+  border-radius: 0.3rem;
+}
+.loading-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

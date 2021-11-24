@@ -2,7 +2,7 @@
   <div id="app">
     <nav id="nav" class="navbar navbar-expand-md navbar-light">
       <div class="container-fluid">
-        <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.png" alt="" height="40px"></router-link>
+        <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.jpg" alt="" height="40px"></router-link>
         <div id="search-bar">
           <select v-model="selected" class="fontsize-20">
             <option value="*">전체</option>
@@ -22,10 +22,11 @@
           <router-link @click.native="logout" to="" data-bs-dismiss="offcanvas" style="text-decoration-line: none;"><div class="offcanvas-item">Logout</div></router-link>
         </div>
         <div v-else>
+          <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Signup'}" style="text-decoration-line: none;"><div class="offcanvas-item">Signup</div></router-link></div>
           <router-link to="" style="text-decoration-line: none;"><b id="show-btn" @click="$bvModal.show('loginModal')" data-bs-dismiss="offcanvas"><div class="offcanvas-item">Login</div></b></router-link>
         </div>
-        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
-        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
       </div>
     <!-- 검색바 -->
     <div style="height: 96px;"></div>
@@ -77,6 +78,7 @@ export default {
       selected: '*',
       keyword: null,
       isCanvas: false,
+      isOk: false,
     }
   },
   methods: {
@@ -91,9 +93,11 @@ export default {
       })
         .then(res => {
           this.$store.commit('GET_USER', {id: res.data.id, username: res.data.username,})
+          this.isLogin = true
           if (res.data.birthday) {
             this.$store.commit('GET_BIRTHDAY', {year: parseInt(res.data.birthday.birthday.substring(0,4)), month: parseInt(res.data.birthday.birthday.substring(5,7)), date: parseInt(res.data.birthday.birthday.substring(8,10)),})
           }
+          this.isOk = true
         })
         .catch(() => {
           alert("로그아웃 되었습니다.")
@@ -109,6 +113,7 @@ export default {
         .then(res => {
           localStorage.setItem('MCDJ_jwt', res.data.token)
           this.isLogin = true
+          this.isOk = true
           this.getUser()
           // const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
           // loginModal.hide()
@@ -120,6 +125,7 @@ export default {
     },
     logout: function() {
       this.isLogin = false
+      this.isOk = true
       localStorage.removeItem('MCDJ_jwt')
       this.$store.commit('GET_USER', this.$store.state.anonymousUser)
       if (this.$route.path !== '/') this.$router.push({name: 'Home'})
@@ -175,14 +181,8 @@ export default {
   },
   created() {
     if (localStorage.getItem('MCDJ_jwt')) {
-      this.isLogin = true
       this.getUser()
-    }
-    axios({
-      method: 'get',
-      url: `${this.$store.state.domain}/movies/recommend/all/`
-    })
-      .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
+    } else {this.isOk = true}
     axios({
       method: 'get',
       url: `${this.$store.state.domain}/movies/genres/all/`
@@ -193,6 +193,28 @@ export default {
     if (!this.isCanvas) {
       this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; background-color: transparent; border-width: 0;')
       this.isCanvas = true
+    }
+    if (this.isOk) {
+      this.isOk = false
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/recommend/all/`
+      })
+        .then(res => this.$store.commit('GET_ALL_MOVIES', res.data))
+      const birth = this.$store.state.user.birthday.month * 100 + this.$store.state.user.birthday.date
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/recommend/genres/${birth}/${this.$store.state.user.id}/`
+      })
+        .then(res => this.$store.commit('GET_USER_GENRES', res.data.genres))
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/movies/recommend/every_genre/`
+      })
+        .then(res => this.$store.commit('GET_USER_MOVIES_BY_GENRES', res.data.genres))
+    }
+    if (!this.isLogin && localStorage.getItem('MCDJ_jwt')) {
+      this.getUser()
     }
   }
   // updated() {
@@ -292,7 +314,7 @@ export default {
   margin: 1px;
   position:relative;
   height:4rem;
-  font-size:1.6em;
+  font-size:1.6rem;
   cursor:pointer;
   transition:800ms ease all;
   outline:none;

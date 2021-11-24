@@ -1,9 +1,9 @@
 <template>
   <div @mousemove="startCarousel">
     <br>
-    <div @mouseover="startCarousel" @click="goToChronology" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
+    <div @mouseover="startCarousel" @click="goToChronology" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <!-- <carousel class="width-100" :value="10" :perPageCustom="[[320, 2], [480, 3], [640, 4], [800, 5], [960, 6], [1120, 7]]" > -->
-    <carousel @mouseover="startCarousel" id="carousel" class="width-16px" v-model="index" :perPage="1" :paginationSize="0" :speed="10" :loop="true">
+    <carousel @mouseover="startCarousel" id="carousel" class="width-88px" v-model="index" :perPage="1" :paginationSize="0" :speed="1000" :loop="true">
       <slide v-for="idx of idxes" :key="idx" class="slide_item item" aria-hidden="true">
         <div v-if="idx < years.length">
           <div @click="goToYear(years[idx].year)" class="movie-card">
@@ -70,15 +70,16 @@ export default {
     mouseMove: function(m) {
       var X = m.clientX
       var Y = m.clientY
-      if (this.index < 0) {this.index = 0}
-      else if (this.index > this.page) {this.index = this.page}
-      if (Y > 180 && Y < 680) {
-        if (X > window.innerWidth * 0.66 && this.index <= this.page) {this.time-=1} else {
-          if (X < window.innerWidth * 0.33 && this.index >= 0) {this.time+=1}
+      if (this.index >= 0 && this.index <= this.years.length) {
+        if (Y > 175 && Y < 685) {
+          if (X > window.innerWidth * 0.66 && this.index < this.years.length) {this.time+=1} else {
+            if (X < window.innerWidth * 0.33 && this.index > 0) {this.time-=1}
+          }
         }
       }
-      if (this.time >= 2) {this.index += 1; this.time -= 2}
-      if (this.time <= -2) {this.index -= 1; this.time += 2}
+      if (this.time > 10) {this.index+=1;this.time-=10} else {
+        if (this.time < -10) {this.index-=1;this.time+=10}
+      }
     },
     goToChronology: function() {
       this.$router.push({name: 'Chronology'})
@@ -91,7 +92,7 @@ export default {
     })
       .then(res => {
         this.years = res.data.chronology_poster
-        this.page =this.years.length * 11
+        this.page =this.years.length * 2
       })
     window.addEventListener('mousemove', this.mouseMove)
   },
@@ -125,7 +126,8 @@ export default {
   },
   updated() {
     if (this.flag) {
-      this.keep = parseInt(this.page / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year) / 2 + 1) * 11
+      // this.keep = parseInt(this.page / 2) - parseInt((parseInt(this.years[this.years.length - 1].year) - parseInt(this.$route.params.year)) / 2 + 1) * 2
+      this.keep = parseInt(this.page / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year ) / 2 + 1) * 2
     }
     if (this.index === -1) {
       this.index = this.keep
@@ -144,8 +146,8 @@ export default {
   width: auto;
 }
 /* style="padding: 0 100vw 0 0;" */
-.width-16px {
-  width: 16px;
+.width-88px {
+  width: 88px;
 }
 .item {
   flex: 1 1 40%;
