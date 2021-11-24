@@ -16,7 +16,7 @@
       <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
       <router-link :to="{name: 'Community'}">Community</router-link> | 
       <span v-if="isLogin">
-        <router-link :to="{name: 'Profile'}">Profile</router-link> | 
+        <router-link :to="{name: 'Profile2', params: {userId: $store.state.user.id}}">Profile</router-link> | 
         <router-link @click.native="logout" to="">Logout</router-link>
       </span>
       <span v-else>

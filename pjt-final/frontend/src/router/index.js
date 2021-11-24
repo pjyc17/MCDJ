@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Movies from '@/views/Movie/Movies.vue'
 import MovieDetail from '@/views/Movie/MovieDetail.vue'
+import GenreMovies from '@/views/Movie/GenreMovies.vue'
 import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import ChronologyYear from '@/views/Movie/Chronology/ChronologyYear.vue'
 import Year from '@/views/Movie/Chronology/Year.vue'
@@ -10,6 +11,7 @@ import Community from '@/views/Community/Community.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
 import Review from '@/views/Community/Review.vue'
 import Profile from '@/views/accounts/Profile.vue'
+import Profile2 from '@/views/accounts/Profile2.vue'
 import ProfileEdit from '@/views/accounts/ProfileEdit.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -31,6 +33,11 @@ const routes = [
     path: '/movie/:movieId',
     name: 'MovieDetail',
     component: MovieDetail
+  },
+  {
+    path: '/genre/:genreId',
+    name: 'GenreMovies',
+    component: GenreMovies
   },
   {
     path: '/chronology',
@@ -71,6 +78,11 @@ const routes = [
     path: '/profile/:userId',
     name: 'Profile',
     component:Profile
+  },
+  {
+    path: '/profile/:userId',
+    name: 'Profile2',
+    component:Profile2
   },  
   {
     path: '/profile/edit/:userId',

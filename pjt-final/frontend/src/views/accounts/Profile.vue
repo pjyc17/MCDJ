@@ -2,47 +2,49 @@
   <div id="app"> 
     <!-- <div class="header1"></div> -->
       <!-- <img class="header-img" src="../../assets/gorhf.png" alt="">  -->
-      <!-- <h3 v-if="($store.state.user.birthday.month == 1 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 2 && $store.state.user.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 2 && $store.state.user.birthday.date >= 19) || ($store.state.user.birthday.month == 3 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 3 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 4 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/양자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 4 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 5 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/황소자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 5 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 6 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 6 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 7 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/게자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 7 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 8 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/사자자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 8 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 9 && $store.state.user.birthday.date <= 23)"><img height="40" src="@/assets/별자리/처녀자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 9 && $store.state.user.birthday.date >= 24) || ($store.state.user.birthday.month == 10 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/천칭자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 10 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 11 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/전갈자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 11 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 12 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt=""></h3>
-      <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt=""></h3> -->
+      <!-- <h3 v-if="(person.birthday.month == 1 && person.birthday.date >= 20) || (person.birthday.month == 2 && person.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 2 && person.birthday.date >= 19) || (person.birthday.month == 3 && person.birthday.date <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 3 && person.birthday.date >= 21) || (person.birthday.month == 4 && person.birthday.date <= 19)"><img height="40" src="@/assets/별자리/양자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 4 && person.birthday.date >= 20) || (person.birthday.month == 5 && person.birthday.date <= 20)"><img height="40" src="@/assets/별자리/황소자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 5 && person.birthday.date >= 21) || (person.birthday.month == 6 && person.birthday.date <= 21)"><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 6 && person.birthday.date >= 22) || (person.birthday.month == 7 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/게자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 7 && person.birthday.date >= 23) || (person.birthday.month == 8 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/사자자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 8 && person.birthday.date >= 23) || (person.birthday.month == 9 && person.birthday.date <= 23)"><img height="40" src="@/assets/별자리/처녀자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 9 && person.birthday.date >= 24) || (person.birthday.month == 10 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/천칭자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 10 && person.birthday.date >= 23) || (person.birthday.month == 11 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/전갈자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 11 && person.birthday.date >= 23) || (person.birthday.month == 12 && person.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt=""></h3>
+      <h3 v-if="(person.birthday.month == 12 && person.birthday.date >= 22) || (person.birthday.month == 1 && person.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt=""></h3> -->
 
     <header>
-      <div id="word">
-        <h1>{{ this.$route.params.userId }}'s Profile</h1>
-        <h1>{{ $store.state.user.username }}'s Profile </h1>
-        <h3>age : {{ 2022 - $store.state.user.birthday.year }}</h3>
+      <div id="word" v-if="person">
+        <h1>{{ person.username }}'s Profile</h1>
+        <!--  -->
+        <h3>age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}</h3>
         
-        <h3 v-if="($store.state.user.birthday.month == 1 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 2 && $store.state.user.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
-        <h3 v-if="($store.state.user.birthday.month == 2 && $store.state.user.birthday.date >= 19) || ($store.state.user.birthday.month == 3 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces </h3>
-        <h3 v-if="($store.state.user.birthday.month == 3 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 4 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/양자리.png" alt=""> star : Aries </h3>
-        <h3 v-if="($store.state.user.birthday.month == 4 && $store.state.user.birthday.date >= 20) || ($store.state.user.birthday.month == 5 && $store.state.user.birthday.date <= 20)"><img height="40" src="@/assets/별자리/황소자리.png" alt="">star : Taurus </h3>
-        <h3 v-if="($store.state.user.birthday.month == 5 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 6 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt="">star : Gemini </h3>
-        <h3 v-if="($store.state.user.birthday.month == 6 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 7 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/게자리.png" alt="">star : Cancer </h3>
-        <h3 v-if="($store.state.user.birthday.month == 7 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 8 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/사자자리.png" alt="">star : Leo </h3>
-        <h3 v-if="($store.state.user.birthday.month == 8 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 9 && $store.state.user.birthday.date <= 23)"><img height="40" src="@/assets/별자리/처녀자리.png" alt="">star : Virgo </h3>
-        <h3 v-if="($store.state.user.birthday.month == 9 && $store.state.user.birthday.date >= 24) || ($store.state.user.birthday.month == 10 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/천칭자리.png" alt="">star : Libra </h3>
-        <h3 v-if="($store.state.user.birthday.month == 10 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 11 && $store.state.user.birthday.date <= 22)"><img height="40" src="@/assets/별자리/전갈자리.png" alt="">star : Scorpio </h3>
-        <h3 v-if="($store.state.user.birthday.month == 11 && $store.state.user.birthday.date >= 23) || ($store.state.user.birthday.month == 12 && $store.state.user.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
-        <h3 v-if="($store.state.user.birthday.month == 12 && $store.state.user.birthday.date >= 22) || ($store.state.user.birthday.month == 1 && $store.state.user.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
+        <h3 v-if="(person.birthday.month == 1 && person.birthday.date >= 20) || (person.birthday.month == 2 && person.birthday.date <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
+        <h3 v-if="(person.birthday.month == 2 && person.birthday.date >= 19) || (person.birthday.month == 3 && person.birthday.date <= 20)"><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces </h3>
+        <h3 v-if="(person.birthday.month == 3 && person.birthday.date >= 21) || (person.birthday.month == 4 && person.birthday.date <= 19)"><img height="40" src="@/assets/별자리/양자리.png" alt=""> star : Aries </h3>
+        <h3 v-if="(person.birthday.month == 4 && person.birthday.date >= 20) || (person.birthday.month == 5 && person.birthday.date <= 20)"><img height="40" src="@/assets/별자리/황소자리.png" alt="">star : Taurus </h3>
+        <h3 v-if="(person.birthday.month == 5 && person.birthday.date >= 21) || (person.birthday.month == 6 && person.birthday.date <= 21)"><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt="">star : Gemini </h3>
+        <h3 v-if="(person.birthday.month == 6 && person.birthday.date >= 22) || (person.birthday.month == 7 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/게자리.png" alt="">star : Cancer </h3>
+        <h3 v-if="(person.birthday.month == 7 && person.birthday.date >= 23) || (person.birthday.month == 8 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/사자자리.png" alt="">star : Leo </h3>
+        <h3 v-if="(person.birthday.month == 8 && person.birthday.date >= 23) || (person.birthday.month == 9 && person.birthday.date <= 23)"><img height="40" src="@/assets/별자리/처녀자리.png" alt="">star : Virgo </h3>
+        <h3 v-if="(person.birthday.month == 9 && person.birthday.date >= 24) || (person.birthday.month == 10 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/천칭자리.png" alt="">star : Libra </h3>
+        <h3 v-if="(person.birthday.month == 10 && person.birthday.date >= 23) || (person.birthday.month == 11 && person.birthday.date <= 22)"><img height="40" src="@/assets/별자리/전갈자리.png" alt="">star : Scorpio </h3>
+        <h3 v-if="(person.birthday.month == 11 && person.birthday.date >= 23) || (person.birthday.month == 12 && person.birthday.date <= 21)"><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
+        <h3 v-if="(person.birthday.month == 12 && person.birthday.date >= 22) || (person.birthday.month == 1 && person.birthday.date <= 19)"><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
         <div class="flex-center">
           <!-- <profile-edit :birthday="user.birthday" /> -->
-          <profile-edit />
+          <!-- <profile-edit /> -->
         </div>
         <!--   <h3>followings : {{  }} / followers : {{  }}</h3> -->
         <br>
         <div id="group">
           <div class="container">
             <h3>genre : {{ /*위의 본 영화 선택한 정보들 db에 저장 후 개인의 전체 비율을 고려해 %로 나타내기*/ }}</h3>
-              <a href="">stack your genre</a>
+              <div v-for="genre in genres" :key="genre.id">
+                <p @click="goToGenre(genre.id)" class="inline-block cursor">{{ genre.name }}</p>
+              </div>
           </div>
           <div class="container">
             <h3>want : {{ /*본 영화를 체크한 것 db저장 후 제목 출력*/ }}</h3>
@@ -57,43 +59,60 @@
           </div>
         </div>
       </div>
-      <!-- <img height="30" v-if="($store.state.user.birthday.month == 3 && $store.state.user.birthday.date >= 21) || ($store.state.user.birthday.month == 4 && $store.state.user.birthday.date <= 19)" src="@/assets/양자리.png" alt=""> -->
+      <!-- <img height="30" v-if="(person.birthday.month == 3 && person.birthday.date >= 21) || (person.birthday.month == 4 && person.birthday.date <= 19)" src="@/assets/양자리.png" alt=""> -->
     </header>
   </div>
 </template>
 <script>
 import axios from 'axios'
-import ProfileEdit from '@/views/accounts/ProfileEdit.vue'
+// import ProfileEdit from '@/views/accounts/ProfileEdit.vue'
 // import Profile from '@/accounts/Profile.vue'
 
 export default {
   name: 'Profile',
   components: {
-    ProfileEdit,
+    // ProfileEdit,
   },
   data: function() {
     return {
+      person: null,
+      genres: [],
+      carts: [],
+      like_reviews: [],
       reviews: [],
     }
   },
   methods: {
-    
+    getProfile: function() {
+      axios({
+        method: 'get',
+        url: `${this.$store.state.domain}/accounts/${this.$route.params.userId}/`
+      })
+        .then(res => this.person = res.data)
+        .then(() => {
+          const birth = this.person.birthday.birthday.substring(5,7) + this.person.birthday.birthday.substring(8,10)
+          axios({
+            method: 'get',
+            url: `${this.$store.state.domain}/movies/recommend/genres/${birth}/${this.$route.params.userId}/`
+          })
+            .then(res => this.genres = res.data.genres.splice(0,3))
+        })
+      // axios({
+      //   method: 'get',
+      //   url: `${this.$store.state.domain}/movies/recommend/genres//`
+      // })
+      //   .then(res => this.reviews = res.data.splice(0,3))
+    },
+    goToGenre: function(genreId) {
+      console.log(genreId)
+      this.$router.push({name: 'GenreMovies', params: {genreId: genreId}})
+    }
+  },
+  computed: {
   },
   created() {
-    axios({
-      method: 'get',
-      url: `${this.$store.state.domain}/accounts/${this.$store.state.birthday.month}${this.$store.state.birthday.date}/`,
-    })
-      .then(res => {
-        this.birthday = res.birthday
-      })
-      .catch(() => this.notFound())
-    axios({
-      method: 'get',
-      url: `${this.$store.state.domain}/community/all/`
-    })
-      .then(res => this.reviews = res.data)
-  }
+    this.getProfile()
+  },
 }
 </script>
 
@@ -119,9 +138,9 @@ export default {
   opacity: 0.3;
   /* z-index: -999; */
 }
-#word {
-  /* opacity: 1; */
-}
+/* #word {
+  opacity: 1;
+} */
 #group {
   display: flex;
   justify-content: space-evenly;
@@ -167,5 +186,7 @@ h1 {
   z-index: -1;
   
 } */
-
+.cursor {
+  cursor: pointer;
+}
 </style>
