@@ -32,28 +32,30 @@
               <p> 연관성 : {{ (genre.point / gpoint * 100).toFixed(1) }}% </p>
             </div>
           </div>
+        <!-- <div class="box">sd</div> -->
           <div class="container">
             <h3>want : {{ }} </h3>
             <div v-for="movie in carts" :key="movie.id">
-              <p @click="goToMovie(movie.id)" class="inline-block cursor">{{ movie.title }}</p>
+              <strong @click="goToMovie(movie.id)" class="inline-block cursor">{{ movie.title }}</strong>
             </div>
           </div>
           <div class="container">
             <h3>likes  : </h3>
             <div v-for="like_review in like_reviews" :key=like_review.id>
-              <p @click="goToReview(like_review.id)" class="cursor">{{ like_review.title }} <i class="fas fa-thumbs-up"></i> {{ like_review.likes_cnt }}</p>
+              <strong @click="goToReview(like_review.id)" class="cursor">{{ like_review.title }} <i class="fas fa-thumbs-up"></i> {{ like_review.likes_cnt }}</strong>
             </div>
           </div>
           <!-- <div class="container" style="word-break:break-all;word-wrap:break-word;"> -->
           <div class="container">
             <h3>written : </h3>
             <div v-for="review in reviews" :key="review.id">
-              <p @click="goToReview(review.id)" class="inline-block cursor">{{ review.title }}</p>
+              <strong @click="goToReview(review.id)" class="inline-block cursor">{{ review.title }}</strong>
             </div>
           </div>
         </div>
       </div>
       <div v-else>
+        <img src="@/assets/dogyawn.gif" @click="goToHome" class="cursor" alt="">
         <h1 @click="goToHome" class="cursor">
           생년월일 입력해줭
         </h1>
@@ -150,23 +152,27 @@ export default {
 </script>
 
 <style scoped>
-.header-img {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
+.btw {
+  display: flex;
+  justify-content: space-between;
+}
+/* .header-img { */
+  /* position: relative; */
+  /* height: 100vh;
+  width: 100vw; */
   /* z-index: -1; */
   /* opacity:0.3; */
-}
+/* } */
 #word{
   /* width: 100%; */
   /* height: 100%; */
   /* text-align: center; */
-
   position: relative;
+  top: -10rem;
   font-family: 'Sucrose Bold Two';
-  background: url(../../assets/gorhf.png) no-repeat;
+  background: url(../../assets/gorhf.png) center 0  no-repeat;
   background-size: cover;
-  padding-top:20.93333333%;
+  padding-top:450px;
   
   opacity: 0.3;
   /* z-index: -999; */
@@ -222,4 +228,37 @@ h1 {
 .cursor {
   cursor: pointer;
 }
+/* .box:hover {
+    transform: rotate(3600deg);
+    -webkit-transform: rotate(270deg);
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    color: yellow;
+    font-size: 18px;
+    left: 500px;
+    top: 250px;
+    position: absolute;
+    -webkit-transition-property: width height background-color font-size left top transform -webkit-transform color;
+    -webkit-transition-duration: 1s;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-property: width height background-color font-size left top transform -webkit-transform color;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+} */
+/* .box {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    font-size: 20px;
+    left: 800px;
+    top: 600px;
+    position: absolute; */
+    /* -webkit-transition-property: width height background-color font-size left top transform -webkit-transform color;
+    -webkit-transition-duration: 4s;
+    -webkit-transition-timing-function: ease-in-out; */
+    /* transition-property: width height background-color font-size left top transform -webkit-transform color;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+} */
 </style>

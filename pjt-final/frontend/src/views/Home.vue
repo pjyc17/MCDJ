@@ -1,26 +1,33 @@
 <template>
   <div class="home">
-    <img alt="MCDJ logo" src="../../public/favicon/android-chrome-384x384.png">
+      <img alt="MCDJ logo" class="logo class" src="../../public/favicon/android-chrome-384x384.png">
 
 
-    <!-- <div v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)"> -->
+<header>
+  <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
+  <!-- <img src="mountain-range-front.png"> -->
+</header>
+
+    <div class="imgbtf" v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
-        <button @click="getBirthday">입력</button>
+        <div class="bounce">
+          <button @click="getBirthday">입력</button>
+        </div>
       </div>
-      <div>
+        <!-- <img src="../assets/그림5.png" alt="pointer"> -->
+      <!-- <div>
         <div class="mt-3"> 
           <strong v-if="y_selected">{{ y_selected[0] }}년 </strong> 
           <strong v-if="m_selected">{{ m_selected[0] }}월 </strong> 
           <strong v-if="d_selected">{{ d_selected[0] }}일 </strong>
           <br>
-          <!-- <strong v-if="y_selected">{{ 2022 - y_selected[0] }}</strong> -->
         </div>
-      </div>
+      </div> -->
     </div>
-  <!-- </div> -->
+  </div>
   
 </template>
 
@@ -85,6 +92,35 @@ export default {
 </script>
 <style scoped>
 /* .logo {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 7rem;
+} */
+.home {
+  position: fixed;
+  top: 0px;
+  /* background-image: url(../assets/그림1.png) no-repeat;
+  background-size:cover; */
+  /* position: relative; */
+  /* top: -1rem; */
+  /* bottom: 0px; */
+  width: 100vw;
+  height: 100vw;
+  font-family: 'Sucrose Bold Two';
+  background: url(../assets/그림5.png) center 0  no-repeat;
+  background-size: contain;
+  padding-top:14%;
+}
+/* .imgbtf {
+  position: relative;
+} */
+/* .imgbtf .imgtxt {
+  position: absolute;
+  top:50;
+  left: 50;
+} */
+/* .logo {
   position: relative;
   top: 100px;
   
@@ -98,6 +134,61 @@ export default {
     font-family: 'Sucrose Bold Two';
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
     }
+header h1 { 
+  position: fixed;
+  top: 7rem;
+  left: 2rem;
+  font-size: 12vw;
+  line-height: .5;
+  margin-top: 0;
+  text-align: left;
+}
+header h1 span {
+  position: fixed;
+  top: 7rem;
+  right: 2rem;
+  font-size: 8.75vw;
+}
+header h2 {
+  position: fixed;
+  bottom: 7rem;
+  /* right: 2rem; */
+  font-size: 8vw;
+
+}
+header h3 {
+  position: fixed;
+  bottom: 10rem;
+  right: 2rem;
+  font-size: 8vw;
+
+}
+header h3 h4 {
+  position: fixed;
+  font-size: 4vw;
+  /* bottom: 7rem; */
+  right: 2rem;
+  text-align:right
+
+}
+.bounce { 
+  position: relative; 
+/* 파폭 */ 
+  /* -moz-animation: bounce 0.7s infinite linear;  */
+/* 크롬 */ 
+  /* -webkit-animation: bounce 0.7s infinite linear;  */
+  /* -o-animation: bounce 0.7s infinite linear;  */
+  animation: bounce 2s infinite linear; 
+  animation-delay: 2.1s;
+  /* animation-iteration-count: 5; */
+}
+/* @-webkit-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-moz-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-o-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-ms-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } }  */
+@keyframes bounce { 0% { top: 0; } 5% { top: -5px; } 15% { top: -50px; } 20% { top: 0; } }
+
+
 /* @font-face {
     font-family: 'IM Fell French Canon Pro';
     src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/im-fell-french-canon-pro.woff2') format('woff2');
@@ -140,4 +231,44 @@ main {
 @media all and (max-width: 400px) {
   main { padding: 2rem; }
 } */
+.class{
+	animation-name:out;
+	animation-duration:1s;
+	/* Safari and Chrome: */
+	-webkit-animation-name:out;
+	-webkit-animation-duration:1s;
+}
+
+.class:hover{
+animation-name:in;
+animation-duration:1s;
+animation-iteration-count:infinite;
+animation-direction:normal;
+/* Safari and Chrome: */
+-webkit-animation-name:in;
+-webkit-animation-duration:1s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:alternate;
+}
+
+@keyframes in
+{
+from {transform: rotate(50deg);}
+to   {transform: rotate(360deg);}
+}
+@-webkit-keyframes in /* Safari and Chrome */
+{
+from {transform: rotate(50deg);}
+to   {-webkit-transform: rotate(360deg);}
+}
+@keyframes out
+{
+from {transform: rotate(360deg);}
+to   {transform: rotate(0deg);}
+}
+@-webkit-keyframes out /* Safari and Chrome */
+{
+from {transform: rotate(360deg);}
+to   {-webkit-transform: rotate(0deg);}
+}
 </style>
