@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <div class="text-center" v-if="isLoading">
+      <br><br><br><br>
+      <label for="spinner"><img src="@/assets/dog.gif" alt="두리번.. 두리번.."></label>
+      <div>
+        <b-spinner id="spinner" style="color: grey;">     
+        </b-spinner>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+    </div>
     <br>
     <div @click="goToChronologyYear" class="btn btn-lg btn-success">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}슬라이드 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <div class="flex">
@@ -22,6 +31,7 @@ export default {
   },
   data: function() {
     return {
+      isLoading: true,
       years: [],
     }
   },
@@ -40,13 +50,25 @@ export default {
           this.years.push(...res.data.chronology_poster.splice(res.data.chronology_poster.length - 1, 1))
         }
       })
-  }
+  },
+  updated() {
+    if (this.years.length) {
+      this.isLoading = false
+    }
+  },
 }
 </script>
 
 <style>
-.flex {
-  display: flex;
-  flex-wrap: wrap;
+.year-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.year {
+  font-size: 4em;
+  -webkit-text-stroke: 1.5px black;
+  margin-bottom: 0;
 }
 </style>

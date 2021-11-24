@@ -3,11 +3,11 @@
     <div class="flex-right">
       <button v-if="$store.state.user.id !== 0" @click="goToCreate">Create</button>
     </div>
-    <hr>
+    <div class="rl-line"></div>
     <div class="cursor" @click="goToDetail(review.id)" v-for="review in reviews" :key="review.id">
       <h2>{{review.title}}</h2>
-      <div class="fontsize-12">
-        <span>{{review.user.username}}가 </span>
+      <div class="fontsize-10">
+        <span>{{review.user.username}}(이)가 </span>
         <span v-if="review.updated !== review.created">
           {{convertDate(review.updated)}}에 수정함
         </span>
@@ -15,8 +15,8 @@
           {{convertDate(review.created)}}에 작성함
         </span>
       </div>
-      <p>좋아요: {{review.likes_cnt}}개 / 댓글: {{review.reviews_cnt}}개</p>
-      <hr>
+      <div class="fontsize-12">좋아요: {{review.likes_cnt}}개 / 댓글: {{review.reviews_cnt}}개</div>
+      <div class="rl-line"></div>
     </div>
 
   </div>
@@ -49,7 +49,7 @@ export default {
       if (this.$store.state.user.id !== 0) {
         this.$router.push({name: 'Review', params: {reviewId: 'create'}})
       }
-    }
+    },
   },
   created() {
     axios({
@@ -62,14 +62,14 @@ export default {
 </script>
 
 <style scoped>
-.cursor {
-  cursor: pointer;
+.rl-line {
+  width: 100%;
+  height: 2px;
+  background-color: #949597;
+  margin: 1rem 0;
 }
-.flex-right {
-  display: flex;
-  justify-content: right;
-}
-.fontsize-12 {
-  font-size: 12px;
+.hover-btn:hover {
+  z-index: 999;
+  color: #eddc5a;
 }
 </style>

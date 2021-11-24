@@ -14,14 +14,14 @@
             <div class="flex tomato-box">
               장르: 
               <span v-for="(genre, idx) in movie.genres" :key="idx">
-                <span @click="genreMovies(genre.id)" class="click">{{genre.name}}</span>
+                <span @click="genreMovies(genre.id)" class="cursor">{{genre.name}}</span>
                 <span v-if="idx!==movie.genres.length - 1">, </span>
               </span>
             </div>
             <div class="flex dogerblue-box">
               출연진: 
               <span v-for="(actor, idx) in movie.actors" :key="idx">
-                <span @click="actorMovies(actor.id)" class="click">{{actor.name}}</span>
+                <span @click="actorMovies(actor.id)" class="cursor">{{actor.name}}</span>
                 <span v-if="idx!==movie.actors.length - 1">, </span>
               </span>
             </div>
@@ -29,10 +29,10 @@
         </div>
       </div>
       <div class="col-12 col-md-4">
-        <div class="right-box">
+        <div class="flex-right">
           <i @click="showChats" class="fas fa-comment-dots chat-btn inline-block"></i>
         </div>
-        <div class="text-box">
+        <div class="text-center">
           <div class="overview">{{movie.overview}}</div>
         </div>
       </div>
@@ -58,7 +58,7 @@
                 {{chat.content}}<br>
                 <star-rating :inline="true" :rating="chat.rating" :read-only="true" :star-size="10" :rounded-corners="true" :show-rating="false" />
               </div>
-              <div class="small-font">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
+              <div class="fontsize-10">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
             </div>
             <div class="chat-box-user">{{chat.user.username}}</div>
           </div>
@@ -69,22 +69,22 @@
                 {{chat.content}}<br>
                 <star-rating :inline="true" :rating="chat.rating" :read-only="true" :star-size="10" :rounded-corners="true" :show-rating="false" />
               </div>
-              <div class="small-font">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
+              <div class="fontsize-10">{{convertDate(chat.created)}} <div class="delete-chat" @click="deleteChat(chat)" v-if="chat.user.id === $store.state.user.id">X</div></div>
             </div>
           </div>
         </div>
       </div>
       <div v-if="$store.state.user.id !== 0" class="chat-input">
         <star-rating :inline="true" v-model="rating" :star-size="20" :rounded-corners="true"></star-rating>
-        <div class="chat-input-box">
+        <div class="flex-align-ceter">
           <textarea v-model="chat" style="width:70%;" rows="2" />
           <button @click="writeChat">작성</button>
         </div>
       </div>
       <div v-else class="chat-input">
-        <div class="chat-input-box">
+        <div class="flex-align-ceter">
           <textarea disabled style="width:70%;" rows="2">로그인 후 이용해주세요.</textarea>
-          <button class="cursor-disabled">작성</button>
+          <button class="disabled-cursor">작성</button>
         </div>
       </div>
     </div>
@@ -152,7 +152,7 @@ export default {
                 if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id && movie.id !== this.movie.id)) {
                   this.similarMovies.push(similarMovie)
                 }
-                if (this.similarMovies.length === 6) {
+                if (this.similarMovies.length === 10) {
                   break
                 }
               }
@@ -172,7 +172,7 @@ export default {
             if (similarMovie.id !== this.movie.id) {
               this.similarMovies.push(similarMovie)
             }
-            if (this.similarMovies.length === 6) {
+            if (this.similarMovies.length === 10) {
               break
             }
           }
@@ -190,7 +190,7 @@ export default {
             if (similarMovie.id !== this.movie.id) {
               this.similarMovies.push(similarMovie)
             }
-            if (this.similarMovies.length === 6) {
+            if (this.similarMovies.length === 10) {
               break
             }
           }
@@ -257,9 +257,6 @@ export default {
 </script>
 
 <style scoped>
-.float-left {
-  float: left;
-}
 .detail-box {
   margin: 0 3rem;
 }
@@ -268,16 +265,6 @@ export default {
   top: 0%;
   left: 50%;
   transform: translate(-50%, -0%);
-}
-.item {
-  display: inline-block;
-}
-.right-box {
-  display: flex;
-  justify-content: right;
-}
-.inline-block {
-  display: inline-block;
 }
 .video-container {
   float: inline-start;
@@ -291,9 +278,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-}
-.text-box {
-  text-align: left;
 }
 .tomato-box {
   border-style: solid; 
@@ -331,9 +315,6 @@ export default {
   background-color: black;
   border-color: white;
   opacity: 100%;
-}
-.click {
-  cursor: pointer;
 }
 .genre-actor-cart-box {
   position: relative;
@@ -384,19 +365,12 @@ export default {
   margin-bottom: 0;
 }
 .movie-card {
-  margin: 1rem 0;
-}
-.card-img-box {
-  position: relative;
-  height: 0;
-  padding-top: 150%;
-}
-.card-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
+  margin: 1rem;
+  padding: 0;
+  /* background-color: transparent;
+  cursor: pointer;
+  width: 10rem;
+  margin: 1rem 0.5rem; */
 }
 .chats {
   position: fixed;
@@ -419,9 +393,6 @@ export default {
 .chat-content {
   overflow: auto;
   height: 80%;
-}
-.chat-box {
-  display: inline-block;
 }
 .flex-right {
   display: flex;
@@ -457,9 +428,6 @@ export default {
   border-color: #141414;
   background-color: LightGray;
 }
-.small-font {
-  font-size: 10px;
-}
 .delete-chat {
   color: black;
   display: inline-block;
@@ -472,12 +440,5 @@ export default {
 }
 .chat-input {
   height: 20%;
-}
-.chat-input-box {
-  display: flex;
-  justify-content: center;
-}
-.cursor-disabled {
-  cursor: default;
 }
 </style>

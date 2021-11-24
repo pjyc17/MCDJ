@@ -4,7 +4,7 @@
       <div class="card-img-box">
         <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="card-img" :alt="movie.title">
       </div>
-      <div class="card-body">
+      <div class="card-body b">
         <p class="card-title reduce-content">{{movie.title}}</p>
       </div>
     </div>
@@ -34,26 +34,15 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  font-size: 1.5em;
-  color: #949597;
-  -webkit-text-stroke: 0.5px #eddc5a;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: black;
+  -webkit-text-stroke: 0.1px #949597;
   margin-bottom: 0;
 }
 .movie-card {
   cursor: pointer;
-  width: 16rem;
+  width: 12rem;
   margin: 1rem 0.5rem;
-}
-.card-img-box {
-  position: relative;
-  height: 0;
-  padding-top: 150%;
-}
-.card-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
 }
 </style>

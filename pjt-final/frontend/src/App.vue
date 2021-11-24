@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <!-- 검색바 -->
-    <div id="search-bar">
-      <select v-model="selected">
-        <option value="*">전체</option>
-        <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
-      </select>
-      <input @keyup.enter="searchMovie" v-model="keyword" type="text">
-      <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
-    </div>
-    <div style="height: 50px;"></div>
+    <nav id="nav" class="navbar navbar-expand-md navbar-light">
+      <div class="container-fluid">
+        <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.png" alt="" height="40px"></router-link>
+        <div id="search-bar">
+          <select v-model="selected" class="fontsize-20">
+            <option value="*">전체</option>
+            <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
+          </select>
+          <input @keyup.enter="searchMovie" v-model="keyword" type="text" class="fontsize-20">
+          <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
+        </div>
+      </div>
+      <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-primary': isLogin, 'text-secondary': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
+      <button class="btn z-top" :class="{'btn-primary': isLogin, 'btn-secondary': !isLogin}" type="button" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas" aria-controls="myOffcanvas">MENU</button>
 
-    <div id="nav">
-      <router-link :to="{name: 'Home'}">Home</router-link> | 
-      <router-link :to="{name: 'Chronology'}">Chronology</router-link> | 
-      <router-link :to="{name: 'Community'}">Community</router-link> | 
-      <span v-if="isLogin">
-        <router-link :to="{name: 'Profile2', params: {userId: $store.state.user.id}}">Profile</router-link> | 
-        <router-link @click.native="logout" to="">Logout</router-link>
-      </span>
-      <span v-else>
-        <router-link to=""><b id="show-btn" @click="$bvModal.show('loginModal')">Login</b></router-link>
-      </span>
-    </div>
+    </nav>
+      <div class="offcanvas offcanvas-end text-black" data-bs-scroll="true" tabindex="-1" id="myOffcanvas" aria-labelledby="myOffcanvasLabel">
+        <div v-if="isLogin" id="myOffcanvas" data-bs-dismiss="offcanvas"><router-link :to="{name: 'Profile2', params: {userId: $store.state.user.id}}" style="text-decoration-line: none;"><div class="offcanvas-item">Profile</div></router-link></div>
+        <div v-if="isLogin">
+          <router-link @click.native="logout" to="" data-bs-dismiss="offcanvas" style="text-decoration-line: none;"><div class="offcanvas-item">Logout</div></router-link>
+        </div>
+        <div v-else>
+          <router-link to="" style="text-decoration-line: none;"><b id="show-btn" @click="$bvModal.show('loginModal')" data-bs-dismiss="offcanvas"><div class="offcanvas-item">Login</div></b></router-link>
+        </div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
+      </div>
+    <!-- 검색바 -->
+    <div style="height: 96px;"></div>
     <router-view/>
 
     <!-- 새로고침 방지용 -->
@@ -70,6 +76,7 @@ export default {
       isLogin: false,
       selected: '*',
       keyword: null,
+      isCanvas: false,
     }
   },
   methods: {
@@ -134,7 +141,7 @@ export default {
             url: `${this.$store.state.domain}/movies/search/${keyword}/`,
           })
             .then(res => {
-              window.scrollTo(0, 0)
+              this.goUp()
               this.$store.commit('RESET_SHOWNMOVIES')
               this.$store.commit('SEARCH_MOVIES', res.data)
               this.$store.commit('SPLICE_SEARCH_MOVIES')
@@ -155,6 +162,15 @@ export default {
       } else {
         this.keyword = null
       }
+    },
+    goUp: function() {
+      window.scrollTo(0, 0)
+    }
+  },
+  computed: {
+    myOffcanvas: function() {
+      var myOffcanvas = window.document.getElementById('myOffcanvas')
+      return myOffcanvas
     }
   },
   created() {
@@ -174,15 +190,24 @@ export default {
       .then(res => this.$store.commit('GET_ALL_GENRES', res.data))
   },
   updated() {
-    if (localStorage.getItem('MCDJ_jwt')) {
-      this.isLogin = true
-      this.getUser()
+    if (!this.isCanvas) {
+      this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; background-color: transparent;')
+      this.isCanvas = true
     }
-  },
+  }
+  // updated() {
+  //   if (localStorage.getItem('MCDJ_jwt')) {
+  //     this.isLogin = true
+  //     this.getUser()
+  //   }
+  // },
 }
 </script>
 
 <style>
+#test {
+  background-color:unset;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -193,16 +218,25 @@ export default {
 /* #nav {
   padding: 30px;
 } */
-
+#nav {
+  /* background-color: #141414; */
+  border-bottom: 1px;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  /* transform: translate(-50%, -0%); */
+}
 #nav a {
   font-weight: bold;
   /* color: #2c3e50; */
 }
-
 /* #nav a.router-link-exact-active {
   color: #42b983;
 } */
-
+.z-top {
+  z-index: 1000;
+}
 .no-decoration-text {
   text-decoration: none;
   /* color: black; */
@@ -210,6 +244,52 @@ export default {
 .modal-body-box {
   width: 20rem;
   margin: 0 auto;
+}
+/* .offcanvas-item {
+  text-align: left;
+  line-height: 4rem;
+  font-size: 2rem;
+  height: 4rem;
+  background-color:#f0f0f0;
+  border-color: #141414;
+  border-style: solid;
+  border-width: 1px;
+} */
+.offcanvas-item{
+  line-height: 4rem;
+  background:#1AAB8A;
+  color:#fff;
+  margin: 1px;
+  position:relative;
+  height:4rem;
+  font-size:1.6em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.offcanvas-item:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.offcanvas-item:before,.offcanvas-item:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.offcanvas-item:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.offcanvas-item:hover:before,.offcanvas-item:hover:after{
+  width:100%;
+  transition:800ms ease all;
 }
 .rflex {
   display: flex;
@@ -230,22 +310,94 @@ export default {
   margin: 0 auto;
 }
 #search-bar {
-  border-color:white;
-  border-style: solid; 
-  border-width: 1px;
   display: flex;
   justify-content: center;
+  /* height: 40px; */
   position: fixed;
   z-index: 1000;
-  padding: 0.5rem;
-  top: 0;
+  top: 48px;
   left: 50%;
-  transform: translate(-50%, -0%);
+  transform: translate(-50%, -50%);
+}
+.fontsize-20 {
+  font-size: 20px;
+}
+.fontsize-15 {
+  font-size: 15px;
+}
+.fontsize-12 {
+  font-size: 12px;
+}
+.fontsize-10 {
+  font-size: 10px;
+}
+.float-left {
+  float: left;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.flex-left {
+  display: flex;
+  justify-content: left;
+}
+.flex-right {
+  display: flex;
+  justify-content: right;
+}
+.flex-align-ceter {
+  display: flex;
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
 }
 .cursor {
   cursor: pointer;
 }
+.disabled-cursor {
+  cursor: default;
+}
 .inline-block {
   display: inline-block;
+}
+.movie-card {
+  background-color: transparent;
+  cursor: pointer;
+  width: 10rem;
+  margin: 1rem 0.5rem;
+}
+.card-img-box {
+  background-color: #141414;
+  /* background-color: transparent; */
+  position: relative;
+  height: 0;
+  padding-top: 150%;
+}
+.card-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.movie-card:hover {
+  border-radius: 2px;
+  border-style: solid;
+  border-color:#eddc5a;
+  border-width: 2px;
+  -webkit-transform:scale(1.1);
+  -moz-transform:scale(1.1);
+  -ms-transform:scale(1.1);   
+  -o-transform:scale(1.1);
+  transform:scale(1.1);
 }
 </style>

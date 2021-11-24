@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>{{$route.params.year}} 년도</h1>
     <div class="flex">
       <movie
@@ -54,5 +54,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -7,7 +7,7 @@
       <slide v-for="idx of idxes" :key="idx" class="slide_item item" aria-hidden="true">
         <div @click="goToYear(years[idx].year)" class="movie-card">
           <div class="card h-100">
-            <div class="card-img-box">
+            <div class="card-img-box h-100">
               <img :src="`https://image.tmdb.org/t/p/w500/${years[idx].poster_path}`" class="card-img" :alt="years[idx].year">
             </div>
             <div class="year-box">
@@ -135,34 +135,6 @@ export default {
 .item {
   flex: 1 1 40%;
   visibility:visible;
-}
-.movie-card {
-  cursor: pointer;
-  width: 10rem;
-  margin: 1rem 0.5rem;
-}
-.year-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.year {
-  font-size: 4em;
-  -webkit-text-stroke: 1.5px black;
-  margin-bottom: 0;
-}
-.card-img-box {
-  position: relative;
-  height: 0;
-  padding-top: 150%;
-}
-.card-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
 }
 .big-opac-box {
   position: fixed;

@@ -1,32 +1,38 @@
 <template>
   <div class="container review-box text-left" v-if="review">
-    <hr>
-    <h2>{{review.title}}</h2>
-    <div class="fontsize-12">
-      <span>{{review.user.username}}가 </span>
-      <span v-if="review.created === review.updated">{{convertDate(review.created)}}에 작성함</span>
-      <span v-else>{{convertDate(review.updated)}}에 수정함 <br>({{convertDate(review.created)}}에 작성됨)</span>
-    </div>
-    <br>
-    <div><pre>{{review.content}}</pre></div>
-    <br>
-    <div class="text-center">
-      <i class="fas fa-thumbs-up" @click="likeReview"
-        :class="{'cursor': $store.state.user.id, 'is-liked': isLiked}"
-      >
-      </i>
-       {{review.likes_cnt}}
-    </div>
-    <div class="flex-right">
-      <div v-if="review.user.id === $store.state.user.id">
-        <button @click="goToUpdate">수정</button>
-        <button @click="deleteReview">삭제</button>
+    <div class="row">
+      <div class="box col-12 col-xl-8">
+        <h2 class="my-3 mx-3">{{review.title}}</h2>
+        <hr>
+        <div class="content-box mx-3"><pre>{{review.content}}</pre></div>
+        <br>
+        <div class="text-center">
+          <i class="fas fa-thumbs-up" @click="likeReview"
+            :class="{'cursor': $store.state.user.id, 'is-liked': isLiked}"
+          >
+          </i>
+          {{review.likes_cnt}}
+        </div>
+        <div class="review-bottom mx-3">
+          <div class="additional-info fontsize-12">
+            <span>작성자 : <span @click="goToProfile" class="fontsize-15 cursor hover-btn">{{review.user.username}}</span></span> <br>
+            <span v-if="review.created === review.updated">{{convertDate(review.created)}}에 작성됨</span>
+            <span v-else>{{convertDate(review.updated)}}에 수정됨 <br>({{convertDate(review.created)}}에 작성됨)</span>
+          </div>
+          <div class="inline-block">
+            <div class="inline-block" v-if="review.user.id === $store.state.user.id">
+              <button @click="goToUpdate">수정</button>
+              <button @click="deleteReview">삭제</button>
+            </div>
+            <button @click="goToCommunity">뒤로가기</button>
+          </div>
+        </div>
       </div>
-      <button @click="goToCommunity">뒤로가기</button>
-    </div>
-    <hr>
-    <div class="flex-center">
-      <review-comment :comments="review.comments" />
+      <div class="box col-12 col-xl-4">
+        <div class="flex-center">
+          <review-comment :comments="review.comments" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +63,9 @@ export default {
       if (this.review.user.id === this.$store.state.user.id) {
         this.$router.push({name: 'Review', params: {reviewId: this.$route.params.reviewId}})
       }
+    },
+    goToProfile: function() {
+      this.$router.push({name: 'Profile', params: {userId: this.review.user.id}})
     },
     deleteReview: function() {
       if (this.review.user.id === this.$store.state.user.id) {
@@ -115,36 +124,46 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .is-liked {
   color: royalblue;
-}
-.text-left {
-  text-align: left;
-}
-.text-center {
-  text-align: center;
-}
-.fontsize-12 {
-  font-size: 12px;
-}
-.flex-right {
-  display: flex;
-  justify-content: right;
 }
 .review-box {
   border-radius: 1rem;
   border-style: solid; 
   border-width: 2px; 
-  padding: 12px; 
+  padding: 12px 24px; 
   word-break: break-all;
   border-color: LightGray; 
   background-color:#141414;
   opacity: 100%;
   color: white;
 }
-.flex-center {
+.box {
+  padding: 0;
+  border-radius: 5px;
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: LightGray; 
+}
+/* .content-box {
+  min-height: 30vh;
+} */
+.review-bottom {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.additional-info {
+  display: inline-block;
+  padding: 3px;
+  /* border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #949597; */
+}
+.hover-btn:hover {
+  color: #eddc5a;
 }
 </style>

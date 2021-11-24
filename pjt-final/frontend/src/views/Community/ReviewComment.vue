@@ -8,10 +8,10 @@
     <div v-for="comment in comments" :key="comment.id" class="comment-box">
       <div class="flex-align-ceter">
         <pre class="comment-block">{{comment.content}}</pre>{{'\u00a0'}}{{'\u00a0'}}
-        <div class="delete-comment" @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id">X</div>
+        <div class="delete-comment" @click="deleteComment(comment)" v-if="comment.user.id === $store.state.user.id"><i class="fas fa-times"></i></div>
       </div>
-      <div class="fontsize-12">
-        {{comment.user.username}}가 {{convertDate(comment.created)}}에 작성함
+      <div class="fontsize-10">
+        <span @click="goToProfile(comment.user.id)" class="fontsize-12 cursor hover-btn">{{comment.user.username}}</span>(이)가 {{convertDate(comment.created)}}에 작성함
       </div>
     </div>
   </div>
@@ -66,6 +66,9 @@ export default {
           .catch(() => this.$router.push({name: 'NotFound'}))
       }
     },
+    goToProfile: function(userId) {
+      this.$router.push({name: 'Profile', params: {userId: userId}})
+    },
     convertDate: function(responseDate) {
       let dateComponents = responseDate.split('T');
       let date = dateComponents[0].split("-");
@@ -78,7 +81,7 @@ export default {
 
 <style scoped>
 .flex-col {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-items: stretch;
@@ -101,9 +104,6 @@ export default {
   display: inline-block;
   margin: 0;
 }
-.fontsize-12 {
-  font-size: 12px;
-}
 .delete-comment {
   font-size: 10px;
   color: #949597;
@@ -115,8 +115,7 @@ export default {
   border-width: 1px; 
   border-color: #949597;
 }
-.flex-align-ceter {
-  display: flex;
-  align-items: center;
+.hover-btn:hover {
+  color: #eddc5a;
 }
 </style>
