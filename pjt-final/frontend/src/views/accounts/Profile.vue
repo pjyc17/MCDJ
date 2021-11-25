@@ -45,8 +45,8 @@
         </div>
         <!--   <h3>followings : {{  }} / followers : {{  }}</h3> -->
         <br>
-        <div class="row">
-          <div class="container col-12 col-sm-6 col-lg-4 col-xl-3">
+        <div class="row w-100">
+          <div class=" col-12 col-sm-6 col-lg-4 col-xl-3">
             <h3 class="yello-font">genre : </h3>
             <hr>
             <div v-for="genre in genres" :key="genre.id">

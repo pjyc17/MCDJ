@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <img alt="MCDJ logo" class="logo" src="../../public/favicon/android-chrome-384x384.png">
+    <div id="crazybg"></div>
+    <img alt="MCDJ logo" class="MCDJ" src="../../public/favicon/android-chrome-384x384.png">
     <br><br>
     <!-- <br>
     <img src="@/assets/그림5.png" alt=""> -->
@@ -112,9 +113,18 @@ export default {
 
 </script>
 <style scoped>
-.MCDJ {
+#crazybg {
   position: fixed;
-  bottom: 2rem;
+  background: url(../assets/토끼떵유.png) center center no-repeat;
+  background-size: cover;
+  top: 0;
+  opacity: 0.2;
+  width: 40vw;
+  height: 100vh;
+}
+
+.MCDJ {
+  z-index: 50;
 }
 /* .logo {
   position: fixed;
