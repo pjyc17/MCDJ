@@ -200,8 +200,8 @@ export default {
         })
     },
     goToMovieDetail: function(movieId) {
-      this.$router.push({name: 'MovieDetail', params: {movieId: movieId}})
-      this.getMovie()
+      this.$router.push({name: 'MovieDetail2', params: {movieId: movieId}})
+      // this.getMovie()
     },
     putInCart: function() {
       axios({

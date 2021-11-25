@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Home2 from '@/views/Home2.vue'
 import Movies from '@/views/Movie/Movies.vue'
 import MovieDetail from '@/views/Movie/MovieDetail.vue'
+import MovieDetail2 from '@/views/Movie/MovieDetail2.vue'
 import GenreMovies from '@/views/Movie/GenreMovies.vue'
 import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import Chronology2 from '@/views/Movie/Chronology/Chronology2.vue'
@@ -44,6 +45,11 @@ const routes = [
     path: '/movie/:movieId',
     name: 'MovieDetail',
     component: MovieDetail
+  },
+  {
+    path: '/movie/:movieId',
+    name: 'MovieDetail2',
+    component: MovieDetail2
   },
   {
     path: '/genre/:genreId',

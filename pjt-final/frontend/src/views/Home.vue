@@ -202,6 +202,7 @@ animation-delay: 3s; }
   text-shadow: 0 0 0 whitesmoke;
   -webkit-animation: appear 5s 4s both;
           animation: appear 5s 4s both;
+          /* , sparkle 10s linear infinite; */
 }
 @-webkit-keyframes appear {
   50% {
@@ -212,7 +213,14 @@ animation-delay: 3s; }
     opacity: 1;
   }
 }
-
+@-webkit-keyframes sparkle {
+  0% {
+    color: whitesmoke;
+  }
+  100% {
+    color: #eddc5a;
+  }
+}
 
 header h1 { 
   position: fixed;
