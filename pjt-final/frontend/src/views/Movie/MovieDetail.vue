@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-box">
+  <div class="detail-box" :getAllMovies="getAllMovies" :bmovies="movies">
     <div v-if="movie" class="row">
       <div class="col-12 col-md-8 float-left">
         <div class="video-container">
@@ -96,6 +96,7 @@
 <script>
 import axios from 'axios'
 import StarRating from 'vue-star-rating'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'MovieDetail',
@@ -105,7 +106,9 @@ export default {
   data: function() {
     return {
       movie: null,
+      movies: [],
       similarMovies: [],
+      isUpdate: false,
       chats: [],
       isShown: false,
       rating: 3,
@@ -149,15 +152,7 @@ export default {
             },
           })
             .then((res) => {
-              this.similarMovies = []
-              for (let similarMovie of res.data.results) {
-                if (this.$store.state.allMovies.some(movie => movie.id === similarMovie.id && movie.id !== this.movie.id)) {
-                  this.similarMovies.push(similarMovie)
-                }
-                if (this.similarMovies.length === 10) {
-                  break
-                }
-              }
+              this.movies = res.data.results
               // this.similarMovies = res.data.results.slice(0, 5)
             })
         })
@@ -253,6 +248,9 @@ export default {
       else {document.querySelector("#app > div.detail-box > div:nth-child(1) > div.col-12.col-md-4 > div.flex-right > i").removeAttribute('style', 'position: fixed; top: 60px; right: 0; z-index:1000')}
     },
   },
+  computed: {
+    ...mapGetters(['getAllMovies',]),
+  },
   created() {
     window.scrollTo(0, 0)
     this.getMovie()
@@ -264,6 +262,18 @@ export default {
   },
   updated() {
     window.document.getElementById('chat-box-content').scrollTop = window.document.getElementById('chat-box-content').scrollHeight;
+    if (!this.isUpdate && this.getAllMovies.length && this.movies.length) {
+      this.similarMovies = []
+      for (let similarMovie of this.movies) {
+        if (this.getAllMovies.some(movie => movie.id == similarMovie.id && movie.id != this.movie.id)) {
+          this.similarMovies.push(similarMovie)
+        }
+        if (this.similarMovies.length === 10) {
+          break
+        }
+      }
+      this.isUpdate = true
+    }
   }
 }
 </script>
