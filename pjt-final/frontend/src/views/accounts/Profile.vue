@@ -3,8 +3,8 @@
     <div id="gost-bg"></div>
     <header>
       <div id="word" v-if="is_birthday">
-        <h1 >{{ person.username }}'s Profile</h1>
-        <h3>age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}</h3>
+        <h1 class="hover-btn">{{ person.username }}'s Profile</h1>
+        <h3 class="hover-btn">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}</h3>
         <router-link :to="{name: 'ProfileEdit2', params: {userId: $store.state.user.id}}">Edit Birthday</router-link>
 
         <h3 v-if="(person.birthday.birthday.substring(5,7) == 1 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) <= 18) "><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
@@ -35,20 +35,20 @@
           </div>
         <!-- <div class="box">sd</div> -->
           <div class="container">
-            <h3>want : {{ }} </h3>
+            <h3 class="hover-btn">want : {{ }} </h3>
             <div v-for="movie in carts" :key="movie.id">
               <strong @click="goToMovie(movie.id)" class="inline-block cursor">{{ movie.title }}</strong>
             </div>
           </div>
           <div class="container">
-            <h3>likes  : </h3>
-            <div v-for="like_review in like_reviews" :key=like_review.id>
-              <strong @click="goToReview(like_review.id)" class="cursor">{{ like_review.title }} <i class="fas fa-thumbs-up"></i> {{ like_review.likes_cnt }}</strong>
+            <h3 class="hover-btn">likes  : </h3>
+            <div v-for="like_review in like_reviews" :key=like_review.id class="container2">
+              <strong @click="goToReview(like_review.id)" id="group" class="cursor">{{ like_review.title }} <i class="fas fa-thumbs-up rightway">{{ like_review.likes_cnt }}</i></strong>
             </div>
           </div>
           <!-- <div class="container" style="word-break:break-all;word-wrap:break-word;"> -->
           <div class="container">
-            <h3>written : </h3>
+            <h3 class="hover-btn">written : </h3>
             <div v-for="review in reviews" :key="review.id">
               <strong @click="goToReview(review.id)" class="inline-block cursor">{{ review.title }}</strong>
             </div>
@@ -95,7 +95,7 @@ export default {
         .then((res) => {
           if (res.data.birthday) {
             const birth = this.person.birthday.birthday.substring(5,7) + this.person.birthday.birthday.substring(8,10)
-            console.log(birth.month)
+            // console.log(birth.month)
             this.is_birthday = true
             axios({
               method: 'get',
@@ -124,7 +124,7 @@ export default {
     },
 
     goToGenre: function(genreId) {
-      console.log(genreId)
+      // console.log(genreId)
       this.$router.push({name: 'GenreMovies', params: {genreId: genreId}})
     },
     goToMovie: function (movieId) {
@@ -153,9 +153,44 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+  color: #949597;
+}
+h3:hover {
+  z-index: 999;
+  color: #eddc5a;
+}
+h5 {
+  font-weight: bold;
+  color: #949597;
+}
+h5:hover {
+  z-index: 999;
+  color: #eddc5a;
+}
+strong {
+  color: white;
+  font-weight: bold;
+
+}
+strong:hover {
+  z-index: 999;
+  color: #eddc5a;
+}
+p {
+  color: white;  font-weight: bold;
+}
+p:hover {
+  z-index: 999;
+  color: #eddc5a;
+}
+
 .btw {
   display: flex;
   justify-content: space-between;
+}
+.container2 {
+  padding: 0px 60px;
 }
 /* .header-img { */
   /* position: relative; */
@@ -212,10 +247,12 @@ export default {
 }
 
 #group {
+  text-align: center;
   display: flex;
-  justify-content: space-evenly;
+  justify-content:space-between;
 
 }
+
 
 h1 {
   animation-duration: 4s;
@@ -256,6 +293,10 @@ h1 {
   z-index: -1;
   
 } */
+.hover-btn:hover {
+  z-index: 999;
+  color: #eddc5a;
+}
 .cursor {
   cursor: pointer;
 }

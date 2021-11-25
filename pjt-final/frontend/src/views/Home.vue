@@ -1,24 +1,25 @@
 <template>
   <div class="home">
-      <img alt="MCDJ logo" class="logo class" src="../../public/favicon/android-chrome-384x384.png">
+    <img alt="MCDJ logo" class="logo" src="../../public/favicon/android-chrome-384x384.png">
+    <!-- <br>
+    <img src="@/assets/그림5.png" alt=""> -->
 
-
-<header v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
-<!-- <header> -->
-  <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
-  <!-- <img src="mountain-range-front.png"> -->
-</header>
-<header v-else>
-  <h1>Go <span>to</span> <h2>the</h2><h3>{{ $store.state.user.birthday.year }}<h4 style="text-align:right">{{ $store.state.user.birthday.month }} / {{ $store.state.user.birthday.date }} </h4></h3></h1>
-</header>
+    <header v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
+    <!-- <header> -->
+      <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
+      <!-- <img src="mountain-range-front.png"> -->
+    </header>
+    <header v-else>
+      <h1>Go <span>to</span> <h2>the</h2><h3>{{ $store.state.user.birthday.year }}<h4 style="text-align:right">{{ $store.state.user.birthday.month }} / {{ $store.state.user.birthday.date }} </h4></h3></h1>
+    </header>
 
     <div class="imgbtf" v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
-        <div class="bounce">
-          <button @click="getBirthday">입력</button>
+        <div class="bounce inline-block">
+          <button @click="getBirthday" class="btn-3d green">입력</button>
         </div>
       </div>
         <!-- <img src="../assets/그림5.png" alt="pointer"> -->
@@ -109,10 +110,10 @@ export default {
   /* top: -1rem; */
   /* bottom: 0px; */
   width: 100vw;
-  height: 100vw;
+  height: 100%;
   font-family: 'Sucrose Bold Two';
   background: url(../assets/그림5.png) center 0  no-repeat;
-  background-size: contain;
+  background-size: cover;
   padding-top:14%;
 }
 /* .imgbtf {
@@ -144,6 +145,7 @@ header h1 {
   font-size: 12vw;
   line-height: .5;
   margin-top: 0;
+  color: #92c724;
   text-align: left;
 }
 header h1 span {
@@ -151,12 +153,14 @@ header h1 span {
   top: 7rem;
   right: 2rem;
   font-size: 8.75vw;
+  color: #92c724;
 }
 header h2 {
   position: fixed;
   bottom: 7rem;
   /* right: 2rem; */
   font-size: 8vw;
+  color: #92c724;
 
 }
 header h3 {
@@ -164,6 +168,7 @@ header h3 {
   bottom: 10rem;
   right: 2rem;
   font-size: 8vw;
+  color: #92c724 ;
 
 }
 header h3 h4 {
@@ -177,19 +182,36 @@ header h3 h4 {
 .bounce { 
   position: relative; 
 /* 파폭 */ 
-  /* -moz-animation: bounce 0.7s infinite linear;  */
+  -moz-animation: bounce 0.7s infinite linear; 
 /* 크롬 */ 
-  /* -webkit-animation: bounce 0.7s infinite linear;  */
-  /* -o-animation: bounce 0.7s infinite linear;  */
-  animation: bounce 2s infinite linear; 
-  animation-delay: 2.1s;
-  /* animation-iteration-count: 5; */
+  -webkit-animation: bounce 0.7s; /*infinite linear; */
+  -o-animation: bounce 0.7s infinite linear; 
+  animation: bounce 2s; 
+  animation-delay: 0.5s;
+  animation-iteration-count: 5;
 }
-/* @-webkit-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-webkit-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
 @-moz-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
 @-o-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
-@-ms-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } }  */
+@-ms-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
 @keyframes bounce { 0% { top: 0; } 5% { top: -5px; } 15% { top: -50px; } 20% { top: 0; } }
+
+.bounce1 { 
+  position: relative; 
+/* 파폭 */ 
+  -moz-animation: bounce1 0.7s infinite linear; 
+/* 크롬 */ 
+  -webkit-animation: bounce1 0.7s; /*infinite linear; */
+  -o-animation: bounce1 0.7s infinite linear; 
+  animation: bounce1 2s; 
+  /* animation-delay: 2.1s; */
+  animation-iteration-count: 5;
+}
+@-webkit-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-moz-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-o-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@-ms-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
+@keyframes bounce1 { 0% { top: 0; } 5% { top: -5px; } 15% { top: -50px; } 20% { top: 0; } }
 
 
 /* @font-face {
@@ -274,4 +296,89 @@ to   {transform: rotate(0deg);}
 from {transform: rotate(360deg);}
 to   {-webkit-transform: rotate(0deg);}
 }
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	background: #eaedf1;
+	font-family: 'Lato', sans-serif;
+}
+.header {
+	background: white;
+	padding: 30px;
+	text-align: center;
+}
+.header h1 {
+	font-weight: 300;
+	display: inline;
+}
+h2 {
+	color: #89867e;
+	text-align: center;
+	font-weight: 300;
+}
+.color {
+	width: 350px;
+	margin: 0 auto;
+}
+.color li {
+	margin: 0 15px 0 0;
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 100%;
+}
+.color .red    {background: #fa5a5a;}
+.color .yellow {background: #f0d264;}
+.color .green  {background: #82c8a0;}
+.color .cyan   {background: #7fccde;}
+.color .blue   {background: #6698cb;}
+.color .purple {background: #cb99c5;}
+
+.content, 
+.content-gradient, 
+.content-3d {
+  margin: 40px auto;
+}
+.content {
+  width: 80%;
+  max-width: 700px;
+}
+.content-3d {
+  width: 50%;
+  max-width: 300px;
+}
+pre {
+	width: 100%;
+	padding: 30px;
+	background-color: rgba(0, 0, 0, 0.72);
+	color: #f8f8f2;
+	border-radius: 0 0 4px 4px;
+	margin-top: 20px;
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+pre .bt  {color: #f8f8f2;} /* <> */
+pre .anc {color: #f92672;} /* anchor tag */
+pre .att {color: #a6a926;} /* attribute */
+pre .val {color: #e6db74;} /* value */
+
+.btn-container, .container {
+	background-color: white;
+	border-radius: 4px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+.container h2 {
+	padding-top: 30px;
+	font-weight: 300;
+}
+
+
+
+
 </style>

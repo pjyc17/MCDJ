@@ -73,6 +73,7 @@ export default {
   width: 30rem;
 }
 .signup-btn {
+  /* text-align: center; */
   cursor: pointer;
   margin: 1rem 0 0 0;
   height: 2.5rem;
