@@ -6,7 +6,7 @@
 
     <header v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
     <!-- <header> -->
-      <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
+      <h1>Go <span>to</span> <span><h2>the</h2></span><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
       <!-- <img src="mountain-range-front.png"> -->
     </header>
     <header v-else>
@@ -31,6 +31,15 @@
           <br>
         </div>
       </div> -->
+    </div>
+    <div>
+      <span>M</span><span>O</span><span>V</span><span>I</span><span>E</span><span>&nbsp;</span><span>C</span><span>H</span><span>R</span><span>O</span><span>N</span><span>O</span><span>L</span><span>O</span><span>G</span><span>Y</span>
+    </div>
+    <div>
+      <span>d</span><span>o</span><span>n</span><span>g</span><span>&nbsp;</span><span>y</span><span>u</span><span>&nbsp;</span><span>&</span><span>&nbsp;</span><span>j</span><span>u</span><span>&nbsp;</span><span>y</span><span>o</span><span>o</span><span>n</span>
+    </div>
+    <div>
+      <h1 class="blinking" >Ok!! Let's Go {{$store.state.user.birthday.year}}.{{$store.state.user.birthday.month}}.{{$store.state.user.birthday.date}}!!!</h1>
     </div>
   </div>
 </template>
@@ -95,6 +104,11 @@ export default {
 
 </script>
 <style scoped>
+.MCDJ {
+  position: fixed;
+  bottom: 2rem;
+
+}
 /* .logo {
   position: fixed;
   display: flex;
@@ -115,7 +129,14 @@ export default {
   background: url(../assets/그림5.png) center 0  no-repeat;
   background-size: cover;
   padding-top:14%;
+  /* opacity: 0.4; */
 }
+.blinking{ -webkit-animation:blink 0.5s ease-in-out infinite alternate; -moz-animation:blink 1.5s ease-in-out infinite alternate; animation:blink 0.5s ease-in-out infinite alternate;
+animation-delay: 3s; } 
+@-webkit-keyframes blink{ 0% {opacity:0;} 100% {opacity:1;} } 
+@-moz-keyframes blink{ 0% {opacity:0;} 100% {opacity:1;} } 
+@keyframes blink{ 0% {opacity:0;} 100% {opacity:1;} }
+
 /* .imgbtf {
   position: relative;
 } */
@@ -136,51 +157,230 @@ export default {
 } */
 header h1 { 
   position: fixed;
-  top: 7rem;
-  left: 2rem;
+  top: 30rem;
+  left: 12rem;
   font-size: 12vw;
   line-height: .5;
   margin-top: 0;
-  color: #92c724;
+  color: whitesmoke;
   text-align: left;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 3.5s both;
+          animation: smoky 5s 3.5s both;
 }
 header h1 span {
   position: fixed;
-  top: 7rem;
-  right: 2rem;
+  top: -10rem;
+  right: -60rem;
   font-size: 8.75vw;
-  color: #92c724;
+  color: whitesmoke;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 3s both;
+          animation: smoky 5s 3s both;
 }
 header h2 {
   position: fixed;
-  bottom: 7rem;
+  bottom: -20rem;
   /* right: 2rem; */
   font-size: 8vw;
-  color: #92c724;
+  color: whitesmoke;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 1s both;
+          animation: smoky 5s 1s both;
 
 }
 header h3 {
   position: fixed;
-  bottom: 10rem;
-  right: 2rem;
+  bottom: -20rem;
+  right: -50rem;
   font-size: 8vw;
-  color: #92c724 ;
+  color: whitesmoke ;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 2s both;
+          animation: smoky 5s 2s both;
 
 }
 header h3 h4 {
   position: fixed;
   font-size: 4vw;
   /* bottom: 7rem; */
-  right: 2rem;
-  text-align:right
+  right: -20rem;
+  text-align:right;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 3s both;
+          animation: smoky 5s 3s both;
+  
 
 }
+span {
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s 3s both;
+          animation: smoky 5s 3s both;
+}
+
+span:nth-child(even) {
+  -webkit-animation-name: smoky-mirror;
+          animation-name: smoky-mirror;
+}
+
+@-webkit-keyframes smoky {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+
+@keyframes smoky {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes smoky-mirror {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+@keyframes smoky-mirror {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+span:nth-of-type(1) {
+  -webkit-animation-delay: 3.1s;
+          animation-delay: 3.1s;
+}
+
+span:nth-of-type(2) {
+  -webkit-animation-delay: 3.2s;
+          animation-delay: 3.2s;
+}
+
+span:nth-of-type(3) {
+  -webkit-animation-delay: 3.3s;
+          animation-delay: 3.3s;
+}
+
+span:nth-of-type(4) {
+  -webkit-animation-delay: 3.4s;
+          animation-delay: 3.4s;
+}
+
+span:nth-of-type(5) {
+  -webkit-animation-delay: 3.5s;
+          animation-delay: 3.5s;
+}
+
+span:nth-of-type(6) {
+  -webkit-animation-delay: 3.6s;
+          animation-delay: 3.6s;
+}
+
+span:nth-of-type(7) {
+  -webkit-animation-delay: 3.7s;
+          animation-delay: 3.7s;
+}
+
+span:nth-of-type(8) {
+  -webkit-animation-delay: 3.8s;
+          animation-delay: 3.8s;
+}
+
+span:nth-of-type(9) {
+  -webkit-animation-delay: 3.9s;
+          animation-delay: 3.9s;
+}
+
+span:nth-of-type(10) {
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+}
+
+span:nth-of-type(11) {
+  -webkit-animation-delay: 4.1s;
+          animation-delay: 4.1s;
+}
+
+span:nth-of-type(12) {
+  -webkit-animation-delay: 4.2s;
+          animation-delay: 4.2s;
+}
+
+span:nth-of-type(13) {
+  -webkit-animation-delay: 4.3s;
+          animation-delay: 4.3s;
+}
+
+span:nth-of-type(14) {
+  -webkit-animation-delay: 4.4s;
+          animation-delay: 4.4s;
+}
+
+span:nth-of-type(15) {
+  -webkit-animation-delay: 4.5s;
+          animation-delay: 4.5s;
+}
+
+span:nth-of-type(16) {
+  -webkit-animation-delay: 4.6s;
+          animation-delay: 4.6s;
+}
+
+span:nth-of-type(17) {
+  -webkit-animation-delay: 4.7s;
+          animation-delay: 4.7s;
+}
+
+span:nth-of-type(18) {
+  -webkit-animation-delay: 4.8s;
+          animation-delay: 4.8s;
+}
+
+span:nth-of-type(19) {
+  -webkit-animation-delay: 4.9s;
+          animation-delay: 4.9s;
+}
+
+span:nth-of-type(20) {
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+}
+
+span:nth-of-type(21) {
+  -webkit-animation-delay: 5.1s;
+          animation-delay: 5.1s;
+}
+
 .bounce { 
   position: relative; 
 /* 파폭 */ 
   -moz-animation: bounce 0.7s infinite linear; 
 /* 크롬 */ 
-  -webkit-animation: bounce 0.7s; /*infinite linear; */
+  -webkit-animation: bounce 0.7s; 
   -o-animation: bounce 0.7s infinite linear; 
   animation: bounce 2s; 
   animation-delay: 0.5s;
@@ -192,22 +392,8 @@ header h3 h4 {
 @-ms-keyframes bounce { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
 @keyframes bounce { 0% { top: 0; } 5% { top: -5px; } 15% { top: -50px; } 20% { top: 0; } }
 
-.bounce1 { 
-  position: relative; 
-/* 파폭 */ 
-  -moz-animation: bounce1 0.7s infinite linear; 
-/* 크롬 */ 
-  -webkit-animation: bounce1 0.7s; /*infinite linear; */
-  -o-animation: bounce1 0.7s infinite linear; 
-  animation: bounce1 2s; 
-  /* animation-delay: 2.1s; */
-  animation-iteration-count: 5;
-}
-@-webkit-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
-@-moz-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
-@-o-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
-@-ms-keyframes bounce1 { 0% { top: 0; } 50% { top: -5px; } 70% { top: -50px; } 100% { top: 0; } } 
-@keyframes bounce1 { 0% { top: 0; } 5% { top: -5px; } 15% { top: -50px; } 20% { top: 0; } }
+
+
 
 
 /* @font-face {
