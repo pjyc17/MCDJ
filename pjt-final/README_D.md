@@ -317,3 +317,33 @@ vue frontend도 이쁘게 꾸몄지만, 무엇보다 요청을 최대한 django�
 serializer와 각종 모델링들도 엄청 잘 구현했기에, 보다 빠른 응답을 받을수 있다.
 
 vue또한 많은 것을 적용했고, 깔끔하고 이쁘게 구현했고, 여러 기능들이 있어 재미를 느낄수 있다.
+
+
+주윤이를 위한 orm 설명
+
+```py
+        movies = Movie.objects\
+            .annotate(recommend = (Cast(Count('logs', filter=Q(logs__user_id=request.user.pk), distinct=True), FloatField()) * Coalesce(Avg('chats__rating', filter=Q(logs__user_id=request.user.pk)), 3.0)) * 5 + (Cast(Count('logs', distinct=True), FloatField()) * Coalesce(Avg('chats__rating'), 3.0)) * 3)\
+            .order_by('-recommend', '-popularity')
+```
+앞에서부터 설명을 하자면,
+
+무비 테이블에 annotate를 한다.
+
+무엇을? recommend라는 필드를
+
+recommend필드는 다음과 같다.
+
+logs 필드를 innerjoin해서 카운트를 할 건데, log의 user와 request의 유저가 같은 값만 카운트를 합니다.
+
+하지만, 추가 annotate에 chats필드도 innerjoin되는데, chats에 대해선 groupby가 안 되어 있습니다.
+
+따라서 distinct=True로 중복된 값은 제거를 합니다.
+
+아무튼 count값을 실수로 계산하기 위해(orm에서 정수필드로 계산하면 값이 정수가 나옴..) Cast로 floatfield를 적용시켜, 실수로 만들어 계산할 것입니다.
+
+그리고, chat의 rating필드를 가져와서 평균을 계산하여 둘을 곱해줍니다.
+
+filter한 값과 안 한값을 가져와서 5:3 비율로 recommend값을 계산합니다.
+
+이렇게 해서 유저의 추천값이 모든 유저의 추천값을 섞어 만든값으로 영화를 추천합니다.
