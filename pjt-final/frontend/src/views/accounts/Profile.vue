@@ -1,5 +1,6 @@
 <template>
-  <div id="app"> 
+  <div id="app">
+    <div id="gost-bg"></div>
     <header>
       <div id="word" v-if="is_birthday">
         <h1 >{{ person.username }}'s Profile</h1>
@@ -170,16 +171,46 @@ export default {
   position: relative;
   top: -10rem;
   font-family: 'Sucrose Bold Two';
-  background: url(../../assets/gorhf.png) center 0  no-repeat;
+  /* background: url(../../assets/gorhf.png) center 0  no-repeat; */
   background-size: cover;
-  padding-top:450px;
+  padding-top: 30vh;
   
-  opacity: 0.3;
+  /* opacity: 0.3; */
   /* z-index: -999; */
 }
 /* #word {
   opacity: 1;
 } */
+#gost-bg{
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  font-family: 'Sucrose Bold Two';
+  background: url(../../assets/gorhf.png) center 0  no-repeat;
+  background-size: cover;
+  /* padding-top:450px; */
+  height: 100vh;
+  opacity: 0.2;
+  animation-duration: 5s;
+  animation-name: slidein5;
+  animation-fill-mode: forwards;
+}
+@keyframes slidein5 {
+  from {
+    margin-top: -200%;
+    margin-left: -400%;
+    height: 1000%;
+    width: 1000%
+  }
+
+  to {
+    margin-top: 0%;
+    margin-left: 0%;
+    height: 100%;
+    width: 100%;
+  }
+}
+
 #group {
   display: flex;
   justify-content: space-evenly;
