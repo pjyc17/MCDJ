@@ -115,12 +115,12 @@ export default {
 <style scoped>
 #crazybg {
   position: fixed;
-  background: url(../assets/토끼떵유.png) center center no-repeat;
+  background: url(../assets/토끼떵유.png) -30vw center no-repeat;
   background-size: cover;
-  top: 0;
+  bottom: 0vw;
   opacity: 0.2;
-  width: 40vw;
-  height: 100vh;
+  width: 100vw;
+  height: 80rem;
 }
 
 .MCDJ {
