@@ -55,4 +55,7 @@ export default new Vuex.Store({
   },
   modules: {
   },
+  getters: {
+    getRecommendedGenres: (state) => state.userMoviesByGenres,
+  },
 })

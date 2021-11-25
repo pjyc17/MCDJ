@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <h1>추천하는 {{genreTitle}} 장르의 영화들입니다.</h1>
-    <div class="flex">
+    <br>
+    <h1>추천 {{genreTitle}} 영화</h1>
+    <div class="flex-center-wrap">
       <movie
         v-for="movie in shownMovies" :key="movie.id"
         :movie="movie"

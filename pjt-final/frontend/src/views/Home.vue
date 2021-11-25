@@ -133,10 +133,6 @@ export default {
   top: 100px;
 
 } */
-@font-face {
-    font-family: 'Sucrose Bold Two';
-    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
-    }
 header h1 { 
   position: fixed;
   top: 7rem;
