@@ -8,6 +8,8 @@ import Chronology from '@/views/Movie/Chronology/Chronology.vue'
 import Chronology2 from '@/views/Movie/Chronology/Chronology2.vue'
 import ChronologyYear from '@/views/Movie/Chronology/ChronologyYear.vue'
 import Year from '@/views/Movie/Chronology/Year.vue'
+import Recommend from '@/views/Movie/Recommend/Recommend.vue'
+import Recommend2 from '@/views/Movie/Recommend/Recommend2.vue'
 import Community from '@/views/Community/Community.vue'
 import Community2 from '@/views/Community/Community2.vue'
 import ReviewDetail from '@/views/Community/ReviewDetail.vue'
@@ -61,6 +63,16 @@ const routes = [
     path: '/year/:year',
     name: 'Year',
     component: Year
+  },
+  {
+    path: '/recommend',
+    name: 'Recommend',
+    component: Recommend
+  },
+  {
+    path: '/recommend',
+    name: 'Recommend2',
+    component: Recommend2
   },
   {
     path: '/community',

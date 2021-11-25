@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>{{$route.params.year}} 년도</h1>
-    <div class="flex">
+    <div class="flex-center-wrap">
       <movie
         v-for="(movie, idx) in shownMovies" :key="idx"
         :movie="movie"

@@ -3,9 +3,13 @@
       <img alt="MCDJ logo" class="logo class" src="../../public/favicon/android-chrome-384x384.png">
 
 
-<header>
+<header v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
+<!-- <header> -->
   <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
   <!-- <img src="mountain-range-front.png"> -->
+</header>
+<header v-else>
+  <h1>Go <span>to</span> <h2>the</h2><h3>{{ $store.state.user.birthday.year }}<h4 style="text-align:right">{{ $store.state.user.birthday.month }} / {{ $store.state.user.birthday.date }} </h4></h3></h1>
 </header>
 
     <div class="imgbtf" v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
@@ -28,7 +32,6 @@
       </div> -->
     </div>
   </div>
-  
 </template>
 
 <script>

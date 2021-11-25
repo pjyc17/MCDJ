@@ -38,13 +38,15 @@
       </div>
     </div>
     <div class="row">
-      <div v-for="movie in similarMovies" :key="movie.key" @click="goToMovieDetail(movie.id)" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
-        <div class="card h-100">
-          <div class="card-img-box">
-            <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="card-img" :alt="movie.title">
-          </div>
-          <div class="card-body">
-            <p class="card-title reduce-content">{{movie.title}}</p>
+      <div class="flex-center-wrap">
+        <div v-for="movie in similarMovies" :key="movie.key" @click="goToMovieDetail(movie.id)" class="col-6 col-sm-4 col-md-3 col-xl-2 movie-card">
+          <div class="card h-100">
+            <div class="card-img-box">
+              <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="card-img" :alt="movie.title">
+            </div>
+            <div class="card-body">
+              <p class="card-title reduce-content">{{movie.title}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -249,6 +251,10 @@ export default {
   },
   created() {
     this.getMovie()
+    window.addEventListener('resize', function() {
+      if (window.innerWidth < 768) {document.querySelector("#app > div.detail-box > div:nth-child(1) > div.col-12.col-md-4 > div.flex-right > i").setAttribute('style', 'position: fixed; top: 60px; right: 0; z-index:1000')}
+      else {document.querySelector("#app > div.detail-box > div:nth-child(1) > div.col-12.col-md-4 > div.flex-right > i").removeAttribute('style', 'position: fixed; top: 60px; right: 0; z-index:1000')}
+    }, true)
   },
   updated() {
     window.document.getElementById('chat-box-content').scrollTop = window.document.getElementById('chat-box-content').scrollHeight;

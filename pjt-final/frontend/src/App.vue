@@ -1,32 +1,39 @@
 <template>
   <div id="app">
-    <nav id="nav" class="navbar navbar-expand-md navbar-light">
-      <div class="container-fluid">
-        <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.jpg" alt="" height="40px"></router-link>
-        <div id="search-bar">
-          <select v-model="selected" class="fontsize-20">
-            <option value="*">전체</option>
-            <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
-          </select>
-          <input @keyup.enter="searchMovie" v-model="keyword" type="text" class="fontsize-20">
-          <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
+    <nav id="nav">
+      <div id="search-bar">
+        <select v-model="selected" class="fontsize-20">
+          <option value="*">전체</option>
+          <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
+        </select>
+        <input @keyup.enter="searchMovie" v-model="keyword" type="text" class="fontsize-20">
+        <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
+      </div>
+      <div class="flex-between flex-align-ceter">
+        <div class="inline-block">
+          <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.jpg" alt="" height="40px" style="margin: 20px;"></router-link>
+        </div>
+        <div class="flex-center flex-align-ceter">
+          <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-Y': isLogin, 'text-N': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
+          <div :class="{'btn-Y': isLogin, 'btn-N': !isLogin}" type="button" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas" aria-controls="myOffcanvas">MENU</div>
         </div>
       </div>
-      <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-Y': isLogin, 'text-N': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
-      <div :class="{'btn-Y': isLogin, 'btn-N': !isLogin}" type="button" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas" aria-controls="myOffcanvas">MENU</div>
-
     </nav>
       <div class="offcanvas offcanvas-end text-black" data-bs-scroll="true" tabindex="-1" id="myOffcanvas" aria-labelledby="myOffcanvasLabel">
-        <div v-if="isLogin" id="myOffcanvas" data-bs-dismiss="offcanvas"><router-link :to="{name: 'Profile2', params: {userId: $store.state.user.id}}" style="text-decoration-line: none;"><div class="offcanvas-item">Profile</div></router-link></div>
+        <div v-if="isLogin" id="myOffcanvas" data-bs-dismiss="offcanvas"><router-link :to="{name: 'Profile2', params: {userId: $store.state.user.id}}" style="text-decoration-line: none;"><div class="offcanvas-item">{{$store.state.user.username}}'s Profile</div></router-link></div>
+        <div v-else>
+          <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Signup'}" style="text-decoration-line: none;"><div class="offcanvas-item">Signup</div></router-link></div>
+        </div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Recommend2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Recommend</div></router-link></div>
+        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
+        <br>
         <div v-if="isLogin">
           <router-link @click.native="logout" to="" data-bs-dismiss="offcanvas" style="text-decoration-line: none;"><div class="offcanvas-item">Logout</div></router-link>
         </div>
         <div v-else>
-          <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Signup'}" style="text-decoration-line: none;"><div class="offcanvas-item">Signup</div></router-link></div>
           <router-link to="" style="text-decoration-line: none;"><b id="show-btn" @click="$bvModal.show('loginModal')" data-bs-dismiss="offcanvas"><div class="offcanvas-item">Login</div></b></router-link>
         </div>
-        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
-        <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
       </div>
     <!-- 검색바 -->
     <div style="height: 96px;"></div>
@@ -128,6 +135,7 @@ export default {
       this.isOk = true
       localStorage.removeItem('MCDJ_jwt')
       this.$store.commit('GET_USER', this.$store.state.anonymousUser)
+      this.$store.commit('GET_BIRTHDAY', this.$store.state.today)
       if (this.$route.path !== '/') this.$router.push({name: 'Home'})
     },
     googleLogin: function() {
@@ -180,6 +188,10 @@ export default {
     }
   },
   created() {
+    window.addEventListener('resize', function() {
+      if (window.innerWidth < 810) {document.querySelector("#search-bar").setAttribute('style', 'top: 75px;'); document.querySelector("#search-bar > input").setAttribute('style', 'font-size: 12px;')}
+      else {document.querySelector("#search-bar").setAttribute('style', 'top: 40px;'); document.querySelector("#search-bar > input").setAttribute('style', 'font-size: 20px;')}
+    }, true)
     if (localStorage.getItem('MCDJ_jwt')) {
       this.getUser()
     } else {this.isOk = true}
@@ -367,7 +379,7 @@ export default {
   /* height: 40px; */
   position: fixed;
   z-index: 1000;
-  top: 48px;
+  top: 40px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -390,9 +402,18 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.flex-center-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .flex-center {
   display: flex;
   justify-content: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
 }
 .flex-left {
   display: flex;

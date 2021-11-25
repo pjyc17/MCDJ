@@ -9,7 +9,7 @@
     </div>
     <br>
     <div v-if="!isLoading" @click="goToChronologyYear" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}슬라이드 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
-    <div class="flex">
+    <div class="flex-center-wrap">
       <each-year 
         v-for="(eachYear, idx) in years" :key="idx"
         :eachYear="eachYear"

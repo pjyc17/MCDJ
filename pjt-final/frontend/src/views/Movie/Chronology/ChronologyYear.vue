@@ -1,5 +1,5 @@
 <template>
-  <div @mousemove="startCarousel">
+  <div @mousemove="startCarousel" @click="startCarousel">
     <br>
     <div @mouseover="startCarousel" @click="goToChronology" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <!-- <carousel class="width-100" :value="10" :perPageCustom="[[320, 2], [480, 3], [640, 4], [800, 5], [960, 6], [1120, 7]]" > -->

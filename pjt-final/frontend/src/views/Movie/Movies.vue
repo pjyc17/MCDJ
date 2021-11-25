@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="flex">
+    <div class="flex-center-wrap">
       <movie
         v-for="(movie, idx) in $store.state.shownMovies" :key="idx"
         :movie="movie"

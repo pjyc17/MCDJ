@@ -24,11 +24,12 @@
         <td class="py-2 cursor hover-btn" @click="goToProfile(review.user.id)">{{review.user.username}}</td><td class="cursor" @click="goToDetail(review.id)">{{review.title}}</td><td>{{review.likes_cnt}}</td><td>{{review.reviews_cnt}}</td><td class="fontsize-10">{{convertDate(review.created)}}</td>
       </tr>
     </table>
-    <div class="flex-center my-3">
+    <div class="flex-center mt-3">
       <i @click="moveOnePage(-1)" class="fas fa-caret-left mx-3 cursor" style="font-size: 2rem;"></i>
-      <input @keyup.enter="movePage" type="text" style="width: 3rem; text-align: center;" v-model="page2">
+      <input @keyup.enter="movePage" type="text" style="width: 5rem; text-align: center;" v-model="page2">
       <i @click="moveOnePage(1)" class="fas fa-caret-right mx-3 cursor" style="font-size: 2rem;"></i>
     </div>
+    <div class="flex-center">{{page}} of {{maxPage}}</div>
   </div>
 </template>
 
