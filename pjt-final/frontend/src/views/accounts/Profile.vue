@@ -2,21 +2,21 @@
   <div id="app">
     <div id="gost-bg"></div>
     <header>
-      <div v-if="person">
+      <div v-if="person" id="word">
         <h1 class="yello-font inline-block">{{ person.username }}'s Profile</h1><br>
         <div v-if="$route.params.userId === $store.state.user.id && isBirthday" @click="showBirthdayForm" class="hover-btn cursor inline-block">
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 1 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) <= 18) ">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) >= 19) || (person.birthday.birthday.substring(5,7) == 3 && person.birthday.birthday.substring(8,10) <= 20)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 3 && person.birthday.birthday.substring(8,10) >= 21) || (person.birthday.birthday.substring(5,7) == 4 && person.birthday.birthday.substring(8,10) <= 19)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/양자리.png" alt=""> star : Aries </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 4 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 5 && person.birthday.birthday.substring(8,10) <= 20)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/황소자리.png" alt="">star : Taurus </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 5 && person.birthday.birthday.substring(8,10) >= 21) || (person.birthday.birthday.substring(5,7) == 6 && person.birthday.birthday.substring(8,10) <= 21)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt="">star : Gemini </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 6 && person.birthday.birthday.substring(8,10) >= 22) || (person.birthday.birthday.substring(5,7) == 7 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/게자리.png" alt="">star : Cancer </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 7 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 8 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/사자자리.png" alt="">star : Leo </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 8 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 9 && person.birthday.birthday.substring(8,10) <= 23)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/처녀자리.png" alt="">star : Virgo </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 9 && person.birthday.birthday.substring(8,10) >= 24) || (person.birthday.birthday.substring(5,7) == 10 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/천칭자리.png" alt="">star : Libra </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 10 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 11 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/전갈자리.png" alt="">star : Scorpio </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 11 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 12 && person.birthday.birthday.substring(8,10) <= 21)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
-          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 12 && person.birthday.birthday.substring(8,10) >= 22) || (person.birthday.birthday.substring(5,7) == 1 && person.birthday.birthday.substring(8,10) <= 19)">age : {{ $store.state.today.year + 1 - parseInt(person.birthday.birthday.substring(0,4)) }}<br><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 1 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) <= 18)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 2 && person.birthday.birthday.substring(8,10) >= 19) || (person.birthday.birthday.substring(5,7) == 3 && person.birthday.birthday.substring(8,10) <= 20)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 3 && person.birthday.birthday.substring(8,10) >= 21) || (person.birthday.birthday.substring(5,7) == 4 && person.birthday.birthday.substring(8,10) <= 19)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/양자리.png" alt=""> star : Aries </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 4 && person.birthday.birthday.substring(8,10) >= 20) || (person.birthday.birthday.substring(5,7) == 5 && person.birthday.birthday.substring(8,10) <= 20)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/황소자리.png" alt="">star : Taurus </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 5 && person.birthday.birthday.substring(8,10) >= 21) || (person.birthday.birthday.substring(5,7) == 6 && person.birthday.birthday.substring(8,10) <= 21)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt="">star : Gemini </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 6 && person.birthday.birthday.substring(8,10) >= 22) || (person.birthday.birthday.substring(5,7) == 7 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/게자리.png" alt="">star : Cancer </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 7 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 8 && person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/사자자리.png" alt="">star : Leo </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 8 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 9 && person.birthday.birthday.substring(8,10) <= 23)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/처녀자리.png" alt="">star : Virgo </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 9 && person.birthday.birthday.substring(8,10) >= 24) || (person.birthday.birthday.substring(5,7) == 10 &&person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/천칭자리.png" alt="">star : Libra </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 10 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 11&&person.birthday.birthday.substring(8,10) <= 22)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/전갈자리.png" alt="">star : Scorpio </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 11 && person.birthday.birthday.substring(8,10) >= 23) || (person.birthday.birthday.substring(5,7) == 12&&person.birthday.birthday.substring(8,10) <= 21)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius </h3>
+          <h3 class="hover-btn" v-if="(person.birthday.birthday.substring(5,7) == 12 && person.birthday.birthday.substring(8,10) >= 22) || (person.birthday.birthday.substring(5,7) == 1 &&person.birthday.birthday.substring(8,10) <= 19)">age : {{ $store.state.today.year + 1 - y_selected }}<br><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn </h3>
           <div class="flex-center">
           </div>
         </div>
@@ -205,6 +205,18 @@ export default {
       })
         .then()
       this.$store.commit('GET_BIRTHDAY', birthday)
+      if ((this.m_selected == 1 && this.d_selected >= 20) || (this.m_selected == 2 && this.d_selected <= 18)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/물병자리.png" alt="">star : Aquarius`    ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/물병자리.png"}
+      if ((this.m_selected == 2 && this.d_selected >= 19) || (this.m_selected == 3 && this.d_selected <= 20)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/물고기자리.png" alt="">star : Prisces`   ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/물고기자리.png"}
+      if ((this.m_selected == 3 && this.d_selected >= 21) || (this.m_selected == 4 && this.d_selected <= 19)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/양자리.png" alt=""> star : Aries`        ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/양자리.png" }
+      if ((this.m_selected == 4 && this.d_selected >= 20) || (this.m_selected == 5 && this.d_selected <= 20)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/황소자리.png" alt="">star : Taurus`      ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/황소자리.png"}
+      if ((this.m_selected == 5 && this.d_selected >= 21) || (this.m_selected == 6 && this.d_selected <= 21)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/쌍둥이자리.png" alt="">star : Gemini`    ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/쌍둥이자리.png"}
+      if ((this.m_selected == 6 && this.d_selected >= 22) || (this.m_selected == 7 && this.d_selected <= 22)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/게자리.png" alt="">star : Cancer`        ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/게자리.png" }
+      if ((this.m_selected == 7 && this.d_selected >= 23) || (this.m_selected == 8 && this.d_selected <= 22)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/사자자리.png" alt="">star : Leo`         ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/사자자리.png"}
+      if ((this.m_selected == 8 && this.d_selected >= 23) || (this.m_selected == 9 && this.d_selected <= 23)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/처녀자리.png" alt="">star : Virgo`       ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/처녀자리.png"}
+      if ((this.m_selected == 9 && this.d_selected >= 24) || (this.m_selected == 10 &&this.d_selected <= 22)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/천칭자리.png" alt="">star : Libra`       ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/천칭자리.png"}
+      if ((this.m_selected == 10 &&this.d_selected >= 23) || (this.m_selected == 11 &&this.d_selected <= 22)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/전갈자리.png" alt="">star : Scorpio`     ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/전갈자리.png"}
+      if ((this.m_selected == 11 &&this.d_selected >= 23) || (this.m_selected == 12 &&this.d_selected <= 22)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/사수자리.png" alt="">star : Sagittarius` ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/사수자리.png"}
+      if ((this.m_selected == 12 &&this.d_selected >= 22) || (this.m_selected == 1 && this.d_selected <= 19)) {document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3").innerHTML = `age : ${ this.$store.state.today.year + 1 - this.y_selected }<br><img height="40" src="@/assets/별자리/염소자리.png" alt="">star : Capricorn`   ;document.querySelector("#app > header > div > div.hover-btn.cursor.inline-block > h3 > img").src="../별자리/염소자리.png"}
       this.isShow=false
     },
     createBirthday: function() {
@@ -305,24 +317,29 @@ p {
   z-index: -1;
   top: 0;
   font-family: 'Sucrose Bold Two';
-  background: url(../../assets/gorhf.png) center 0  no-repeat;
+  background: url(../../assets/gorhf2.png) center 0  no-repeat;
   background-size: cover;
   /* padding-top:450px; */
   height: 100vh;
-  opacity: 0.2;
+  opacity: 0.3;
   animation-duration: 5s;
   animation-name: slidein5;
   animation-fill-mode: forwards;
 }
 @keyframes slidein5 {
-  from {
-    margin-top: -200%;
-    margin-left: -400%;
+  0% {
+    margin-top: 0%;
+    margin-left: 0%;
     height: 1000%;
     width: 1000%
   }
-
-  to {
+  50% {
+    margin-top: -60%;
+    margin-left: -140%;
+    height: 500%;
+    width: 500%
+  }
+  100% {
     margin-top: 0%;
     margin-left: 0%;
     height: 100%;

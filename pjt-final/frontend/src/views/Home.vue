@@ -1,18 +1,30 @@
 <template>
   <div class="home">
     <img alt="MCDJ logo" class="logo" src="../../public/favicon/android-chrome-384x384.png">
+    <br><br>
     <!-- <br>
     <img src="@/assets/그림5.png" alt=""> -->
+    <div id="home-bg" v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
+      <div @click="goToChronologyYear" class="home1 inline-block hover-btn cursor">Go to the {{ y_selected[0] }} {{ m_selected[0] }} / {{ d_selected[0] }}</div>
+    </div>
+    <div class="hover-btn cursor" id="home-bg" v-else>
+      <div @click="goToChronologyYear" class="home1 inline-block hover-btn">Go to the {{ $store.state.user.birthday.year }} {{ $store.state.user.birthday.month }} / {{ $store.state.user.birthday.date }}</div>
+    </div>
 
     <header v-if="$store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date">
     <!-- <header> -->
-      <h1>Go <span>to</span> <span><h2>the</h2></span><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
+      <h1>Go <span>to</span> <h2>the</h2><h3>{{ y_selected[0] }}<h4 style="text-align:right">{{ m_selected[0] }} / {{ d_selected[0] }} </h4></h3></h1>
       <!-- <img src="mountain-range-front.png"> -->
     </header>
     <header v-else>
       <h1>Go <span>to</span> <h2>the</h2><h3>{{ $store.state.user.birthday.year }}<h4 style="text-align:right">{{ $store.state.user.birthday.month }} / {{ $store.state.user.birthday.date }} </h4></h3></h1>
     </header>
-
+    <div>
+      <span>M</span><span>O</span><span>V</span><span>I</span><span>E</span><span>&nbsp;</span><span>C</span><span>H</span><span>R</span><span>O</span><span>N</span><span>O</span><span>L</span><span>O</span><span>G</span><span>Y</span>
+    </div>
+    <div>
+      <span>d</span><span>o</span><span>n</span><span>g</span><span>&nbsp;</span><span>y</span><span>u</span><span>&nbsp;</span><span>&</span><span>&nbsp;</span><span>j</span><span>u</span><span>&nbsp;</span><span>y</span><span>o</span><span>o</span><span>n</span>
+    </div>
     <div class="imgbtf" v-if="$store.state.user.id === 0 || ($store.state.user.birthday.year === $store.state.today.year && $store.state.user.birthday.month === $store.state.today.month && $store.state.user.birthday.date === $store.state.today.date)">
       <div>
         <b-form-select v-model="y_selected" :options="y_options" multiple :select-size="1"></b-form-select>
@@ -31,16 +43,6 @@
           <br>
         </div>
       </div> -->
-    </div>
-    <div>
-      <span>M</span><span>O</span><span>V</span><span>I</span><span>E</span><span>&nbsp;</span><span>C</span><span>H</span><span>R</span><span>O</span><span>N</span><span>O</span><span>L</span><span>O</span><span>G</span><span>Y</span>
-    </div>
-    <div>
-      <span>d</span><span>o</span><span>n</span><span>g</span><span>&nbsp;</span><span>y</span><span>u</span><span>&nbsp;</span><span>&</span><span>&nbsp;</span><span>j</span><span>u</span><span>&nbsp;</span><span>y</span><span>o</span><span>o</span><span>n</span>
-    </div>
-    <div>
-      <h1 v-if="$store.state.user.id" @click="goToChronologyYear" class="blinking cursor hover-btn" >Ok!! Let's Go {{$store.state.user.birthday.year}}.{{$store.state.user.birthday.month}}.{{$store.state.user.birthday.date}}!!!</h1>
-      <h1 v-else @click="goToChronologyYear" class="blinking cursor hover-btn" >Ok!! Let's Go {{y_selected[0]}}.{{m_selected[0]}}.{{d_selected[0]}}!!!</h1>
     </div>
   </div>
 </template>
@@ -113,7 +115,6 @@ export default {
 .MCDJ {
   position: fixed;
   bottom: 2rem;
-
 }
 /* .logo {
   position: fixed;
@@ -132,9 +133,9 @@ export default {
   width: 100vw;
   height: 100%;
   font-family: 'Sucrose Bold Two';
-  background: url(../assets/그림5.png) center 0  no-repeat;
+  /* background: url(../assets/그림5.png) center 0  no-repeat; */
   background-size: cover;
-  padding-top:14%;
+  padding-top:10%;
   /* opacity: 0.4; */
 }
 .blinking{ -webkit-animation:blink 0.5s ease-in-out infinite alternate; -moz-animation:blink 1.5s ease-in-out infinite alternate; animation:blink 0.5s ease-in-out infinite alternate;
@@ -161,10 +162,34 @@ animation-delay: 3s; }
   top: 100px;
 
 } */
+#home-bg {
+  opacity: 0;
+  left: 24vw;
+  font-size: 8vw;
+  line-height: .5;
+  margin-top: 0;
+  color: whitesmoke;
+  text-align: left;
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: appear 5s 4s both;
+          animation: appear 5s 4s both;
+}
+@-webkit-keyframes appear {
+  50% {
+    opacity: 0;
+  }
+  to {
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 1;
+  }
+}
+
+
 header h1 { 
   position: fixed;
-  top: 30rem;
-  left: 12rem;
+  top: 50vh;
+  left: 10vw;
   font-size: 12vw;
   line-height: .5;
   margin-top: 0;
@@ -172,62 +197,64 @@ header h1 {
   text-align: left;
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 3.5s both;
-          animation: smoky 5s 3.5s both;
+  -webkit-animation: smoky 3.5s 2.5s both;
+          animation: smoky 3.5s 2.5s both;
 }
 header h1 span {
   position: fixed;
-  top: -10rem;
-  right: -60rem;
+  top: -20vh;
+  right: -70vw;
   font-size: 8.75vw;
   color: whitesmoke;
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 3s both;
-          animation: smoky 5s 3s both;
+  -webkit-animation: smoky 3.5s 2s both;
+          animation: smoky 3.5s 2s both;
 }
+
 header h2 {
   position: fixed;
-  bottom: -20rem;
+  bottom: 20vh;
+  left: 0;
   /* right: 2rem; */
   font-size: 8vw;
   color: whitesmoke;
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 1s both;
-          animation: smoky 5s 1s both;
-
+  -webkit-animation: smoky 3.5s 0s both;
+          animation: smoky 3.5s 0s both;
 }
+
 header h3 {
   position: fixed;
-  bottom: -20rem;
-  right: -50rem;
+  bottom: -20vh;
+  right: -60vw;
   font-size: 8vw;
   color: whitesmoke ;
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 2s both;
-          animation: smoky 5s 2s both;
+  -webkit-animation: smoky 3.5s 1s both;
+          animation: smoky 3.5s 1s both;
 
 }
 header h3 h4 {
   position: fixed;
   font-size: 4vw;
   /* bottom: 7rem; */
-  right: -20rem;
+  right: 0;
   text-align:right;
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 3s both;
-          animation: smoky 5s 3s both;
+  -webkit-animation: smoky 3.5s 2s both;
+          animation: smoky 3.5s 2s both;
   
 
 }
 span {
   display: inline-block;
   text-shadow: 0 0 0 whitesmoke;
-  -webkit-animation: smoky 5s 3s both;
-          animation: smoky 5s 3s both;
+  -webkit-animation: smoky 3.5s 2s both;
+          animation: smoky 3.5s 2s both;
 }
 
 span:nth-child(even) {
