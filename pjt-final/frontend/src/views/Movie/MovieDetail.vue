@@ -248,13 +248,19 @@ export default {
       let time = dateComponents[1].substring(0,8).split(":");
       return `${date[0]}/${date[1]}/${date[2]} ${time[0]}:${time[1]}:${time[2]}`
     },
-  },
-  created() {
-    this.getMovie()
-    window.addEventListener('resize', function() {
+    eventFunction: function() {
       if (window.innerWidth < 768) {document.querySelector("#app > div.detail-box > div:nth-child(1) > div.col-12.col-md-4 > div.flex-right > i").setAttribute('style', 'position: fixed; top: 60px; right: 0; z-index:1000')}
       else {document.querySelector("#app > div.detail-box > div:nth-child(1) > div.col-12.col-md-4 > div.flex-right > i").removeAttribute('style', 'position: fixed; top: 60px; right: 0; z-index:1000')}
-    }, true)
+    },
+  },
+  created() {
+    window.scrollTo(0, 0)
+    this.getMovie()
+    window.addEventListener('resize', this.eventFunction)
+  },
+  destroyed() {
+    window.scrollTo(0, 0)
+    window.removeEventListener('resize', this.eventFunction)
   },
   updated() {
     window.document.getElementById('chat-box-content').scrollTop = window.document.getElementById('chat-box-content').scrollHeight;

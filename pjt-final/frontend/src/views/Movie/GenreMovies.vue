@@ -36,12 +36,14 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0, 0)
     this.movies = this.$store.state.userMoviesByGenres.find(genre => genre.id === this.$route.params.genreId).movies
     this.shownMovies.push(...this.movies.splice(0, this.cnt))
     this.genreTitle = this.$store.state.allGenres.find(genre => genre.id === this.$route.params.genreId).name
     window.addEventListener('scroll', this.listenScroll);
   },
   destroyed() {
+    window.scrollTo(0, 0)
     window.removeEventListener('scroll', this.listenScroll);
   },
 }

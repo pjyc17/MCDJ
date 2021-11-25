@@ -47,6 +47,7 @@ export default {
       ...mapGetters(['getRecommendedGenres',]),
   },
   created() {
+    window.scrollTo(0, 0)
     window.addEventListener('scroll', this.listenScroll);
     this.flag = true
     if (this.flag && this.getRecommendedGenres.length) {
@@ -65,6 +66,7 @@ export default {
     }
   },
   destroyed() {
+    window.scrollTo(0, 0)
     window.removeEventListener('scroll', this.listenScroll);
   },
 }

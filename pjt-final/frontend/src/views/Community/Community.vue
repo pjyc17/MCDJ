@@ -86,6 +86,7 @@ export default {
     },
   },
   created() {
+    window.scrollTo(0, 0)
     axios({
       method: 'get',
       url: `${this.$store.state.domain}/community/all/`
@@ -97,6 +98,9 @@ export default {
         this.shownReviews = this.reviews.slice(this.cnt * (this.page - 1), this.cnt * this.page)
       })
   },
+  destroyed() {
+    window.scrollTo(0, 0)
+  }
 }
 </script>
 

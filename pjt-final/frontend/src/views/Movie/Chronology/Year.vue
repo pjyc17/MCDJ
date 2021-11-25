@@ -35,6 +35,7 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0, 0)
     axios({
       method: 'get',
       url: `${this.$store.state.domain}/movies/recommend/${this.$route.params.year}/`,
@@ -46,6 +47,7 @@ export default {
     window.addEventListener('scroll', this.listenScroll);
   },
   destroyed() {
+    window.scrollTo(0, 0)
     window.removeEventListener('scroll', this.listenScroll);
   },
   updated() {

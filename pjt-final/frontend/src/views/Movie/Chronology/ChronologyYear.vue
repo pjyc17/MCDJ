@@ -86,6 +86,7 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0, 0)
     axios({
       method: 'get',
       url: `${this.$store.state.domain}/movies/annually_poster/`,
@@ -97,6 +98,7 @@ export default {
     window.addEventListener('mousemove', this.mouseMove)
   },
   destroyed() {
+    window.scrollTo(0, 0)
     window.removeEventListener('mousemove', this.mouseMove)
   },
   computed: {

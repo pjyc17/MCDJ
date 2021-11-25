@@ -6,7 +6,7 @@
           <option value="*">전체</option>
           <option v-for="genre in $store.state.allGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
         </select>
-        <input @keyup.enter="searchMovie" v-model="keyword" type="text" class="fontsize-20">
+        <input @keyup.enter="searchMovie" v-model="keyword" type="text" class="fontsize-20 text-center" placeholder="영화 제목 검색">
         <button @click="searchMovie"><i class="fas fa-search cursor"></i></button>
       </div>
       <div class="flex-between flex-align-ceter">
