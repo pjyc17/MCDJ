@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Home2 from '@/views/Home2.vue'
 import Movies from '@/views/Movie/Movies.vue'
 import MovieDetail from '@/views/Movie/MovieDetail.vue'
 import GenreMovies from '@/views/Movie/GenreMovies.vue'
@@ -28,6 +29,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/',
+    name: 'Home2',
+    component: Home2
   },
   {
     path: '/movies/:genreId/:keyword',

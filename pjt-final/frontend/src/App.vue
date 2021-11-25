@@ -11,7 +11,7 @@
       </div>
       <div class="flex-between flex-align-ceter">
         <div class="inline-block">
-          <router-link :to="{name: 'Home'}"><img src="@/assets/MCDJHome.jpg" alt="" height="40px" style="margin: 20px;"></router-link>
+          <router-link :to="{name: 'Home2'}"><img src="@/assets/MCDJHome.jpg" alt="" height="40px" style="margin: 20px;"></router-link>
         </div>
         <div class="flex-center flex-align-ceter">
           <i @click="goUp" class="fas fa-caret-up cursor" :class="{'text-Y': isLogin, 'text-N': !isLogin}" style="font-size: 5rem;"></i>{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}
@@ -126,7 +126,8 @@ export default {
           // loginModal.hide()
           // this.$router.push({name: 'Home'}).catch(() => {})
           this.$root.$emit('bv::hide::modal', 'loginModal', '#btnShow')
-          if (this.$route.path !== '/') this.$router.push({name: 'Home'})
+          window.location.href = `/`
+          // if (this.$route.path !== '/') this.$router.push({name: 'Home'})
         })
         .catch(err => console.log(err))
     },
@@ -136,7 +137,8 @@ export default {
       localStorage.removeItem('MCDJ_jwt')
       this.$store.commit('GET_USER', this.$store.state.anonymousUser)
       this.$store.commit('GET_BIRTHDAY', this.$store.state.today)
-      if (this.$route.path !== '/') this.$router.push({name: 'Home'})
+      window.location.href = `/`
+      // if (this.$route.path !== '/') this.$router.push({name: 'Home'})
     },
     googleLogin: function() {
       // window.open("/", "", "_blank");

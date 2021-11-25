@@ -19,7 +19,7 @@
         <b-form-select v-model="m_selected" :options="m_options" multiple :select-size="1"></b-form-select>
         <b-form-select v-model="d_selected" :options="d_options" multiple :select-size="1"></b-form-select>
         <div class="bounce inline-block">
-          <button @click="getBirthday" class="btn-3d green">입력</button>
+          <button @click="getBirthday" class="btn-3d green">저장</button>
         </div>
       </div>
         <!-- <img src="../assets/그림5.png" alt="pointer"> -->
@@ -39,7 +39,8 @@
       <span>d</span><span>o</span><span>n</span><span>g</span><span>&nbsp;</span><span>y</span><span>u</span><span>&nbsp;</span><span>&</span><span>&nbsp;</span><span>j</span><span>u</span><span>&nbsp;</span><span>y</span><span>o</span><span>o</span><span>n</span>
     </div>
     <div>
-      <h1 class="blinking" >Ok!! Let's Go {{$store.state.user.birthday.year}}.{{$store.state.user.birthday.month}}.{{$store.state.user.birthday.date}}!!!</h1>
+      <h1 v-if="$store.state.user.id" @click="goToChronologyYear" class="blinking cursor hover-btn" >Ok!! Let's Go {{$store.state.user.birthday.year}}.{{$store.state.user.birthday.month}}.{{$store.state.user.birthday.date}}!!!</h1>
+      <h1 v-else @click="goToChronologyYear" class="blinking cursor hover-btn" >Ok!! Let's Go {{y_selected[0]}}.{{m_selected[0]}}.{{d_selected[0]}}!!!</h1>
     </div>
   </div>
 </template>
@@ -66,12 +67,13 @@ export default {
       d_options.push({value: d_index, text: d_index})
     }
     return {
-      y_selected: [this.$store.state.today.year], // Array reference
-      m_selected: [this.$store.state.today.month], // Array reference
-      d_selected: [this.$store.state.today.date], // Array reference
+      y_selected: [this.$store.state.user.birthday.year], // Array reference
+      m_selected: [this.$store.state.user.birthday.month], // Array reference
+      d_selected: [this.$store.state.user.birthday.date], // Array reference
       y_options,
       m_options,
-      d_options
+      d_options,
+      isUser: false,
     }
   },
   methods: {
@@ -99,7 +101,11 @@ export default {
       this.$store.commit('GET_BIRTHDAY', birthday)
       this.$router.push({name: 'ChronologyYear', params: {year: birthday.year}})
     },
-  }
+    goToChronologyYear: function() {
+      if (this.$store.state.user.id) {this.$router.push({name: 'ChronologyYear', params: {year: this.$store.state.user.birthday.year}})}
+      else {this.$router.push({name: 'ChronologyYear', params: {year: this.y_selected[0]}})}
+    }
+  },
 }
 
 </script>
@@ -559,7 +565,12 @@ pre .val {color: #e6db74;} /* value */
 	padding-top: 30px;
 	font-weight: 300;
 }
-
+.hover-btn {
+  color: white;
+}
+.hover-btn:hover {
+  color: #eddc5a;
+}
 
 
 
