@@ -321,25 +321,28 @@ p {
   background-size: cover;
   /* padding-top:450px; */
   height: 100vh;
-  opacity: 0.3;
+  opacity: 1;
   animation-duration: 5s;
   animation-name: slidein5;
   animation-fill-mode: forwards;
 }
 @keyframes slidein5 {
   0% {
+    opacity: 1;
     margin-top: 0%;
     margin-left: 0%;
+    height: 2000%;
+    width: 2000%
+  }
+  50% {
+    opacity: 0.6;
+    margin-top: -140%;
+    margin-left: -350%;
     height: 1000%;
     width: 1000%
   }
-  50% {
-    margin-top: -60%;
-    margin-left: -140%;
-    height: 500%;
-    width: 500%
-  }
   100% {
+    opacity: 0.2;
     margin-top: 0%;
     margin-left: 0%;
     height: 100%;
