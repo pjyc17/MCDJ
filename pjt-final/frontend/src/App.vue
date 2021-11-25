@@ -27,7 +27,7 @@
         <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Chronology2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Chronology</div></router-link></div>
         <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Recommend2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Recommend</div></router-link></div>
         <div data-bs-dismiss="offcanvas"><router-link :to="{name: 'Community2'}" style="text-decoration-line: none;"><div class="offcanvas-item">Community</div></router-link></div>
-        <br>
+        <div style="height: 20px"></div>
         <div v-if="isLogin">
           <router-link @click.native="logout" to="" data-bs-dismiss="offcanvas" style="text-decoration-line: none;"><div class="offcanvas-item">Logout</div></router-link>
         </div>
@@ -203,7 +203,7 @@ export default {
   },
   updated() {
     if (!this.isCanvas) {
-      this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; background-color: transparent; border-width: 0;')
+      this.myOffcanvas.setAttribute('style', 'top: 96px; width: 16rem; height: 350px; background-color: transparent; border-width: 0;')
       this.isCanvas = true
     }
     if (this.isOk) {
@@ -383,8 +383,20 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.my-container {
+  margin: 0 5rem;
+}
+@font-face {
+  font-family: 'Sucrose Bold Two';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/sucrose.woff2') format('woff2');
+}
+.my-font {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 2rem;
+}
 .fontsize-20 {
   font-size: 20px;
+  font-weight: bold;
 }
 .fontsize-15 {
   font-size: 15px;
@@ -401,6 +413,10 @@ export default {
 .flex {
   display: flex;
   flex-wrap: wrap;
+}
+.flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
 }
 .flex-center-wrap {
   display: flex;
