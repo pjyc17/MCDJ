@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <div id="crazybg"></div>
+    <div id="croudbg"></div>
+    <div id="buildingbg"></div>
     <img alt="MCDJ logo" class="MCDJ" src="../../public/favicon/android-chrome-384x384.png">
     <br><br>
     <!-- <br>
@@ -113,14 +114,31 @@ export default {
 
 </script>
 <style scoped>
-#crazybg {
-  position: fixed;
-  background: url(../assets/토끼떵유.png) -30vw center no-repeat;
-  background-size: cover;
-  bottom: 0vw;
-  opacity: 0.2;
-  width: 100vw;
-  height: 80rem;
+#croudbg {
+  width: 100%;
+  height: 100%;
+  background: url(../assets/구름.png) 0 center repeat-x;
+  animation: movecroud 120s linear infinite;
+  position: fixed; z-index: -1000;
+  top: -20vh;
+  opacity: 0.1;
+}
+@keyframes movecroud {
+  0% {background-position: 0 center;}
+  100% {background-position: 821px center;}
+}
+#buildingbg {
+  width: 100%;
+  height: 100%;
+  background: url(../assets/빌딩.png) center center repeat-x;
+  animation: movebuilding 30s linear infinite;
+  position: fixed; z-index: -1000;
+  bottom: -45vh;
+  opacity: 1;
+}
+@keyframes movebuilding {
+  0% {background-position: 0 center;}
+  100% {background-position: 958px center;}
 }
 
 .MCDJ {
