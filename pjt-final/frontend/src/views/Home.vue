@@ -142,7 +142,11 @@ export default {
 }
 
 .MCDJ {
+  height: 50vh;
   z-index: 50;
+}
+.home1 {
+  height: 10vh;
 }
 /* .logo {
   position: fixed;
