@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="starbg"></div>
     <nav id="nav">
       <div id="search-bar">
         <select v-model="selected" class="fontsize-20">
@@ -241,6 +242,19 @@ export default {
 </script>
 
 <style>
+#starbg {
+  width: 100%;
+  height: 100%;
+  background: url("assets/밤하늘별.jpg") center 0 / 100% repeat-y;
+  animation: movebg 60s linear infinite;
+  position: fixed; z-index: -1000;
+}
+
+
+@keyframes movebg {
+  0% {background-position:center 0;}
+  100% {background-position:center 804px;}
+}
 #test {
   background-color:unset;
 }
