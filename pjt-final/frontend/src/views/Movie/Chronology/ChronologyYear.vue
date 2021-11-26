@@ -1,9 +1,9 @@
 <template>
-  <div @mousemove="startCarousel" @click="startCarousel">
+  <div>
     <br>
-    <div @mouseover="startCarousel" @click="goToChronology" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
+    <div @click="goToChronology" class="mint-btn">{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}펴서 보기{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}{{'\u00a0'}}</div>
     <!-- <carousel class="width-100" :value="10" :perPageCustom="[[320, 2], [480, 3], [640, 4], [800, 5], [960, 6], [1120, 7]]" > -->
-    <carousel @mouseover="startCarousel" id="carousel" class="width-88px" v-model="index" :perPage="1" :paginationSize="0" :speed="1000" :loop="true">
+    <carousel id="carousel" class="width-22px" v-model="index" :perPage="1" :paginationSize="0" :speed="200" :loop="true">
       <slide v-for="idx of idxes" :key="idx" class="slide_item item" aria-hidden="true">
         <div v-if="idx < years.length">
           <div @click="goToYear(years[idx].year)" class="movie-card">
@@ -30,12 +30,13 @@
         </div>
       </slide>
     </carousel>
-    <div @mouseover="startCarousel" class="big-opac-box"></div>
+    <div class="big-opac-box"></div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
 import {Carousel, Slide} from 'vue-carousel'
 
 export default {
@@ -51,7 +52,7 @@ export default {
       keep: -1,
       flag: true,
       flag2: true,
-      time: 0,
+      // time: 0,
       page: 1,
     }
   },
@@ -70,15 +71,12 @@ export default {
     mouseMove: function(m) {
       var X = m.clientX
       var Y = m.clientY
-      if (this.index >= 0 && this.index <= this.years.length) {
+      if (this.index >= 0 && this.index <= this.page) {
         if (Y > 175 && Y < 685) {
-          if (X > window.innerWidth * 0.66 && this.index < this.years.length) {this.time+=1} else {
-            if (X < window.innerWidth * 0.33 && this.index > 0) {this.time-=1}
+          if (X > window.innerWidth * 0.66 && this.index < this.page) {this.index+=1} else {
+            if (X < window.innerWidth * 0.33 && this.index > 0) {this.index-=1}
           }
         }
-      }
-      if (this.time > 10) {this.index+=1;this.time-=10} else {
-        if (this.time < -10) {this.index-=1;this.time+=10}
       }
     },
     goToChronology: function() {
@@ -93,13 +91,13 @@ export default {
     })
       .then(res => {
         this.years = res.data.chronology_poster
-        this.page =this.years.length * 2
+        this.page =this.years.length * 8
       })
-    window.addEventListener('mousemove', this.mouseMove)
+    window.addEventListener('mousemove', _.throttle(this.mouseMove, 100))
   },
   destroyed() {
     window.scrollTo(0, 0)
-    window.removeEventListener('mousemove', this.mouseMove)
+    window.removeEventListener('mousemove', _.throttle(this.mouseMove, 100))
   },
   computed: {
     idxes: function() {
@@ -129,11 +127,12 @@ export default {
   updated() {
     if (this.flag) {
       // this.keep = parseInt(this.page / 2) - parseInt((parseInt(this.years[this.years.length - 1].year) - parseInt(this.$route.params.year)) / 2 + 1) * 2
-      this.keep = parseInt(this.page / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year ) / 2 + 1) * 2
+      this.keep = parseInt(this.page / 2) - parseInt((this.years[this.years.length - 1].year - this.$route.params.year ) / 2 + 1) * 8
     }
     if (this.index === -1) {
       this.index = this.keep
     }
+    if (this.flag2 && this.fuck && this.fuck2 && this.fuckP) {this.startCarousel()}
   },
 }
 </script>
@@ -148,8 +147,8 @@ export default {
   width: auto;
 }
 /* style="padding: 0 100vw 0 0;" */
-.width-88px {
-  width: 88px;
+.width-22px {
+  width: 22px;
 }
 .item {
   flex: 1 1 40%;
